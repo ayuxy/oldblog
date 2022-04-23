@@ -12,7 +12,7 @@
 
 
 
-<title>test | Hexo</title>
+<title>博客文字长度溢出 | Hexo</title>
 
 
 
@@ -155,75 +155,11 @@
             <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
-    </div>
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a onclick="go_top()">△ 顶部</a>
-        <a onclick="go_bottom()">▽ 底部</a>
-    </div>
-</div>
-
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "▼ 收起目录"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "▶︎ 展开目录"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">test</h1>
+            <h1 class="post-title">博客文字长度溢出</h1>
             
                 <div class="post-meta">
                     
@@ -236,12 +172,20 @@
                         <span class="post-time">
                         <!--发布时间:-->
                         <i class="iconfont icon-time"></i>
-                        <a href="#">2022-04-22&nbsp;&nbsp;23:10:53</a> &nbsp;
+                        <a href="#">2022-04-23&nbsp;&nbsp;15:54:30</a> &nbsp;
                         </span>
                     
                     
+                        <span class="post-category">
+                        <!--分类:-->
+                        <i class="iconfont icon-category"></i>
+                            
+                                <a href="/categories/%E5%8D%9A%E5%AE%A2/">博客</a>&nbsp;
+                            
+                        </span>
                     
-                    <span id="/2022/04/22/test/" class="leancloud-visitors view" data-flag-title="test">
+                    
+                    <span id="/2022/04/23/as/" class="leancloud-visitors view" data-flag-title="博客文字长度溢出">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -255,55 +199,13 @@
         </header>
 
         <div class="post-content">
-            <h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><p>hello</p>
-<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><p>hai</p>
-<h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><p>hello</p>
-<h3 id="三级标题-1"><a href="#三级标题-1" class="headerlink" title="三级标题"></a>三级标题</h3><p>hello</p>
-<h3 id="三级标题-2"><a href="#三级标题-2" class="headerlink" title="三级标题"></a>三级标题</h3><p>hello</p>
-<p>[TOC]</p>
-<h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><hr>
-<table>
-<thead>
-<tr>
-<th>1212121</th>
-<th>1212121</th>
-<th>212222222222</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2111111111</td>
-<td>211111111111</td>
-<td>211111111111111111111111111111111111111111111</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>21111111</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>hello</p>
-<h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><p>hello</p>
-<blockquote>
-<p>dsada</p>
-<p>dsadas<br>dsadasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd<br>dsada</p>
-</blockquote>
-<p><code>1dsadsadssssssssssssssssssssssssssssddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsadsadsadasdasdsada</code><br><code>dsadsadsasdadassdadsadasdaasdsadasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</code><br><code>dsad</code></p>
-<p>dsadadsa<br>dsadsada</p>
-<h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><h1 id="一级标题-1"><a href="#一级标题-1" class="headerlink" title="一级标题"></a>一级标题</h1><p>$$<br>hkhkkj<br>$$</p>
-<p><code>1213</code></p>
-<p><code>尽快回来就离开家离开</code></p>
-<ul>
-<li>会尽快</li>
-<li>hjkhjk</li>
-<li>hjhkjh</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 第一个 Java 程序</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 执行的主函数</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> args 接收参数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">System.out.println(<span class="string">&quot;Hello, 苗子说全栈带你零基础学 Java。&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p><img src="/as/image-20220423160104129.png" alt="image-20220423160104129"></p>
+<p>在post.ejs中添加如下内容：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line"><span class="selector-class">.post-wrap</span> &#123; <span class="attribute">table-layout</span>:fixed; <span class="attribute">word-break</span>:break-all; <span class="attribute">overflow</span>:hidden; &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
 
+
+
+<p><img src="/as/image-20220423160140563.png" alt="image-20220423160140563"></p>
 
         </div>		
 		
@@ -313,9 +215,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E6%B5%8B%E8%AF%95/">
+                        <a href="/tags/%E5%8D%9A%E5%AE%A2%E9%97%AE%E9%A2%98/">
                             <i class="iconfont icon-tag1"></i>
-                            测试
+                            博客问题
                         </a>
                     
                         
@@ -337,8 +239,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/04/23/as/">博客文字长度溢出</a>
             
+            <a class="next" rel="next" href="/2022/04/22/test/">test</a>
             
         </section>
         <br>
