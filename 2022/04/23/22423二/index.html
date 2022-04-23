@@ -12,7 +12,7 @@
 
 
 
-<title>博客内容溢出 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+<title>22423二 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
 
 
 
@@ -155,11 +155,75 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">博客内容溢出</h1>
+            <h1 class="post-title">22423二</h1>
             
                 <div class="post-meta">
                     
@@ -172,12 +236,12 @@
                         <span class="post-time">
                         <!--发布时间:-->
                         <i class="iconfont icon-time"></i>
-                        <a href="#">2022-04-23&nbsp;&nbsp;20:09:25</a> &nbsp;
+                        <a href="#">2022-04-23&nbsp;&nbsp;22:11:34</a> &nbsp;
                         </span>
                     
                     
                     
-                    <span id="/2022/04/23/22423/" class="leancloud-visitors view" data-flag-title="博客内容溢出">
+                    <span id="/2022/04/23/22423%E4%BA%8C/" class="leancloud-visitors view" data-flag-title="22423二">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -191,12 +255,135 @@
         </header>
 
         <div class="post-content">
-            <img src="/2022/04/23/22423/image-20220423211134040.png" class title="image-20220423211134040">
-
-<p>在post.ejs中添加如下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">.post-wrap &#123; table-layout:fixed; word-break:break-all; overflow:hidden; &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
-
-<img src="/2022/04/23/22423/image-20220423211224469.png" class title="image-20220423211224469">
+            <h1 id="HW面试-实习"><a href="#HW面试-实习" class="headerlink" title="HW面试+实习"></a>HW面试+实习</h1><h2 id="owasp"><a href="#owasp" class="headerlink" title="owasp"></a>owasp</h2><h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><ol>
+<li><p>SQL注入的分类有哪些</p>
+<ol>
+<li>布尔盲注</li>
+<li>时间盲注</li>
+<li>报错盲注（ExtractValue、（floor、count、rand、floor、group by配合使用）、UpdateXml）</li>
+<li>联合查询</li>
+</ol>
+</li>
+<li><p>如何判断是否存在SQL注入</p>
+<p>加单引号、双引号、括号、双括号</p>
+<p>and 1&#x3D;1 、and 1&#x3D;2</p>
+<p>无法通过and 1&#x3D;2 看出来就通过盲注看 </p>
+</li>
+<li><p>如何判断是那个数据库</p>
+<p>一般php语言配合mysql、oracle+jsp、后续补充</p>
+</li>
+<li><p>sql注入写shell，常用into outfile、load dumpfile、load_file()  的利用条件</p>
+<ol>
+<li>web目录有写入权限（最好是root权限）</li>
+<li>知道网站的绝对路径（通过phpinfo探针等查看）</li>
+<li>secure_file_priv的值空（secure_file_priv 是用来限制 load dumpfile、into outfile、load_file() 函数在哪个目录下拥有上传或者读取文件的权限）</li>
+<li>secure_file_priv的值在my.ini中设置</li>
+</ol>
+</li>
+<li><p>sqlmap –os shell的利用条件（通过上传一个sqlmap的马，然后命令执行）</p>
+<ol>
+<li>网站有写入条件</li>
+<li>Secure_file_priv参数为空或者为指定路径。</li>
+<li>知道绝对路径</li>
+</ol>
+</li>
+<li><p>disable_function函数（禁止php执行某些函数）</p>
+<ol>
+<li>直接有相关exp（ImageMagic 组件）</li>
+</ol>
+</li>
+<li><p>宽字节注入</p>
+</li>
+<li><p>SQL注入绕WAF的方式</p>
+<ol>
+<li>大小写  select * from users where id&#x3D;’1’ <strong>uNioN SeleCt</strong> 1,2,3;</li>
+<li>替换关键字  select * from users where id&#x3D;1 <strong>ununionion selselectect</strong> 1,2,3;</li>
+<li>‘编码  select * from users where id&#x3D;1 <strong>%75nio</strong>n select 1,2,3;   <strong>%55nion</strong> %53elect 1,2,3,4</li>
+<li>内联注释</li>
+</ol>
+</li>
+</ol>
+<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><ol>
+<li>xss有哪三种：dom型、存储型、反射型</li>
+<li>dom型和存储型的区别：</li>
+<li>xss的httponly绕过方法（httponly可阻止获取cookie）</li>
+<li></li>
+</ol>
+<h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><ol>
+<li><p>文件上传能够拿到shell的限制条件</p>
+<ol>
+<li>比如：我们上传一个图片，里面写入一句话木马，一定能够连接吗？？不一定，首先我们要确定上传文件后的路径是啥，其次还要能够对图片中的一句话进行解析</li>
+</ol>
+</li>
+<li><p>文件上传的绕过方式</p>
+<ol>
+<li>前端的js绕过(前端可能限制了php文件的上传)，可以直接burpsuite抓包，然后修改文件名，也有的直接F12修改就行</li>
+<li>mime绕过，限制了一些格式，直接burpsuite抓包修改</li>
+<li>黑名单绕过（明确某些后缀文件无法上传，例如：asp、php、jsp、aspx）<ol>
+<li>可以用 php3,phtml,php5  asa，cer，cdx  进行绕过</li>
+<li>大小写绕过</li>
+<li>上传.htaccess到目标服务器进行文件解析，然后就可以上传jpg图片，将jpg解析成php</li>
+<li>利用windows本身特性，上传1.php.相当于上传1.php，会自动过滤掉后面的点</li>
+<li>利用windows本身特性，上传1.php (后面有个空格)相当于1.php</li>
+<li>双写绕过pphphp</li>
+</ol>
+</li>
+<li>白名单绕过（明确只可以上传一些文件）<ol>
+<li>00截断（00截断适用于php小于5.2.17，且 magic_quotes_gpc&#x3D;off）</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>在文件上传的时候，如何判断目标系统是linux还是windows</p>
+<ol>
+<li>linux对大小写敏感、widnows敏感</li>
+</ol>
+</li>
+</ol>
+<h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><ol>
+<li>php中命令执行常用的函数<ol>
+<li>system()</li>
+<li>exec()</li>
+</ol>
+</li>
+<li>如果函数被限制绕过方式<ol>
+<li>不太了解</li>
+</ol>
+</li>
+</ol>
+<h3 id="csrf"><a href="#csrf" class="headerlink" title="csrf"></a>csrf</h3><ol>
+<li>csrf是啥<ol>
+<li>用户B登陆网站，没有退出，生成了cookie</li>
+<li>用户B访问</li>
+<li></li>
+</ol>
+</li>
+</ol>
+<h3 id="ssrf"><a href="#ssrf" class="headerlink" title="ssrf"></a>ssrf</h3><ol>
+<li>可以扫描内网</li>
+<li></li>
+</ol>
+<h3 id="php反序列化"><a href="#php反序列化" class="headerlink" title="php反序列化"></a>php反序列化</h3><h2 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h2><p>kerberos协议的认证流程</p>
+<p>白银票据、黄金票据</p>
+<p>Mimikatz读取密码的原理 </p>
+<p>除了Mimikatz还可以用啥读取密码</p>
+<p>永恒之蓝的原理</p>
+<p>内网中常用的漏洞有哪些</p>
+<p>内网中常见信息收集的命令有哪些</p>
+<p>横向移动的 常见手法有哪些</p>
+<p>windows提权和linux提权的方法有哪些</p>
+<p>内网扫描常用namp哪些命令（参数），除了用namp还可以用啥扫描，扫描全端口用啥扫描（不用namp扫描，namp扫描全端口非常慢）</p>
+<p>域委派攻击是啥，如何进行操作</p>
+<p>内网穿透有哪些工具，基于啥协议的</p>
+<p>常用代理工具有哪些</p>
+<p>如何判断内网有没有杀软</p>
+<ol>
+<li>tasklist</li>
+</ol>
+<p>不出网的打法</p>
+<ol>
+<li>搭建隧道等</li>
+</ol>
 
         </div>		
 		
@@ -206,9 +393,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E5%8D%9A%E5%AE%A2/">
+                        <a href="/tags/%E9%9D%A2%E8%AF%95/">
                             <i class="iconfont icon-tag1"></i>
-                            博客
+                            面试
                         </a>
                     
                         
@@ -230,8 +417,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/04/23/22423%E4%BA%8C/">22423二</a>
             
+            <a class="next" rel="next" href="/2022/04/23/22423/">博客内容溢出</a>
             
         </section>
         <br>
