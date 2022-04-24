@@ -262,6 +262,10 @@
 <li>时间盲注</li>
 <li>报错盲注（ExtractValue、（floor、count、rand、floor、group by配合使用）、UpdateXml）</li>
 <li>联合查询</li>
+<li>双注入</li>
+<li>宽字节注入</li>
+<li>cookie注入</li>
+<li>refer注入</li>
 </ol>
 </li>
 <li><p>如何判断是否存在SQL注入</p>
@@ -289,7 +293,7 @@
 </li>
 <li><p>disable_function函数（禁止php执行某些函数）</p>
 <ol>
-<li>直接有相关exp（ImageMagic 组件）</li>
+<li>直接有相关exp（ImageMagic 组件）不是很了解</li>
 </ol>
 </li>
 <li><p>宽字节注入</p>
@@ -299,7 +303,8 @@
 <li>大小写  select * from users where id&#x3D;’1’ <strong>uNioN SeleCt</strong> 1,2,3;</li>
 <li>替换关键字  select * from users where id&#x3D;1 <strong>ununionion selselectect</strong> 1,2,3;</li>
 <li>‘编码  select * from users where id&#x3D;1 <strong>%75nio</strong>n select 1,2,3;   <strong>%55nion</strong> %53elect 1,2,3,4</li>
-<li>内联注释</li>
+<li>内联注释  </li>
+<li></li>
 </ol>
 </li>
 </ol>
@@ -363,16 +368,81 @@
 <li></li>
 </ol>
 <h3 id="php反序列化"><a href="#php反序列化" class="headerlink" title="php反序列化"></a>php反序列化</h3><h2 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h2><p>kerberos协议的认证流程</p>
+<ul>
+<li>分为三步：<ul>
+<li>AS<ul>
+<li>as-req：客户端向kdc发送请求，请求的内容为：客户端用户名加密的时间戳</li>
+<li>as-rep：KDC解密时间戳，发送TGT和用客户端加密的Session-key AS给客户端</li>
+</ul>
+</li>
+<li>TGS<ul>
+<li>tgs_req：解密Session-key AS后，将Session-key AS加密的时间戳和无法解密的TGT发送给TGS</li>
+<li>tgs_rep：TGS解密tgt和时间戳，将Session-key AS加密的Session-key TGS和ST票据发送给客户端</li>
+</ul>
+</li>
+<li>AP<ul>
+<li>ap-req：发送ST票据给服务端</li>
+<li>ap-rep：服务端解密ST票据，成功建立连接</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>LDAP协议</p>
+<p>* </p>
+<p>RPC协议</p>
 <p>白银票据、黄金票据</p>
+<ol>
+<li>黄金票据：由于KDC用Krbtgt用户的 NTLM-Hash作为密钥进行加密，生成TGT，如果我们获取到了Krbtgt 的 NTLM-Hash值，那么就可以伪造任意的TGT（可用于权限维持）</li>
+<li>白银票据：不需要和kdc进行交互，主要是伪造TGS票据（ST票据）</li>
+</ol>
 <p>Mimikatz读取密码的原理 </p>
+<ol>
+<li>从lsass.exe进程中进行读取</li>
+</ol>
 <p>除了Mimikatz还可以用啥读取密码</p>
-<p>永恒之蓝的原理</p>
-<p>内网中常用的漏洞有哪些</p>
+<ol>
+<li>PwDump7</li>
+<li>利用注册表命令直接将sam文件导出 <code>reg save hklm\sam sam.hive</code></li>
+</ol>
+<p>永恒之蓝</p>
+<ol>
+<li>利用SMB协议获取系统最高权限（139、445端口开放）</li>
+</ol>
 <p>内网中常见信息收集的命令有哪些</p>
+<ol>
+<li>查看域用户  net user &#x2F;domain</li>
+<li>查看域工作组  net group &#x2F;domain</li>
+</ol>
 <p>横向移动的 常见手法有哪些</p>
+<ol>
+<li>ipc  （445、139端口开放）</li>
+<li>vmi  </li>
+<li>psexec</li>
+<li>sc计划任务</li>
+<li>smbexec</li>
+<li>PTH</li>
+<li>csexec（可过部分杀软）</li>
+<li>PTT</li>
+</ol>
 <p>windows提权和linux提权的方法有哪些</p>
+<ol>
+<li>linux：<ol>
+<li>suid</li>
+<li>sudo</li>
+<li>环境变量提权</li>
+<li>内核漏洞提权</li>
+<li>git命令提权</li>
+<li>openssl+passwd提权</li>
+</ol>
+</li>
+<li>windows<ol>
+<li></li>
+</ol>
+</li>
+</ol>
 <p>内网扫描常用namp哪些命令（参数），除了用namp还可以用啥扫描，扫描全端口用啥扫描（不用namp扫描，namp扫描全端口非常慢）</p>
-<p>域委派攻击是啥，如何进行操作</p>
+<p>域委派攻击流程</p>
 <p>内网穿透有哪些工具，基于啥协议的</p>
 <p>常用代理工具有哪些</p>
 <p>如何判断内网有没有杀软</p>
@@ -380,30 +450,9 @@
 <li>tasklist</li>
 </ol>
 <p>不出网的打法</p>
-<ol>
-<li>搭建隧道等</li>
-</ol>
-<p>大时代</p>
-<p>的撒大事萨达</p>
-<ol>
-<li>的撒旦撒打算撒</li>
-</ol>
-<p>dasdsadasasasasasasasasasasasasasasasasasasasasasasasasasasas</p>
-<img src="/2022/04/23/22423%E4%BA%8C/image-20220423230324047.png" class title="image-20220423230324047">
-
-<p>的撒旦撒  四大的撒旦撒撒大事啊的撒旦撒说</p>
-<img src="/2022/04/23/22423%E4%BA%8C/image-20220423230335008.png" class title="image-20220423230335008">
-
-<p>dadsaddddddddddddddddddddddddddddddddddddddddddddddd</p>
-<img src="/2022/04/23/22423%E4%BA%8C/image-20220423225244602.png" class title="image-20220423225244602">
-
-<p>asdsaa</p>
-<p>dsadads</p>
-<img src="/2022/04/23/22423%E4%BA%8C/image-20220423225954240.png" class title="image-20220423225954240">
-
-<ol>
-<li>大大的</li>
-</ol>
+<p>linux下常用啥进行反弹shell，windows自带的反弹shell方式（除了powershell还有啥）</p>
+<p>中间件漏洞</p>
+<p>未授权访问漏洞</p>
 
         </div>		
 		

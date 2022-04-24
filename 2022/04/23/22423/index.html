@@ -191,12 +191,16 @@
         </header>
 
         <div class="post-content">
-            <img src="/2022/04/23/22423/image-20220423211134040.png" class title="image-20220423211134040">
+            <p> 在typora中输入连续的字母和一些汉字，测试如下，只有字母溢出了，别的都正常，感觉莫名其妙呀</p>
+<img src="/2022/04/23/22423/image-20220424124932482.png" class title="image-20220424124932482">
 
-<p>在post.ejs中添加如下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">.post-wrap &#123; table-layout:fixed; word-break:break-all; overflow:hidden; &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p>如何解决连续输入字母会溢出的情况</p>
+<p>在 themes\Chic\layout_page\post.ejs中添加如下内容：（方法来自百度，自己啥也不会）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line"><span class="selector-class">.post-wrap</span> &#123; <span class="attribute">table-layout</span>:fixed; <span class="attribute">word-break</span>:break-all; <span class="attribute">overflow</span>:hidden; &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
 
-<img src="/2022/04/23/22423/image-20220423211224469.png" class title="image-20220423211224469">
+<img src="/2022/04/23/22423/image-20220424125120571.png" class title="image-20220424125120571">
+
+<p>然后我们再次访问就可以了</p>
 
         </div>		
 		
