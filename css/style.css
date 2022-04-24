@@ -887,27 +887,27 @@ header label {
   background-color: #e9f5fa;
   border-left: 2px solid #2d96bd;
 }
-.post-content p {
-  margin: 0 0 0.6em;
+.post-content blockquote p {
+  margin: 0;
 }
-.post-content p footer strong {
+.post-content blockquote footer strong {
   margin-right: 0.5em;
 }
-.dark-theme .post-content p {
+.dark-theme .post-content blockquote {
   color: #a9a9b3;
   background-color: #3e3e3e;
   border-left: 2px solid #dcdcdc;
 }
-.post-content p.pullquote {
+.post-content blockquote.pullquote {
   background-color: transparent;
   max-width: 45%;
   border: 0;
 }
-.post-content p.pullquote.left {
+.post-content blockquote.pullquote.left {
   float: left;
   text-align: left;
 }
-.post-content p.pullquote.right {
+.post-content blockquote.pullquote.right {
   float: right;
   text-align: right;
 }
