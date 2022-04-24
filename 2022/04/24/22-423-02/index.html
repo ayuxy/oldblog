@@ -12,7 +12,7 @@
 
 
 
-<title>hvv面试+实习 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+<title>博客发布内容细小修改 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
 
 
 
@@ -223,7 +223,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">hvv面试+实习</h1>
+            <h1 class="post-title">博客发布内容细小修改</h1>
             
                 <div class="post-meta">
                     
@@ -236,12 +236,12 @@
                         <span class="post-time">
                         <!--发布时间:-->
                         <i class="iconfont icon-time"></i>
-                        <a href="#">2022-04-23&nbsp;&nbsp;22:11:34</a> &nbsp;
+                        <a href="#">2022-04-24&nbsp;&nbsp;22:35:25</a> &nbsp;
                         </span>
                     
                     
                     
-                    <span id="/2022/04/23/22423%E4%BA%8C/" class="leancloud-visitors view" data-flag-title="hvv面试+实习">
+                    <span id="/2022/04/24/22-423-02/" class="leancloud-visitors view" data-flag-title="博客发布内容细小修改">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -255,204 +255,27 @@
         </header>
 
         <div class="post-content">
-            <h2 id="owasp"><a href="#owasp" class="headerlink" title="owasp"></a>owasp</h2><h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><ol>
-<li><p>SQL注入的分类有哪些</p>
-<ol>
-<li>布尔盲注</li>
-<li>时间盲注</li>
-<li>报错盲注（ExtractValue、（floor、count、rand、floor、group by配合使用）、UpdateXml）</li>
-<li>联合查询</li>
-<li>双注入</li>
-<li>宽字节注入</li>
-<li>cookie注入</li>
-<li>refer注入</li>
-</ol>
-</li>
-<li><p>如何判断是否存在SQL注入</p>
-<p>加单引号、双引号、括号、双括号</p>
-<p>and 1&#x3D;1 、and 1&#x3D;2</p>
-<p>无法通过and 1&#x3D;2 看出来就通过盲注看 </p>
-</li>
-<li><p>如何判断是那个数据库</p>
-<p>一般php语言配合mysql、oracle+jsp、后续补充</p>
-</li>
-<li><p>sql注入写shell，常用into outfile、load dumpfile、load_file()  的利用条件</p>
-<ol>
-<li>web目录有写入权限（最好是root权限）</li>
-<li>知道网站的绝对路径（通过phpinfo探针等查看）</li>
-<li>secure_file_priv的值空（secure_file_priv 是用来限制 load dumpfile、into outfile、load_file() 函数在哪个目录下拥有上传或者读取文件的权限）</li>
-<li>secure_file_priv的值在my.ini中设置<p></p></li>
-</ol>
-</li>
-<li><p>sqlmap –os shell的利用条件（通过上传一个sqlmap的马，然后命令执行）</p>
-<ol>
-<li>网站有写入条件</li>
-<li>Secure_file_priv参数为空或者为指定路径。</li>
-<li>知道绝对路径</li>
-</ol>
-</li>
-<li><p>disable_function函数（禁止php执行某些函数）</p>
-<ol>
-<li>直接有相关exp（ImageMagic 组件）不是很了解</li>
-</ol>
-</li>
-<li><p>宽字节注入</p>
-</li>
-<li><p>SQL注入绕WAF的方式</p>
-<ol>
-<li>大小写  select * from users where id&#x3D;’1’ <strong>uNioN SeleCt</strong> 1,2,3;</li>
-<li>替换关键字  select * from users where id&#x3D;1 <strong>ununionion selselectect</strong> 1,2,3;</li>
-<li>‘编码  select * from users where id&#x3D;1 <strong>%75nio</strong>n select 1,2,3;   <strong>%55nion</strong> %53elect 1,2,3,4</li>
-<li>内联注释  </li>
-<li></li>
-</ol>
-</li>
-</ol>
-<h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><ol>
-<li>xss有哪三种：dom型、存储型、反射型</li>
-<li>dom型和存储型的区别：</li>
-<li>xss的httponly绕过方法（httponly可阻止获取cookie）</li>
-</ol>
-<h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><ol>
-<li><p>文件上传能够拿到shell的限制条件</p>
-<ol>
-<li>比如：我们上传一个图片，里面写入一句话木马，一定能够连接吗？？不一定，首先我们要确定上传文件后的路径是啥，其次还要能够对图片中的一句话进行解析</li>
-</ol>
-</li>
-<li><p>文件上传的绕过方式</p>
-<ol>
-<li>前端的js绕过(前端可能限制了php文件的上传)，可以直接burpsuite抓包，然后修改文件名，也有的直接F12修改就行</li>
-<li>mime绕过，限制了一些格式，直接burpsuite抓包修改</li>
-<li>黑名单绕过（明确某些后缀文件无法上传，例如：asp、php、jsp、aspx）<ol>
-<li>可以用 php3,phtml,php5  asa，cer，cdx  进行绕过</li>
-<li>大小写绕过</li>
-<li>上传.htaccess到目标服务器进行文件解析，然后就可以上传jpg图片，将jpg解析成php</li>
-<li>利用windows本身特性，上传1.php.相当于上传1.php，会自动过滤掉后面的点</li>
-<li>利用windows本身特性，上传1.php (后面有个空格)相当于1.php</li>
-<li>双写绕过pphphp</li>
-</ol>
-</li>
-<li>白名单绕过（明确只可以上传一些文件）<ol>
-<li>00截断（00截断适用于php小于5.2.17，且 magic_quotes_gpc&#x3D;off）</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>在文件上传的时候，如何判断目标系统是linux还是windows</p>
-<ol>
-<li>linux对大小写敏感、widnows敏感</li>
-</ol>
-</li>
-</ol>
-<h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><ol>
-<li>php中命令执行常用的函数<ol>
-<li>system()</li>
-<li>exec()</li>
-</ol>
-</li>
-<li>如果函数被限制绕过方式<ol>
-<li>不太了解</li>
-</ol>
-</li>
-</ol>
-<h3 id="csrf"><a href="#csrf" class="headerlink" title="csrf"></a>csrf</h3><ol>
-<li>csrf是啥<ol>
-<li>用户B登陆网站，没有退出，生成了cookie</li>
-<li>用户B访问</li>
-<li></li>
-</ol>
-</li>
-</ol>
-<h3 id="ssrf"><a href="#ssrf" class="headerlink" title="ssrf"></a>ssrf</h3><ol>
-<li>可以扫描内网</li>
-<li></li>
-</ol>
-<h3 id="php反序列化"><a href="#php反序列化" class="headerlink" title="php反序列化"></a>php反序列化</h3><h2 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h2><p>kerberos协议的认证流程</p>
-<ul>
-<li>分为三步：<ul>
-<li>AS<ul>
-<li>as-req：客户端向kdc发送请求，请求的内容为：客户端用户名加密的时间戳</li>
-<li>as-rep：KDC解密时间戳，发送TGT和用客户端加密的Session-key AS给客户端</li>
-</ul>
-</li>
-<li>TGS<ul>
-<li>tgs_req：解密Session-key AS后，将Session-key AS加密的时间戳和无法解密的TGT发送给TGS</li>
-<li>tgs_rep：TGS解密tgt和时间戳，将Session-key AS加密的Session-key TGS和ST票据发送给客户端</li>
-</ul>
-</li>
-<li>AP<ul>
-<li>ap-req：发送ST票据给服务端</li>
-<li>ap-rep：服务端解密ST票据，成功建立连接</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>LDAP协议</p>
-<p>* </p>
-<p>RPC协议</p>
-<p>白银票据、黄金票据</p>
-<ol>
-<li>黄金票据：由于KDC用Krbtgt用户的 NTLM-Hash作为密钥进行加密，生成TGT，如果我们获取到了Krbtgt 的 NTLM-Hash值，那么就可以伪造任意的TGT（可用于权限维持）</li>
-<li>白银票据：不需要和kdc进行交互，主要是伪造TGS票据（ST票据）</li>
-</ol>
-<p>Mimikatz读取密码的原理 </p>
-<ol>
-<li>从lsass.exe进程中进行读取</li>
-</ol>
-<p>除了Mimikatz还可以用啥读取密码</p>
-<ol>
-<li>PwDump7</li>
-<li>利用注册表命令直接将sam文件导出 <code>reg save hklm\sam sam.hive</code></li>
-</ol>
-<p>永恒之蓝</p>
-<ol>
-<li>利用SMB协议获取系统最高权限（139、445端口开放）</li>
-</ol>
-<p>内网中常见信息收集的命令有哪些</p>
-<ol>
-<li>查看域用户  net user &#x2F;domain</li>
-<li>查看域工作组  net group &#x2F;domain</li>
-</ol>
-<p>横向移动的 常见手法有哪些</p>
-<ol>
-<li>ipc  （445、139端口开放）</li>
-<li>vmi  </li>
-<li>psexec</li>
-<li>sc计划任务</li>
-<li>smbexec</li>
-<li>PTH</li>
-<li>csexec（可过部分杀软）</li>
-<li>PTT</li>
-</ol>
-<p>windows提权和linux提权的方法有哪些</p>
-<ol>
-<li>linux：<ol>
-<li>suid</li>
-<li>sudo</li>
-<li>环境变量提权</li>
-<li>内核漏洞提权</li>
-<li>git命令提权</li>
-<li>openssl+passwd提权</li>
-</ol>
-</li>
-<li>windows<ol>
-<li></li>
-</ol>
-</li>
-</ol>
-<p>内网扫描常用namp哪些命令（参数），除了用namp还可以用啥扫描，扫描全端口用啥扫描（不用namp扫描，namp扫描全端口非常慢）</p>
-<p>域委派攻击流程</p>
-<p>内网穿透有哪些工具，基于啥协议的</p>
-<p>常用代理工具有哪些</p>
-<p>如何判断内网有没有杀软</p>
-<ol>
-<li>tasklist</li>
-</ol>
-<p>不出网的打法</p>
-<p>linux下常用啥进行反弹shell，windows自带的反弹shell方式（除了powershell还有啥）</p>
-<p>中间件漏洞</p>
-<p>未授权访问漏洞</p>
+            <blockquote>
+<p>由于之前一直都在使用笔记软件，所以对于markdown语法了解并不多，对于markdown而言，在typora中按下回车键，实际相当于用了p标签，也就相当于开始了一个新的段落。而在typora中按下shift+回车，则仅仅是换行而已</p>
+</blockquote>
+<h2 id="修改回车后，两段文字的间距"><a href="#修改回车后，两段文字的间距" class="headerlink" title="修改回车后，两段文字的间距"></a>修改回车后，两段文字的间距</h2><p>实际就是修改p标签的间距，在themes\Chic\source\css_page_post\post_content.style中修改p标签，修改后如下：</p>
+<blockquote>
+<img src="/2022/04/24/22-423-02/image-20220424220329708.png" class title="image-20220424220329708">
+</blockquote>
+<h2 id="修改换行-typora中shift-回车-后，两行文字之间的间距"><a href="#修改换行-typora中shift-回车-后，两行文字之间的间距" class="headerlink" title="修改换行(typora中shift+回车)后，两行文字之间的间距"></a>修改换行(typora中shift+回车)后，两行文字之间的间距</h2><p>在\themes\Chic\source\css\base.styl中修改line-height的值由2em为1.6em（注意：这里调整间距，除了换行后，两行文字之间的距离会变换，但两段段落之间的间距好像也会随之进行微调。。。。。）</p>
+<h2 id="修改博客中的所有文字大小"><a href="#修改博客中的所有文字大小" class="headerlink" title="修改博客中的所有文字大小"></a>修改博客中的所有文字大小</h2><p>在\themes\Chic\source\css\base.styl中修改font-size的值由11pt为12pt</p>
+<h2 id="解决无序列表或者有序列表和普通文字的间隔问题"><a href="#解决无序列表或者有序列表和普通文字的间隔问题" class="headerlink" title="解决无序列表或者有序列表和普通文字的间隔问题"></a>解决无序列表或者有序列表和普通文字的间隔问题</h2><blockquote>
+<p>问题如下：</p>
+<img src="/2022/04/24/22-423-02/image-20220424221831000.png" class title="image-20220424221831000">
+</blockquote>
+<p>我们只需要在typora中写博客时加上一个p标签即可，如下：</p>
+<blockquote>
+<img src="/2022/04/24/22-423-02/image-20220424222018305.png" class title="image-20220424222018305">
+</blockquote>
+<p>然后间距就相同了，如下：</p>
+<blockquote>
+<img src="/2022/04/24/22-423-02/image-20220424222109074.png" class title="image-20220424222109074">
+</blockquote>
 
         </div>		
 		
@@ -462,9 +285,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E9%9D%A2%E8%AF%95/">
+                        <a href="/tags/%E5%8D%9A%E5%AE%A2%E4%BF%AE%E6%94%B9/">
                             <i class="iconfont icon-tag1"></i>
-                            面试
+                            博客修改
                         </a>
                     
                         
@@ -486,10 +309,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/04/24/22424%E4%B8%80/">vulhub靶机—CyNix</a>
+                <a class="prev" rel="prev" href="/2022/04/24/22-0424-03/">标题过长导致重叠</a>
             
             
-            <a class="next" rel="next" href="/2022/04/23/22423/">博客内容溢出</a>
+            <a class="next" rel="next" href="/2022/04/24/22424%E4%B8%80/">vulhub靶机—CyNix</a>
             
         </section>
         <br>

@@ -167,7 +167,7 @@ html::-webkit-scrollbar-thumb:hover {
 body {
   font-size: 12pt;
   font-weight: normal;
-  line-height: 2em;
+  line-height: 1.6em;
   background-color: #fff;
   color: #161209;
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
@@ -747,7 +747,7 @@ header label {
   padding-bottom: 0.3em;
 }
 .post-content h1::before {
-  content: "#";
+  content: "|";
   margin-right: 5px;
   color: #2d96bd;
 }
@@ -755,7 +755,7 @@ header label {
   color: #eee;
 }
 .post-content h2::before {
-  content: "#";
+  content: "|";
   margin-right: 5px;
   color: #2d96bd;
 }
@@ -771,7 +771,7 @@ header label {
   color: #eee;
 }
 .post-content h4::before {
-  content: "*";
+  content: "|";
   margin-right: 5px;
   color: #2d96bd;
 }
@@ -887,27 +887,27 @@ header label {
   background-color: #e9f5fa;
   border-left: 2px solid #2d96bd;
 }
-.post-content blockquote p {
-  margin: 0;
+.post-content p {
+  margin: 0 0 0.6em;
 }
-.post-content blockquote footer strong {
+.post-content p footer strong {
   margin-right: 0.5em;
 }
-.dark-theme .post-content blockquote {
+.dark-theme .post-content p {
   color: #a9a9b3;
   background-color: #3e3e3e;
   border-left: 2px solid #dcdcdc;
 }
-.post-content blockquote.pullquote {
+.post-content p.pullquote {
   background-color: transparent;
   max-width: 45%;
   border: 0;
 }
-.post-content blockquote.pullquote.left {
+.post-content p.pullquote.left {
   float: left;
   text-align: left;
 }
-.post-content blockquote.pullquote.right {
+.post-content p.pullquote.right {
   float: right;
   text-align: right;
 }
