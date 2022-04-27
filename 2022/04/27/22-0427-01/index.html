@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>LDAP协议 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">𝔸_𝕐𝕌ʹ𝕤 𝔹𝕀💿𝔾</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">𝔸_𝕐𝕌ʹ𝕤 𝔹𝕀💿𝔾</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">LDAP协议</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-04-27&nbsp;&nbsp;10:07:58</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/04/27/22-0427-01/" class="leancloud-visitors view" data-flag-title="LDAP协议">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <blockquote>
+<p>文章整合自：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33608000/article/details/123470664">https://blog.csdn.net/qq_33608000/article/details/123470664</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/420087824">https://zhuanlan.zhihu.com/p/420087824</a></p>
+</blockquote>
+<h1 id="LDAP简介"><a href="#LDAP简介" class="headerlink" title="LDAP简介"></a>LDAP简介</h1><h2 id="什么是目录服务"><a href="#什么是目录服务" class="headerlink" title="什么是目录服务"></a>什么是目录服务</h2><p>在局域网中为了方便主机管理，一般使用<code>DHCP</code>分配IP地址给局域网内的各个资产来方便定位，也有可能会配合DNS与域名进行使用。</p>
+<p>对于局域网内的一个用户来讲，我们经常需要登陆内部邮箱进行发送邮件等，所以整个局域网内会有很多用户账户，如果每个应用我们都有一个不同的账户的话，那么局域网内的账户总数会是倍增的，很难管理。</p>
+<p>对于局域网管理员来说维护这么多账号是个很麻烦的事情，例如出现人员的离职的时候，可能查找很久才能找到其对应的账号与其他信息并进行删除，如果应用很多的话那么工作量也会翻倍，因为每一个应用都有不同的账号。</p>
+<p>那么如果有一个产品，能将所有用户的账户进行分类保存，方便管理员查找与管理，那么就可以很大程度简化管理员这方面的工作，目录服务就出现了。</p>
+<p>可是目录服务的写入性能就非常差了，而且不支持事务处理等容错功能，因此不适合频繁修改数据。但是其读取性能十分的好，所以将不常修改但经常会读取的数据存储在目录服务中，整体效率会有较大提升，像企业员工信息、企业设备信息、证书公钥等具有层次性、且不需要频繁改写的数据都适合使用目录服务来存储。</p>
+<p>X.500 是 ISO 制定的一套目录服务的标准，它是一个协议族，定义了一个机构如何在全局范围内共享名称和与名称相关联的对象。通过它，可以将局部的目录服务连接起来，构建基于 Internet 的分布在全球的目录服务系统……而轻量级目录访问协议（LDAP）是 X.500 的核心组成之一。</p>
+<p>LDAP只是目录服务的一种派生而已，LDAP是一种协议。LDAP对已有的X.500进行了优化，使得只要一个账户通过了LDAP服务器的认证，则可以一个账户访问局域网内的所有授权资源，极大的减少了管理员的工作量。</p>
+<p>基于 LDAP 协议的产品有很多，最有名两个的是开源的 OpenDirectory 以及微软开发的 ActiveDirectory。</p>
+<h2 id="LDAP解决了什么"><a href="#LDAP解决了什么" class="headerlink" title="LDAP解决了什么"></a>LDAP解决了什么</h2><p>解决了SSO也就是单点登陆，简单的来说，只要符合通过LDAP认证，则可以用同一个账号密码来登陆组织内所有的服务，避免了多次登陆的问题。例如登陆上qq号后，点击空间等各种应用，不用进行二次登陆，这就利用了LDAP实现了SSO。简单来说就类似于一卡通，一个账号走天下。</p>
+<p>当公司来了新人的时候，只需要在LDAP里面加入他的账号，这样他就可以访问他账号权限下所有的系统，不需要每个系统分配一个账号，方便进行管理，当其离职的时候，只需要在LDAP服务器中删除账号记录即可。</p>
+<h2 id="LDAP的理解"><a href="#LDAP的理解" class="headerlink" title="LDAP的理解"></a>LDAP的理解</h2><p>LDAP应用是为了管理一个网络内的所有用户的账户而出现的，类似于一个号码簿，对不同的用户进行分类方便管理号码簿的人对其进行查找，可以理解其是一个数据库或者树。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LDAP是Lightweight Directory Access Protocol的缩写，顾名思义，它是指轻量级目录访问协议（这个主要是相对另一目录访问协议X.500而言的；LDAP略去了x.500中许多不太常用的功能，且以TCP/IP协议为基础）。</span><br><span class="line">LDAP像数据库，但是有很大的区别，数据库的存在是为了方便数据的增删改查，数据库可以存储数据。而LDAP是一个协议，它并不是数据库本身，没有存储数据的功能，没有涉及到如何存储这些信息，只是提供了一种方式来优化数据的读取。</span><br><span class="line">因为LDAP没有涉及到信息的存储，所以需要一个后端数据库组件来实现存储数据，这些后端可以 是bdb(BerkeleyDB)、ldbm、shell和passwd等。 </span><br><span class="line">一条LDAP记录代表了一个资产在局域网中的位置，如dn:cn=honglv,ou=bei,ou=xi,ou=dong,dc=waibo,dc=com 。</span><br><span class="line">只有域控能查看与修改整个域的LDAP属性，使用adsiedit.msc。</span><br></pre></td></tr></table></figure>
+
+<h2 id="LDAP的部分细节"><a href="#LDAP的部分细节" class="headerlink" title="LDAP的部分细节"></a>LDAP的部分细节</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DN	一条记录的详细位置，简单说就是一个路径 </span><br><span class="line">DC	一条记录所属区域 (哪一颗树)</span><br><span class="line">OU	一条记录所属组织 （哪一个树枝）</span><br><span class="line">CN	一条记录的名字/ID (哪一个树叶)</span><br></pre></td></tr></table></figure>
+
+<p>LDAP目录以树状结构来显示数据，那么我们来构建一颗树，首先要确定这课树长在哪里，也就是树根是什么</p>
+<p>LDAP将域名拆开，形成树根，系统中树根叫做DC，比如：在test20.local域下，树根为DC&#x3D;test20，DC&#x3D;local</p>
+<p>如下：</p>
+<img src="/2022/04/27/22-0427-01/image-20220427212009344.png" class title="image-20220427212009344">
+
+<p>这里用的DC&#x3D;test20，DC&#x3D;local作为树根，而非DC&#x3D;test20.local做树根，有一个很大的优势，会让整体结构更清晰，同时便于扩充域。比如说有另外一个叫test20.local2的域要加入这棵树，那么那么我们就可以直接将DC&#x3D;local2放到DC&#x3D;test20下面，而不必重新构建一棵叫test20.local2的树，如下图所示：</p>
+<img src="/2022/04/27/22-0427-01/image-20220427212408728.png" alt="image-20220427212408728" style="zoom: 67%;">
+
+<p>树根有了，下一步，我们开始构建树枝。</p>
+<p>LDAP中，树的枝干通常是由组织单位（OU）来充当，主要是区分数据所属范围。比如有一个叫张三的用户在local下的信息部，那么张三所属枝干就是OU&#x3D;信息部。</p>
+<img src="/2022/04/27/22-0427-01/image-20220427212601627.png" class title="image-20220427212601627">
+
+<p>在这里，LDAP有一个明显优势，就是每一个树枝都可以被单独放在一个服务器中进行管理。这不仅有利于减轻服务器负担，也方便具有分公司的企业在不同地域部署服务器。</p>
+<p>到最后，只要把所有的数据制作成树叶，挂到树枝上去就行了。制作树叶有两个关键的地方，一个是树叶名字，另一个是树叶内容。</p>
+<p>LDAP规定的名字结构由两部分组成，一部分是直接名称，即CN，一部分是相对名称，即RDN。</p>
+<p>CN是唯一的，用来区分不同树叶。比如用户张三注册时，CN&#x3D;张三。而RDN是指从树根到树叶经过的所有枝干，用来标识树叶位置。如果张三用户在信息部，他的RDN就是DC&#x3D;test20，DC&#x3D;local，OU&#x3D;信息部。</p>
+<p>RDN加CN就形成了数据名称，用DN来表示，张三的DN就是：DC&#x3D;test20，DC&#x3D;local，OU&#x3D;信息部，CN&#x3D;张三。</p>
+<p>正是这样的名字结构提升了LDAP的读取效率，因为DN就是那张标识了出口路线的地图，只要我们顺着名称往下寻找，就能直接找到所需数据。如下：</p>
+<img src="/2022/04/27/22-0427-01/image-20220427213333727.png" alt="image-20220427213333727" style="zoom:80%;">
+
+<p>树叶内容主要是描述这片树叶的颜色、形状、气味等独特的信息，对应到系统中，就是资源的属性，比如用户的属性有性别，身份证号，电话等，计算机的属性有操作系统类型、账号密码等。</p>
+<img src="/2022/04/27/22-0427-01/image-20220427213443949.png" alt="image-20220427213443949" style="zoom:80%;">
+
+<p>一片树叶名称加上它的属性就形成完整的数据信息，在系统中被称为条目。</p>
+<p>每片树叶有它单独的条目，如果要增加新的信息，只需要在条目中添加一个属性，不会影响其它的条目。而在关系型数据库中，增加信息需要改变表结构，相比来说，困难很多。</p>
+<p>为了提高效率，LDAP还提供了一种比较方便的做法，就是给具有相同属性类型的资源制定模板，在注册时直接往模板中填充信息就能创建一片树叶，这就是对象类。</p>
+<p>比如说系统中有一个对象类叫用户，它的属性包括姓名、电话、邮箱。那么我创建用户时，必须填写这三项才能创建成功。</p>
+<img src="/2022/04/27/22-0427-01/image-20220427213644051.png" class title="image-20220427213644051">
+
+<p>系统中的树还有一个不一样的地方，就是各种不同品种的树叶可以长在一棵树上，这个不同品种的树叶是由系统中多种多样的资源对象来充当的，所以我们可以想象一棵长满了用户、计算机和打印机的树。</p>
+<p>除此之外，它还可以允许杂交树叶的存在。这是因为系统中的某个资源对象可能同时具有多个对象类的属性，比如系统管理员，它就同时具有用户和管理员的属性。</p>
+<p>到此，在LDAP协议的“指导”下，我们就成功在系统中构建好一棵完整的树了。</p>
+<h2 id="AD与LDAP的关系"><a href="#AD与LDAP的关系" class="headerlink" title="AD与LDAP的关系"></a>AD与LDAP的关系</h2><p>Active Directory应该是LDAP的一个应用实例，而不应该是LDAP本身，AD是基于LDAP协议的一个成熟的应用而已。</p>
+<p>我理解的是AD可以对域内的所有资产进行增删改查，但是这一切的操作都是基于LDAP协议实现的，AD 域服务利用 LDAP 命名路径（LDAP naming path）来表示对象在 AD 内的位置，以便用它来访问 AD 内的对象。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>LDAP不是数据库而是一种协议，市面上有很多基于LDAP协议而做出来的应用。我们使用的大多都是这种应用，类似于邮箱应用就基于SMTP协议一样。</p>
+<p>LDAP协议的产生目的是为了方便资产管理，这个资产可能是人，可能是物。</p>
+<p>一般应用场景是：</p>
+<ul>
+<li>一个域内有一个LDAP服务器，上面存储了很多账号，当我们需要给域内增加一个应用的时候，只要这个应用至此LDAP验证，则此时域内所有LDAP服务器上的账号，都可以使用自己的账户来登陆并使用刚刚添加的应用。如果没有LDAP服务器，则需要给域内每个人准备一个应用的账号。</li>
+</ul>
+<h2 id="LDAP和kerberos的区别："><a href="#LDAP和kerberos的区别：" class="headerlink" title="LDAP和kerberos的区别："></a>LDAP和kerberos的区别：</h2><p>LDAP主要在应用之间做身份认证，而kerberos是域内的基于主机的身份认证。</p>
+<h1 id="基于LDAP的攻击"><a href="#基于LDAP的攻击" class="headerlink" title="基于LDAP的攻击"></a>基于LDAP的攻击</h1><p>可以查看文章参考链接，后续遇到时候再进行补充。。。。</p>
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%8D%8F%E8%AE%AE/">
+                            <i class="iconfont icon-tag1"></i>
+                            协议
+                        </a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/04/27/22-0427-02/">域前置技术简单原理</a>
+            
+            
+            <a class="next" rel="next" href="/2022/04/26/22-0426-03/">NTLM+kerberos协议</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
