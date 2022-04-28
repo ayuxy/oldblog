@@ -12,7 +12,7 @@
 
 
 
-<title>域前置技术简单原理 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+<title>RPC协议 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
 
 
 
@@ -223,7 +223,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">域前置技术简单原理</h1>
+            <h1 class="post-title">RPC协议</h1>
             
                 <div class="post-meta">
                     
@@ -236,20 +236,12 @@
                         <span class="post-time">
                         <!--发布时间:-->
                         <i class="iconfont icon-time"></i>
-                        <a href="#">2022-04-27&nbsp;&nbsp;21:44:37</a> &nbsp;
+                        <a href="#">2022-04-28&nbsp;&nbsp;21:09:26</a> &nbsp;
                         </span>
                     
                     
-                        <span class="post-category">
-                        <!--分类:-->
-                        <i class="iconfont icon-category"></i>
-                            
-                                <a href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>&nbsp;
-                            
-                        </span>
                     
-                    
-                    <span id="/2022/04/27/22-0427-02/" class="leancloud-visitors view" data-flag-title="域前置技术简单原理">
+                    <span id="/2022/04/28/22-0428-02/" class="leancloud-visitors view" data-flag-title="RPC协议">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -263,14 +255,23 @@
         </header>
 
         <div class="post-content">
-            <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>基于HTTPS通用规避技术，也被称为域前端网络攻击，这是一种用来隐藏Metasploit，Cobalt Strike 等团队控制服务器流量以此来一定程度绕过检查器或防火墙检测的技术。</p>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="CDN加速的原理"><a href="#CDN加速的原理" class="headerlink" title="CDN加速的原理"></a>CDN加速的原理</h2><img src="/2022/04/27/22-0427-02/image-20220427232111950.png" alt="image-20220427232111950" style="zoom:80%;">
+            <blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7d6853140e13">https://www.jianshu.com/p/7d6853140e13</a></p>
+</blockquote>
+<h1 id="RPC起源"><a href="#RPC起源" class="headerlink" title="RPC起源"></a>RPC起源</h1><p>早期单机时代，一台电脑上运行多个进程，大家各干各的，老死不相往来。假如A进程需要一个画图的功能，B进程也需要一个画图的功能，程序员就必须为两个进程都写一个画图的功能。这不是整人么？于是就出现了IPC（Inter-process communication，单机中运行的进程之间的相互通信）。OK，现在A既然有了画图的功能，B就调用A进程上的画图功能好了，程序员终于可以偷下懒了。</p>
+<p>到了网络时代，大家的电脑都连起来了。以前程序只能调用自己电脑上的进程，能不能调用其他机器上的进程呢？于是就程序员就把IPC扩展到网络上，这就是RPC（远程过程调用）了。现在不仅单机上的进程可以相互通信，多机器中的进程也可以相互通信了。</p>
+<p>RPC是指远程过程调用，可以允许一台机器上的程序调用另一台机器上的函数，也就是说两台服务器A，B，一个应用部署在A服务器上，想要调用B服务器上应用提供的函数&#x2F;方法，由于不在一个内存空间，不能直接调用，就要借助RPC来进行远程调用。</p>
+<h1 id="RPC原理"><a href="#RPC原理" class="headerlink" title="RPC原理"></a>RPC原理</h1><p>我们一般都是本地调用函数，例如：如果需要将本地student对象的age+1，可以实现一个addAge()方法，将student对象传入，对年龄进行更新之后返回即可，本地方法调用的函数体通过函数指针来指定。</p>
+<p>但是如果采用远程调用函数呢？果addAge()这个方法在服务端，执行函数的函数体在远程机器上，如何在本地上调用这个方法呢？</p>
+<ol>
+<li>首先客户端需要告诉服务器，需要调用的函数，这里函数和进程ID存在一个映射，客户端远程调用时，需要查一下函数，找到对应的ID，然后执行函数的代码。</li>
+<li>客户端需要把本地参数传给远程函数，本地调用的过程中，直接压栈即可，但是在远程调用过程中不再同一个内存里，无法直接传递函数的参数，因此需要客户端把参数转换成字节流，传给服务端，然后服务端将字节流转换成自身能读取的格式，是一个序列化和反序列化的过程。</li>
+<li>数据准备好了之后，如何进行传输？网络传输层需要把调用的ID和序列化后的参数传给服务端，然后把计算好的结果序列化传给客户端，因此TCP层即可完成上述过程，RPC中采用的是HTTP2协议。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// Client端 </span><br><span class="line">//    Student student = Call(ServerAddr, addAge, student)</span><br><span class="line">1. 将这个调用映射为Call ID。</span><br><span class="line">2. 将Call ID，student（params）序列化，以二进制形式打包</span><br><span class="line">3. 把2中得到的数据包发送给ServerAddr，这需要使用网络传输层</span><br><span class="line">4. 等待服务器返回结果</span><br><span class="line">5. 如果服务器调用成功，那么就将结果反序列化，并赋给student，年龄更新</span><br><span class="line"></span><br><span class="line">// Server端</span><br><span class="line">1. 在本地维护一个Call ID到函数指针的映射call_id_map，可以用Map&lt;String, Method&gt; callIdMap</span><br><span class="line">2. 等待客户端请求</span><br><span class="line">3. 得到一个请求后，将其数据包反序列化，得到Call ID</span><br><span class="line">4. 通过在callIdMap中查找，得到相应的函数指针</span><br><span class="line">5. 将student（params）反序列化后，在本地调用addAge()函数，得到结果</span><br><span class="line">6. 将student结果序列化后通过网络返回给Client</span><br></pre></td></tr></table></figure>
 
-<p>这里如果我们在该CDN服务器上也对<code>www.hacker.com</code>恶意网站做 A记录</p>
-<img src="/2022/04/27/22-0427-02/image-20220427234046316.png" alt="image-20220427234046316">
+<img src="/2022/04/28/22-0428-02/image-20220428234551572.png" alt="image-20220428234551572" style="zoom:80%;">
 
-<p>这样就可以隐藏黑客服务器ip</p>
-<p>没有cdn，域名等，后续有了再写详细操作</p>
 
         </div>		
 		
@@ -280,9 +281,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E9%9A%90%E8%94%BD%E6%8A%80%E6%9C%AF/">
+                        <a href="/tags/%E5%8D%8F%E8%AE%AE/">
                             <i class="iconfont icon-tag1"></i>
-                            隐蔽技术
+                            协议
                         </a>
                     
                         
@@ -304,10 +305,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/04/27/22-0427-03/">A记录等</a>
             
-            
-            <a class="next" rel="next" href="/2022/04/27/22-0427-01/">LDAP协议</a>
+            <a class="next" rel="next" href="/2022/04/28/22-0428-01/">横向移动的方法</a>
             
         </section>
         <br>
