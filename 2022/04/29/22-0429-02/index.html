@@ -12,7 +12,7 @@
 
 
 
-<title>博客发布内容修改 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+<title>linux命令合集 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
 
 
 
@@ -155,75 +155,11 @@
             <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
-    </div>
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a onclick="go_top()">△ 顶部</a>
-        <a onclick="go_bottom()">▽ 底部</a>
-    </div>
-</div>
-
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "▼ 收起目录"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "▶︎ 展开目录"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">博客发布内容修改</h1>
+            <h1 class="post-title">linux命令合集</h1>
             
                 <div class="post-meta">
                     
@@ -236,12 +172,20 @@
                         <span class="post-time">
                         <!--发布时间:-->
                         <i class="iconfont icon-time"></i>
-                        <a href="#">2022-04-24&nbsp;&nbsp;22:35:25</a> &nbsp;
+                        <a href="#">2022-04-29&nbsp;&nbsp;10:45:12</a> &nbsp;
                         </span>
                     
                     
+                        <span class="post-category">
+                        <!--分类:-->
+                        <i class="iconfont icon-category"></i>
+                            
+                                <a href="/categories/linux/">linux</a>&nbsp;
+                            
+                        </span>
                     
-                    <span id="/2022/04/24/22-423-02/" class="leancloud-visitors view" data-flag-title="博客发布内容修改">
+                    
+                    <span id="/2022/04/29/22-0429-02/" class="leancloud-visitors view" data-flag-title="linux命令合集">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -255,32 +199,9 @@
         </header>
 
         <div class="post-content">
-            <blockquote>
-<p>由于之前一直都在使用笔记软件，所以对于markdown语法了解并不多，对于markdown而言，在typora中按下回车键，实际相当于用了p标签，也就相当于开始了一个新的段落。而在typora中按下shift+回车，则仅仅是换行而已</p>
-</blockquote>
-<h2 id="修改回车后，两段文字的间距"><a href="#修改回车后，两段文字的间距" class="headerlink" title="修改回车后，两段文字的间距"></a>修改回车后，两段文字的间距</h2><p>实际就是修改p标签的间距，在themes\Chic\source\css_page_post\post_content.style中修改p标签，修改后如下：</p>
-<blockquote>
-<img src="/2022/04/24/22-423-02/image-20220424220329708.png" class title="image-20220424220329708">
-</blockquote>
-<h2 id="修改换行-typora中shift-回车-后，两行文字之间的间距"><a href="#修改换行-typora中shift-回车-后，两行文字之间的间距" class="headerlink" title="修改换行(typora中shift+回车)后，两行文字之间的间距"></a>修改换行(typora中shift+回车)后，两行文字之间的间距</h2><p>在\themes\Chic\source\css\base.styl中修改line-height的值由2em为1.6em（注意：这里调整间距，除了换行后，两行文字之间的距离会变换，但两段段落之间的间距好像也会随之进行微调。。。。。）</p>
-<h2 id="修改博客中的所有文字大小"><a href="#修改博客中的所有文字大小" class="headerlink" title="修改博客中的所有文字大小"></a>修改博客中的所有文字大小</h2><p>在\themes\Chic\source\css\base.styl中修改font-size的值由11pt为12pt</p>
-<h2 id="解决无序列表或者有序列表和普通文字的间隔问题"><a href="#解决无序列表或者有序列表和普通文字的间隔问题" class="headerlink" title="解决无序列表或者有序列表和普通文字的间隔问题"></a>解决无序列表或者有序列表和普通文字的间隔问题</h2><blockquote>
-<p>问题如下：</p>
-<img src="/2022/04/24/22-423-02/image-20220424221831000.png" class title="image-20220424221831000">
-</blockquote>
-<p>我们只需要在typora中写博客时加上一个p标签即可，如下：</p>
-<blockquote>
-<img src="/2022/04/24/22-423-02/image-20220424222018305.png" class title="image-20220424222018305">
-</blockquote>
-<p>然后间距就相同了，如下：</p>
-<blockquote>
-<img src="/2022/04/24/22-423-02/image-20220424222109074.png" class title="image-20220424222109074">
-</blockquote>
-<h1 id="修改标题过长导致溢出"><a href="#修改标题过长导致溢出" class="headerlink" title="修改标题过长导致溢出"></a>修改标题过长导致溢出</h1><img src="/2022/04/24/22-423-02/image-20220429111045029.png" alt="image-20220429111045029" style="zoom:80%;">
+            <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xdg-open  linux自带命令，打开一个文件夹、文件、链接</span><br></pre></td></tr></table></figure>
 
-<p>修改<code>themes\Chic\layout\_page\archive.ejs</code></p>
-<h1 id="修改博客分类"><a href="#修改博客分类" class="headerlink" title="修改博客分类"></a>修改博客分类</h1><p>themes\Chic\layout_page\category.ejs</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;%# single category page%&gt;</span><br><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;post-wrap categories&quot;&gt;</span><br><span class="line">        &lt;h2 class=&quot;post-title&quot;&gt;-&amp;nbsp;分类&amp;nbsp;·&amp;nbsp;&lt;%-page.category%&gt;-&lt;/h2&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;%- partial(&#x27;archive&#x27;, &#123;pagination: config.category, index: true&#125;) %&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">lsof   一般root用户才能执行lsof命令，普通用户可以看见/usr/sbin/lsof命令，但是普通用户执行会显示“permission denied”</span><br><span class="line"></span><br><span class="line">总结一下lsof指令的用法：</span><br><span class="line">lsof abc.txt 　　　　　　　　显示开启文件abc.txt的进程</span><br><span class="line">lsof -i :22 　　　　　　　　  知道22端口现在运行什么程序</span><br><span class="line">lsof -c abc 　　 　　　　　　显示abc进程现在打开的文件</span><br><span class="line">lsof -g gid　　  　　　　　　显示归属gid的进程情况</span><br><span class="line">lsof +d /usr/local/ 　　　　 显示目录下被进程开启的文件</span><br><span class="line">lsof +D /usr/local/ 　　　　 同上，但是会搜索目录下的目录，时间较长</span><br><span class="line">lsof -d 4 　　　　　　　　　显示使用fd为4的进程</span><br><span class="line">lsof -i 　　　　　　　　　　 用以显示符合条件的进程情况</span><br></pre></td></tr></table></figure>
 
 
         </div>		
@@ -290,13 +211,6 @@
                 <span>标签:</span>
                 <span class="tag">
                     
-                    
-                        <a href="/tags/%E5%8D%9A%E5%AE%A2%E4%BF%AE%E6%94%B9/">
-                            <i class="iconfont icon-tag1"></i>
-                            博客修改
-                        </a>
-                    
-                        
                 </span>
             </div>
             <div>
@@ -315,10 +229,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/04/24/22-0424-03/">标题过长导致重叠</a>
             
-            
-            <a class="next" rel="next" href="/2022/04/24/22424%E4%B8%80/">vulhub靶机—CyNix</a>
+            <a class="next" rel="next" href="/2022/04/29/22-0429-01/">远程服务劫持_SSH劫持</a>
             
         </section>
         <br>
