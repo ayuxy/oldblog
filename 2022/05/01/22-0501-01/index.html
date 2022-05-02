@@ -12,7 +12,7 @@
 
 
 
-<title>linux命令合集 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+<title>vulhub靶机—Gears of War#1 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
 
 
 
@@ -155,11 +155,75 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">linux命令合集</h1>
+            <h1 class="post-title">vulhub靶机—Gears of War#1</h1>
             
                 <div class="post-meta">
                     
@@ -172,7 +236,7 @@
                         <span class="post-time">
                         <!--发布时间:-->
                         <i class="iconfont icon-time"></i>
-                        <a href="#">2022-04-29&nbsp;&nbsp;10:45:12</a> &nbsp;
+                        <a href="#">2022-05-01&nbsp;&nbsp;13:42:43</a> &nbsp;
                         </span>
                     
                     
@@ -180,12 +244,12 @@
                         <!--分类:-->
                         <i class="iconfont icon-category"></i>
                             
-                                <a href="/categories/linux/">linux</a>&nbsp;
+                                <a href="/categories/vulhub%E9%9D%B6%E6%9C%BA/">vulhub靶机</a>&nbsp;
                             
                         </span>
                     
                     
-                    <span id="/2022/04/29/22-0429-02/" class="leancloud-visitors view" data-flag-title="linux命令合集">
+                    <span id="/2022/05/01/22-0501-01/" class="leancloud-visitors view" data-flag-title="vulhub靶机—Gears of War#1">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -199,10 +263,73 @@
         </header>
 
         <div class="post-content">
-            <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xdg-open  linux自带命令，打开一个文件夹、文件、链接</span><br></pre></td></tr></table></figure>
+            <blockquote>
+<p>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/gears-of-war-ep1,382">https://www.vulnhub.com/entry/gears-of-war-ep1,382</a></p>
+</blockquote>
+<p>kali的ip：192.168.43.212     靶机ip：192.168.43.117</p>
+<h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><p>namp扫描网段拿到靶机ip</p>
+<img src="/2022/05/01/22-0501-01/image-20220501202531970.png" alt="image-20220501202531970" style="zoom:80%;">
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">lsof   一般root用户才能执行lsof命令，普通用户可以看见/usr/sbin/lsof命令，但是普通用户执行会显示“permission denied”</span><br><span class="line"></span><br><span class="line">总结一下lsof指令的用法：</span><br><span class="line">lsof abc.txt 　　　　　　　　显示开启文件abc.txt的进程</span><br><span class="line">lsof -i :22 　　　　　　　　  知道22端口现在运行什么程序</span><br><span class="line">lsof -c abc 　　 　　　　　　显示abc进程现在打开的文件</span><br><span class="line">lsof -g gid　　  　　　　　　显示归属gid的进程情况</span><br><span class="line">lsof +d /usr/local/ 　　　　 显示目录下被进程开启的文件</span><br><span class="line">lsof +D /usr/local/ 　　　　 同上，但是会搜索目录下的目录，时间较长</span><br><span class="line">lsof -d 4 　　　　　　　　　显示使用fd为4的进程</span><br><span class="line">lsof -i 　　　　　　　　　　 用以显示符合条件的进程情况</span><br></pre></td></tr></table></figure>
+<p>namp扫描端口信息 ，发现开放了22端口、80端口、ssh、samba服务（Samba是在Linux和UNIX系统上实现SMB协议的一个免费软件，由<em>服务</em>器及客户端程序构成。）</p>
+<img src="/2022/05/01/22-0501-01/image-20220501203439791.png" alt="image-20220501203439791" style="zoom:80%;">
 
+<h1 id="测试Samba的安全"><a href="#测试Samba的安全" class="headerlink" title="测试Samba的安全"></a>测试Samba的安全</h1><p><code>smbmap -H 192.168.43.117 -R </code> 这里加一个-R参数，列举出所有共享</p>
+<img src="/2022/05/01/22-0501-01/image-20220501204830730.png" class title="image-20220501204830730">
+
+<p>然后发现<code>LOCUS_LAN$</code>是可读的，然后查看<code>LOCUS_LAN$</code>的内容</p>
+<img src="/2022/05/01/22-0501-01/image-20220501205350165.png" alt="image-20220501205350165" style="zoom:80%;">
+
+<p>通过smbclient进行连接LOCUS_LAN$<code>smbclient //192.168.43.117/LOCUS_LAN$</code>，密码为空，并且通过get命令得到下面的两个文件</p>
+<img src="/2022/05/01/22-0501-01/image-20220501205927532.png" alt="image-20220501205927532" style="zoom:80%;">
+
+<p>查看SOS.txt文件内容</p>
+<img src="/2022/05/01/22-0501-01/image-20220502100228765.png" alt="image-20220502100228765" style="zoom:80%;">
+
+<p>然后对压缩包msg_horda.zip进行解压，需要密码</p>
+<img src="/2022/05/01/22-0501-01/image-20220502100423976.png" alt="image-20220502100423976" style="zoom:80%;">
+
+<p>然后根据SOS.txt中的[@%%,]用字典工具crunch生成字典</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">crunch 4 4 -t @%%, -o wordstest</span><br><span class="line"></span><br><span class="line">参数说明：</span><br><span class="line">4 4 ：生成的密码最小长度和最大长度都是4</span><br><span class="line">-t： 指定密码输出格式</span><br><span class="line">%： 代表数字</span><br><span class="line">@： 代表小写字母</span><br><span class="line">,： 代表大写字符   </span><br><span class="line">-o： 将密码保存到指定文件</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/01/22-0501-01/image-20220502101432183.png" alt="image-20220502101432183" style="zoom:80%;">
+
+<p>然后用根据字典wordstest用fcrackzip来破解压缩包，得到密码r44M</p>
+<p><code>fcrackzip -D -v -u -p wordstest msg_horda.zip</code></p>
+<img src="/2022/05/01/22-0501-01/image-20220502102103224.png" alt="image-20220502102103224" style="zoom:80%;">
+
+<p>然后再次解压，并且查看里面的内容，猜测3_d4y可能是一个密码</p>
+<img src="/2022/05/01/22-0501-01/image-20220502102346587.png" alt="image-20220502102346587" style="zoom:80%;">
+
+<p>然后用enum4linux枚举用户Local user用户</p>
+<p><code>enum4linux -r 192.168.43.117</code></p>
+<img src="/2022/05/01/22-0501-01/image-20220502104708983.png" alt="image-20220502104708983" style="zoom:80%;">
+
+<p>关于Builtin：表示的是内建账户，内置账户是微软在开Window时预先为<em>用户</em>设置的能够登录系统的账户。</p>
+<p>这里我们保存下nobody、root、marcus三个用户，作为字典usertest.txt</p>
+<img src="/2022/05/01/22-0501-01/image-20220502105431626.png" alt="image-20220502105431626" style="zoom:80%;">
+
+<h1 id="SSH登陆"><a href="#SSH登陆" class="headerlink" title="SSH登陆"></a>SSH登陆</h1><p>然后用hydra配合字典usertest.txt还有密码3_d4y来登陆ssh，得到账户marcus、密码3_d4y</p>
+<p><code>hydra -L usertest.txt -p 3_d4y ssh://192.168.43.117</code></p>
+<img src="/2022/05/01/22-0501-01/image-20220502105708671.png" alt="image-20220502105708671" style="zoom:80%;">
+
+<p>然后ssh登陆靶机</p>
+<img src="/2022/05/01/22-0501-01/image-20220502105833623.png" alt="image-20220502105833623" style="zoom:80%;">
+
+<p>查看当前shell是rbash，并且我们无法进入文件夹，所以要先绕过rbash</p>
+<img src="/2022/05/01/22-0501-01/image-20220502110028725.png" alt="image-20220502110028725" style="zoom:80%;">
+
+<h2 id="绕过rbash"><a href="#绕过rbash" class="headerlink" title="绕过rbash"></a>绕过rbash</h2><p>通过ssh命令重新登陆，并且指定-t指定通过bash shell来登陆</p>
+<p><code>ssh marcus@192.168.43.117 -t &quot;bash -noprofile&quot;</code></p>
+<p>虽然我们查看还是rbash，但是已经没有限制了</p>
+<img src="/2022/05/01/22-0501-01/image-20220502110438103.png" alt="image-20220502110438103" style="zoom:80%;">
+
+
+
+<h1 id="SUID提权"><a href="#SUID提权" class="headerlink" title="SUID提权"></a>SUID提权</h1><p><code>find / -type f -perm -u=s 2&gt;/dev/null</code></p>
+<img src="/2022/05/01/22-0501-01/image-20220502110640309.png" alt="image-20220502110640309" style="zoom:80%;">
+
+<p>我们利用&#x2F;bin&#x2F;cp来提权。</p>
+<p>我们只需要修改passwd文件，添加新的用户密码（配合openssl），然后对原来的passwd文件用cp命令进行覆盖即可</p>
 
         </div>		
 		
@@ -229,10 +356,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/05/01/22-0501-01/">vulhub靶机—Gears of War#1</a>
+                <a class="prev" rel="prev" href="/2022/05/01/22-0501-02/">SMB工具</a>
             
             
-            <a class="next" rel="next" href="/2022/04/29/22-0429-01/">远程服务劫持_SSH劫持</a>
+            <a class="next" rel="next" href="/2022/04/29/22-0429-02/">linux命令合集</a>
             
         </section>
         <br>
