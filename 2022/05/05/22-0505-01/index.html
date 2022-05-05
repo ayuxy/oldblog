@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>ipc+计划任务横向 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">𝔸_𝕐𝕌ʹ𝕤 𝔹𝕀💿𝔾</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">𝔸_𝕐𝕌ʹ𝕤 𝔹𝕀💿𝔾</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">ipc+计划任务横向</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-05&nbsp;&nbsp;8:49:39</a> &nbsp;
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                        <!--分类:-->
+                        <i class="iconfont icon-category"></i>
+                            
+                                <a href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>&nbsp;
+                            
+                        </span>
+                    
+                    
+                    <span id="/2022/05/05/22-0505-01/" class="leancloud-visitors view" data-flag-title="ipc+计划任务横向">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="ipc简介"><a href="#ipc简介" class="headerlink" title="ipc简介"></a>ipc简介</h1><p>IPC$是“命名管道”共享资源，它是为了让进程间通信而开放的命名管道，可以通过验证用户名和密码 获取相应的权限，用于远程管理计算机和查看计算机的共享资源</p>
+<h2 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h2><ol>
+<li>目标开启139、445端口</li>
+<li>目标开启ipc$文件共享，一般电脑默认开启（net share查看）</li>
+<li>目标系统是 NT或以上的操作系统</li>
+</ol>
+<h1 id="关于ipc常用命令解释"><a href="#关于ipc常用命令解释" class="headerlink" title="关于ipc常用命令解释"></a>关于ipc常用命令解释</h1><img src="/2022/05/05/22-0505-01/image-20220505093329099.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<blockquote>
+<p>用webadmin账号登陆web服务器，然后通过ipc连接数据库服务器（注意：数据库服务器无论当前是以域用户dbadmin登陆还是以本地的administrator来登陆，都不影响IPC连接，但数据库服务器必须是开机的）</p>
+</blockquote>
+<p>连接到数据库服务器的域用户dbadmin</p>
+<img src="/2022/05/05/22-0505-01/1.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<p>连接到数据库服务器的本地administrator用户（错误的连接方法）</p>
+<img src="/2022/05/05/22-0505-01/2.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<p>正确连接方法如下：</p>
+<img src="/2022/05/05/22-0505-01/3.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<p>或</p>
+<img src="/2022/05/05/22-0505-01/4.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<blockquote>
+<p>用本地管理员用户administrator登陆web服务器，然后通过ipc连接数据库服务器（注意：数据库服务器无论当前是以域用户dbadmin登陆还是以本地的administrator来登陆，都不影响IPC连接，但数据库服务器必须是开机的）</p>
+</blockquote>
+<p>连接到数据库服务器的域用户dbadmin</p>
+<img src="/2022/05/05/22-0505-01/5.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<p>接到数据库服务器的本地用户administrator。上面以域用户webadmin通过ipc连接数据库服务器的本地用户administrator时该命令不可用，但这里我们用的是本地administrator用户，而非域用户，本地用户是属于工作组的，可以用这种默认的连接方式，如下：</p>
+<img src="/2022/05/05/22-0505-01/6.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<p>也可用下面两种方式：</p>
+<img src="/2022/05/05/22-0505-01/7.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/05/22-0505-01/8.png" alt="image-20220505093329099" style="zoom:80%;">
+
+</p><h1 id="ipc-at-amp-schtasks"><a href="#ipc-at-amp-schtasks" class="headerlink" title="ipc+at&amp;schtasks"></a>ipc+at&amp;schtasks</h1><h2 id="at（用于系统-lt-windows2012）"><a href="#at（用于系统-lt-windows2012）" class="headerlink" title="at（用于系统&lt;windows2012）"></a>at（用于系统&lt;windows2012）</h2><p>用webadmin用户和域控建立ipc连接</p>
+<img src="/2022/05/05/22-0505-01/9.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<p>利用copy命令上传msf木马到域控主机的C盘上</p>
+<img src="/2022/05/05/22-0505-01/10.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<p>利用at添加定时计划任务让域控主机的msf木马在14:32定时执行</p>
+<img src="/2022/05/05/22-0505-01/11.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<p>kali下发现域控主机成功上线</p>
+<img src="/2022/05/05/22-0505-01/12.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<p>清除痕迹，删除定时任务，”3”是任务ID</p>
+<img src="/2022/05/05/22-0505-01/13.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<h2 id="schtasks（用于系统≥windows-2012）"><a href="#schtasks（用于系统≥windows-2012）" class="headerlink" title="schtasks（用于系统≥windows 2012）"></a>schtasks（用于系统≥windows 2012）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">schtasks：计划任务管理命令</span><br><span class="line">/Create：该参数表示需要创建一个命令</span><br><span class="line">/S： 指定要连接到的远程系统。如果省略这个系统参数，默认是本地系统。这里的IP地址便是运程远程的主机</span><br><span class="line">/U：远程主机的用户名</span><br><span class="line">/P：远程用户所对应的密码</span><br><span class="line">/TN：任务的名称，是此计划任务进行唯一标识的字符串。可自定义</span><br><span class="line">/TR：要运行程序在远程主机上的全路径</span><br><span class="line">/SC：任务运行的频次。once为仅运行一次，有效计划任务: MINUTE、 HOURLY、DAILY、WEEKLY、MONTHLY, ONCE, ONSTART, ONLOGON, ONIDLE, ONEVENT.</span><br><span class="line">/ST：任务开始的时间</span><br><span class="line">/RU：更改计划任务在其下运行的用户名。 对于系统帐户，有效值为 &quot;&quot;、 &quot;NT AUTHORITY\SYSTEM&quot;或 &quot;system&quot;。</span><br></pre></td></tr></table></figure>
+
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">
+                            <i class="iconfont icon-tag1"></i>
+                            横向移动
+                        </a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/04/22-0504-01/">vulhub靶机—djinn</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>

@@ -1358,3 +1358,9 @@ header label {
 .post-content code {
   background-color: #f8f5ec;
 }
+.gutter {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -khtml-user-select: none;
+}
