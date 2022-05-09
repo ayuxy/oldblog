@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>博客多余图片处理 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">𝔸_𝕐𝕌ʹ𝕤 𝔹𝕀💿𝔾</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">𝔸_𝕐𝕌ʹ𝕤 𝔹𝕀💿𝔾</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">博客多余图片处理</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-07&nbsp;&nbsp;17:48:13</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/05/07/22-0507-02/" class="leancloud-visitors view" data-flag-title="博客多余图片处理">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <blockquote>
+<p>由于博客中所有图片都是保存在本地的，所以直接把图片粘贴到typora中后，对应图片会保存到本地目录中，但是我们从typora中删除图片后，并没有在本地中删除，还需要到对应文件夹中删除图片，所以写了个脚本直接删除多余的图片</p>
+</blockquote>
+<p>批量删除C:\Users\xxy\Desktop\posts目录下md文件和对应文件夹的图片</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">global</span> path</span><br><span class="line">path = <span class="string">&quot;C:\Hexo_Blog\source\_posts&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">filename1</span>():</span><br><span class="line">    file_name_list = os.listdir(path)           <span class="comment">#获取文件名，返回列表</span></span><br><span class="line">    file_md = []          <span class="comment">#.md文件</span></span><br><span class="line">    file = []             <span class="comment">#保存图片的文件夹</span></span><br><span class="line">    file_name_list_number = <span class="built_in">len</span>(file_name_list)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,file_name_list_number):</span><br><span class="line">        s = file_name_list[i]</span><br><span class="line">        x = <span class="string">&quot;md&quot;</span> <span class="keyword">in</span> s</span><br><span class="line">        <span class="keyword">if</span> x == <span class="literal">True</span> :</span><br><span class="line">            file_md.append(file_name_list[i])</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            file.append(file_name_list[i])</span><br><span class="line">    <span class="keyword">return</span> file,file_md</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">open_md</span>():</span><br><span class="line">    file_tup = filename1()</span><br><span class="line">    os.chdir(path)   <span class="comment">#修改python的绝对路径</span></span><br><span class="line">    num_md = <span class="built_in">len</span>(file_tup[<span class="number">1</span>])</span><br><span class="line">    list_md = file_tup[<span class="number">1</span>]                    <span class="comment">#.md文件名列表</span></span><br><span class="line">    list_file = file_tup[<span class="number">0</span>]                  <span class="comment">#文件夹名列表</span></span><br><span class="line">    md_picture_list = []                        <span class="comment">#用于存放目录下所有md文件内引用的图片</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,num_md):</span><br><span class="line">        f = <span class="built_in">open</span>(list_md[i],encoding=<span class="string">&#x27;UTF-8&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;================正在打开md文件:&quot;</span>,list_md[i],<span class="string">&quot;请稍后=====================&quot;</span>)</span><br><span class="line">        content = f.read()</span><br><span class="line">        pattern1 = <span class="string">&#x27;/.*?png&#x27;</span>                   <span class="comment"># 正则匹配/到png之间内容</span></span><br><span class="line">        list1 = re.findall(pattern1, content)           <span class="comment"># 返回为列表类型</span></span><br><span class="line">        list1_str = <span class="built_in">str</span>(list1)</span><br><span class="line">        list1_strs = list1_str.replace(<span class="string">&quot;[&quot;</span>, <span class="string">&quot;&quot;</span>).replace(<span class="string">&quot;]&quot;</span>, <span class="string">&quot;&quot;</span>).replace(<span class="string">&quot;&#x27;&quot;</span>, <span class="string">&quot;&quot;</span>).replace(<span class="string">&quot;,&quot;</span>, <span class="string">&quot;\n&quot;</span>).replace(<span class="string">&quot; &quot;</span>, <span class="string">&quot;&quot;</span>).replace(<span class="string">&quot;/&quot;</span>,<span class="string">&quot;&quot;</span>)  <span class="comment"># replace替换&quot;[&quot;、&quot;]&quot;、&quot; &quot;、&quot;&#x27;&quot;</span></span><br><span class="line">        pattern2 = <span class="string">&#x27;.*png&#x27;</span>                      <span class="comment"># 再次正则匹配</span></span><br><span class="line">        list2 = re.findall(pattern2, list1_strs)</span><br><span class="line">        f.close()</span><br><span class="line">        md_picture_list.append(list2)</span><br><span class="line">        <span class="built_in">print</span>(list_md[i],<span class="string">&quot;文件中引用的图片如下:&quot;</span> )</span><br><span class="line">        <span class="built_in">print</span>(md_picture_list[i])</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;正在打开保存&quot;</span>,list_md[i],<span class="string">&quot;中图片的文件夹&quot;</span>,list_md[i][<span class="number">0</span>:-<span class="number">3</span>],<span class="string">&quot;文件夹内图片如下:&quot;</span>)</span><br><span class="line">        <span class="comment"># 获取文.md对应保存图片文件夹中的所有图片名</span></span><br><span class="line">        file_picture_list = os.listdir(list_md[i][<span class="number">0</span>:-<span class="number">3</span>])</span><br><span class="line">        <span class="built_in">print</span>(file_picture_list)</span><br><span class="line">        <span class="comment">#将列表转化为集合，然后通过集合比较出不同的元素</span></span><br><span class="line">        set1 = <span class="built_in">set</span>(file_picture_list)</span><br><span class="line">        set2 = <span class="built_in">set</span>(md_picture_list[i])</span><br><span class="line">        <span class="built_in">print</span>(list_md[i],<span class="string">&quot;中未被引用的图片如下:&quot;</span>)</span><br><span class="line">        different = set1 ^ set2 <span class="comment">#比较不同的图片，即多余的图片</span></span><br><span class="line">        <span class="comment">#再次将集合转为列表</span></span><br><span class="line">        different_list = <span class="built_in">list</span>(different)</span><br><span class="line">        <span class="built_in">print</span>(different_list)</span><br><span class="line">        <span class="comment">#将多余的图片进行删除</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;正在删除多余的图片,请等待!!&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(different_list) == <span class="number">0</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;无需删除&quot;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            file_pic = list_md[i][<span class="number">0</span>:-<span class="number">3</span>]</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(different_list)):</span><br><span class="line">                <span class="keyword">if</span> os.path.exists(<span class="string">&quot;%s\%s&quot;</span> % (file_pic, different_list[i])) == <span class="literal">True</span>:</span><br><span class="line">                    os.remove(<span class="string">&quot;%s\%s&quot;</span> % (file_pic, different_list[i]))</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;删除成功！！&quot;</span>)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&quot;文件夹内没有该图片&quot;</span>)</span><br><span class="line">open_md()</span><br></pre></td></tr></table></figure>
+
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/05/09/22-0509-01/">中间件漏洞复现</a>
+            
+            
+            <a class="next" rel="next" href="/2022/05/07/22-0507-01/">vulhub靶机—connect-the-dots</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
