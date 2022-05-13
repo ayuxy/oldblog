@@ -778,6 +778,14 @@ header label {
 .dark-theme .post-content h4::before {
   color: #eee;
 }
+.post-content h5::before {
+  content: "|";
+  margin-right: 5px;
+  color: #2d96bd;
+}
+.dark-theme .post-content h5::before {
+  color: #eee;
+}
 .post-content a {
   color: #2d96bd;
 }

