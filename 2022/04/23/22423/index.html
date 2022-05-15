@@ -12,7 +12,7 @@
 
 
 
-<title>博客内容溢出 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+<title>博客优化 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
 
 
 
@@ -157,11 +157,75 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">博客内容溢出</h1>
+            <h1 class="post-title">博客优化</h1>
             
                 <div class="post-meta">
                     
@@ -179,7 +243,7 @@
                     
                     
                     
-                    <span id="/2022/04/23/22423/" class="leancloud-visitors view" data-flag-title="博客内容溢出">
+                    <span id="/2022/04/23/22423/" class="leancloud-visitors view" data-flag-title="博客优化">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -193,7 +257,7 @@
         </header>
 
         <div class="post-content">
-            <p> 在typora中输入连续的字母和一些汉字，测试如下，只有字母溢出了，别的都正常，感觉莫名其妙呀</p>
+            <h1 id="博客bug—博客内容溢出"><a href="#博客bug—博客内容溢出" class="headerlink" title="博客bug—博客内容溢出"></a>博客bug—博客内容溢出</h1><p>在typora中输入连续的字母和一些汉字，测试如下，只有字母溢出了，别的都正常，感觉莫名其妙呀</p>
 <img src="/2022/04/23/22423/image-20220424124932482.png" class title="image-20220424124932482">
 
 <p>如何解决连续输入字母会溢出的情况</p>
@@ -207,6 +271,52 @@
 <p>后续补充：虽然上述方法已经解决，但是刚访问的一瞬间，还是会有溢出情况，等一小会才正常。。。。。希望后面能够找到更加完美的解决方案</p>
 <img src="/2022/04/23/22423/image-20220426092619997.png" class title="image-20220426092619997">
 
+<h1 id="博客发布内容修改"><a href="#博客发布内容修改" class="headerlink" title="博客发布内容修改"></a>博客发布内容修改</h1><blockquote>
+<p>由于之前一直都在使用笔记软件，所以对于markdown语法了解并不多，对于markdown而言，在typora中按下回车键，实际相当于用了p标签，也就相当于开始了一个新的段落。而在typora中按下shift+回车，则仅仅是换行而已</p>
+</blockquote>
+<h2 id="修改回车后，两段文字的间距"><a href="#修改回车后，两段文字的间距" class="headerlink" title="修改回车后，两段文字的间距"></a>修改回车后，两段文字的间距</h2><p>实际就是修改p标签的间距，在themes\Chic\source\css_page_post\post_content.style中修改p标签，修改后如下：</p>
+<blockquote>
+<img src="/2022/04/23/22423/image-20220424220329708.png" class title="image-20220424220329708">
+</blockquote>
+<h2 id="修改换行-typora中shift-回车-后，两行文字之间的间距"><a href="#修改换行-typora中shift-回车-后，两行文字之间的间距" class="headerlink" title="修改换行(typora中shift+回车)后，两行文字之间的间距"></a>修改换行(typora中shift+回车)后，两行文字之间的间距</h2><p>在\themes\Chic\source\css\base.styl中修改line-height的值由2em为1.6em（注意：这里调整间距，除了换行后，两行文字之间的距离会变换，但两段段落之间的间距好像也会随之进行微调。。。。。）</p>
+<h2 id="修改博客中的所有文字大小"><a href="#修改博客中的所有文字大小" class="headerlink" title="修改博客中的所有文字大小"></a>修改博客中的所有文字大小</h2><p>在\themes\Chic\source\css\base.styl中修改font-size的值由11pt为12pt</p>
+<h2 id="解决无序列表或者有序列表和普通文字的间隔问题"><a href="#解决无序列表或者有序列表和普通文字的间隔问题" class="headerlink" title="解决无序列表或者有序列表和普通文字的间隔问题"></a>解决无序列表或者有序列表和普通文字的间隔问题</h2><blockquote>
+<p>问题如下：</p>
+<img src="/2022/04/23/22423/image-20220424221831000.png" class title="image-20220424221831000">
+</blockquote>
+<h2 id="我们只需要在typora中写博客时加上一个p标签即可，如下："><a href="#我们只需要在typora中写博客时加上一个p标签即可，如下：" class="headerlink" title="我们只需要在typora中写博客时加上一个p标签即可，如下："></a>我们只需要在typora中写博客时加上一个p标签即可，如下：</h2><blockquote>
+<img src="/2022/04/23/22423/image-20220424222018305.png" class title="image-20220424222018305">
+</blockquote>
+<p>然后间距就相同了，如下：</p>
+<blockquote>
+<img src="/2022/04/23/22423/image-20220424222109074.png" class title="image-20220424222109074">
+</blockquote>
+<h2 id="修改标题过长导致溢出"><a href="#修改标题过长导致溢出" class="headerlink" title="修改标题过长导致溢出"></a>修改标题过长导致溢出</h2><img src="/2022/04/23/22423/image-20220429111045029.png" alt="image-20220429111045029" style="zoom:80%;">
+
+<p>修改<code>themes\Chic\layout\_page\archive.ejs</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;post-wrap archive&quot;&gt;</span><br><span class="line">    &lt;% var last_year = &#x27;&#x27;; %&gt;</span><br><span class="line">    &lt;% page.posts.each(function (post) &#123; %&gt;</span><br><span class="line">        &lt;% var cur_year = post.date.year(); %&gt;</span><br><span class="line"></span><br><span class="line">        &lt;% if(last_year !== cur_year)&#123; %&gt;</span><br><span class="line">            &lt;h3&gt;&lt;%- cur_year %&gt;&lt;/h3&gt;</span><br><span class="line">        &lt;% last_year = cur_year; &#125; %&gt;</span><br><span class="line"></span><br><span class="line">        &lt;article class=&quot;archive-item&quot;&gt;</span><br><span class="line">            &lt;a class=&quot;archive-item-link&quot; href=&quot;&lt;%- url_for(post.path) %&gt;&quot;&gt;</span><br><span class="line">			&lt;%= post.title %&gt;</span><br><span class="line">			&lt;/a&gt;</span><br><span class="line">            &lt;span class=&quot;archive-item-date&quot;&gt;&lt;%- date(post.date, theme.date_format) %&gt;&lt;/span&gt;</span><br><span class="line">        &lt;/article&gt;</span><br><span class="line">    &lt;% &#125;) %&gt;</span><br><span class="line">    &lt;%- partial(&#x27;_partial/paginator&#x27;) %&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line"> .archive-item-link&#123;</span><br><span class="line"></span><br><span class="line"> width: 650px;</span><br><span class="line"></span><br><span class="line"> height: 33.5px;</span><br><span class="line"></span><br><span class="line"> /*不换行*/</span><br><span class="line"></span><br><span class="line"> white-space: nowrap;</span><br><span class="line"></span><br><span class="line"> /*溢出的话，隐藏*/</span><br><span class="line"></span><br><span class="line"> overflow: hidden;</span><br><span class="line"></span><br><span class="line"> /*文本溢出时，是否....*/</span><br><span class="line"></span><br><span class="line"> text-overflow: ellipsis;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="修改博客分类"><a href="#修改博客分类" class="headerlink" title="修改博客分类"></a>修改博客分类</h2><p>themes\Chic\layout_page\category.ejs</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 该页面的修改参考themes\Chic\layout\_page\archive.ejs进行重写 --&gt;</span><br><span class="line">&lt;%# single category page%&gt;</span><br><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;post-wrap categories&quot;&gt;</span><br><span class="line">        &lt;h2 class=&quot;post-title&quot;&gt;-&amp;nbsp;分类&amp;nbsp;·&amp;nbsp;&lt;%-page.category%&gt;-&lt;/h2&gt;</span><br><span class="line">		&lt;% var last_year = &#x27;&#x27;; %&gt;</span><br><span class="line">		&lt;% page.posts.each(function (post) &#123; %&gt;</span><br><span class="line">        &lt;% var cur_year = post.date.year(); %&gt;</span><br><span class="line">        &lt;% if(last_year !== cur_year)&#123; %&gt;</span><br><span class="line">            &lt;h3&gt;&lt;%- cur_year %&gt;&lt;/h3&gt;</span><br><span class="line">        &lt;% last_year = cur_year; &#125; %&gt;</span><br><span class="line">        &lt;article class=&quot;archive-item&quot;&gt;</span><br><span class="line">            &lt;a class=&quot;archive-item-link&quot; href=&quot;&lt;%- url_for(post.path) %&gt;&quot;&gt;</span><br><span class="line">			&lt;%= post.title %&gt;</span><br><span class="line">			&lt;/a&gt;</span><br><span class="line">            &lt;span class=&quot;archive-item-date&quot;&gt;&lt;%- date(post.date, theme.date_format) %&gt;&lt;/span&gt;</span><br><span class="line">        &lt;/article&gt;</span><br><span class="line">    &lt;% &#125;) %&gt;</span><br><span class="line">    &lt;%- partial(&#x27;_partial/paginator&#x27;) %&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line"> .archive-item-link&#123;</span><br><span class="line"></span><br><span class="line"> width: 650px;</span><br><span class="line"></span><br><span class="line"> height: 25px;</span><br><span class="line"></span><br><span class="line"> /*不换行*/</span><br><span class="line"></span><br><span class="line"> white-space: nowrap;</span><br><span class="line"></span><br><span class="line"> /*溢出的话，隐藏*/</span><br><span class="line"></span><br><span class="line"> overflow: hidden;</span><br><span class="line"></span><br><span class="line"> /*文本溢出时，是否....*/</span><br><span class="line"></span><br><span class="line"> text-overflow: ellipsis;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="博客bug—标题过长导致重叠"><a href="#博客bug—标题过长导致重叠" class="headerlink" title="博客bug—标题过长导致重叠"></a>博客bug—标题过长导致重叠</h1><p>一级标题过长导致重叠：</p>
+<img src="/2022/04/23/22423/image-20220514135235065.png" alt="image-20220514135235065" style="zoom:80%;">
+
+<p>该问题：很大原因是因为我个人修改段落或者换行的间距所导致的，其实只要修改一级标题的大小应该可以解决该问题，这里直接避免过长的一级标题</p>
+<h1 id="夜间模式bug"><a href="#夜间模式bug" class="headerlink" title="夜间模式bug"></a>夜间模式bug</h1><blockquote>
+<img src="/2022/04/23/22423/image-20220424231428336.png" class title="image-20220424231428336">
+</blockquote>
+<p>正常模式下：</p>
+<blockquote>
+<img src="/2022/04/23/22423/image-20220424231533302.png" class title="image-20220424231533302">
+</blockquote>
+<p>该问题是由于我们之间对之前对themes\Chic\source\css_page_post\post_content.style里面的p标签进行过修改，改过两段文字之间的间距，所以导致了bug，直接取消更改即可</p>
+<h1 id="博客美化"><a href="#博客美化" class="headerlink" title="博客美化"></a>博客美化</h1><h2 id="添加雪花特效"><a href="#添加雪花特效" class="headerlink" title="添加雪花特效"></a>添加雪花特效</h2><p>在<code>themes\Chic\source\js</code>下添加<code>jquery.js</code>、<code>jquery.min.js</code>、<code>snow.js</code></p>
+<p>然后在<code>themes\Chic\layout</code>下的<code>layout.ejs</code>最后引用</p>
+<img src="/2022/04/23/22423/image-20220514140104715.png" alt="image-20220514140104715" style="zoom:80%;">
+
         </div>		
 		
         <section class="post-tags">
@@ -215,9 +325,9 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/%E5%8D%9A%E5%AE%A2bug/">
+                        <a href="/tags/%E5%8D%9A%E5%AE%A2%E9%97%AE%E9%A2%98/">
                             <i class="iconfont icon-tag1"></i>
-                            博客bug
+                            博客问题
                         </a>
                     
                         
@@ -334,5 +444,5 @@
 <script type="text/javascript" src="\js\jquery.js"></script>
 <script type="text/javascript" src="\js\jquery.min.js"></script>
 
-<script type="text/javascript" src="\js\snow.js"></script>
+<script  type="text/javascript" src="\js\snow.js"></script>
 
