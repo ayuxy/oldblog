@@ -157,6 +157,70 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
 
     
     <article class="post-wrap">
@@ -193,18 +257,73 @@
         </header>
 
         <div class="post-content">
-            <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="dc34846c6a08c63fdffc25a99ea30abbdfb0b040dadec72be37a1056a96eea74">bb37e7fa29ac998f9193b7733de58c59ffc2b770bd4b3ca6766c4a815de02498ac0e5c27809d8e0ff296822aa44847318a25bfb4c18d825465f043b9b87cfaa0a5ed6a10b484ad4f82cadcdc5242f35550e25337876bec0bd6f2be40b30e027f731cd6476960a9e08a669468374485ad771d37d27c2dce41a9fd79d6871c357420aba5771a47d0637eb1640d8a551b19257e4e7c4bfc46c9c385c64a5fc5614acf3e9c623922afae406f71bfb501ffbc3b57e0be02a18b59debb3ba06cf3d283877cd11a1043d42180b2558481b3ba246d2aa2c1842d35d807d27ed597e0200e4983210dbe723454bfb4f20973b70ece628c75e3cdf24dace61dd26f65eb91adac53bd861d9f0595134e68a98646c31d035815311a641f61e20feffd02d3f58a5008fe88462200bf22e595bfbf001e0a2c8e39a9d8376e40785793488b60a7a634eb8c49d23f9430a04a4d26fb6046c226489fde89c49d8fd664a5b97e1b4cafdfa875d16aa7fe11a53897b2135632e8284a878df583d002947ebd389a2b56bfe54374adf3f7735110be4825aa8db1a608c38667bae694e5b0e14c6c0efeca00e9f43c4b8ee68d7fb4dd00dffe225a87091d79665dceeafc29a3b4051a59e2dc0dbcdf592bb477fb9c72421073119bab</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">输入密码，查看文章</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
+            <h1 id="DAY1"><a href="#DAY1" class="headerlink" title="DAY1"></a>DAY1</h1><p>进制基础：</p>
+<p>bit（比特） &#x3D; 一个bit是一个0或1，叫做一个二进制位<br>byte（字节）&#x3D;  1byte 是 8 个比特<br>16进制 &#x3D; 4个2进制</p>
+<p>汇编语言组成：</p>
+<ol>
+<li>汇编指令：由CPU执行，是机器码的助记符，有对应的机器码</li>
+<li>伪指令：由编译器执行，没有对应的机器码，计算机不执行</li>
+<li>其它符号：比如：+－*&#x2F; 由编译器识别执行，没有对应机器码</li>
+</ol>
+<p>一个典型的CPU大概由运算器、控制器、寄存器构成。外部总线实现CPU和主板上其他器件的联系，内部总线实现CPU内部各个部件的链接</p>
+<p>扩展：寄存器、存储器、内存 的区别</p>
+<ul>
+<li><p>寄存器：是cpu组成部分，作用是将寄存器内的数据执行算术及逻辑运算，是操作数据的地方（当然也可以存储数据和指令）</p>
+</li>
+<li><p>存储器：在cpu外，一般指的是硬盘、U盘等可以在切断电源后保存资料的设备，是存放数据的地方。</p>
+</li>
+<li><p>更通俗的解释如下：（参考自知乎）</p>
+<ul>
+<li>解释一：<ul>
+<li>寄存器就是你的口袋。身上只有那么几个，只装最常用或者马上要用的东西。</li>
+<li>内存就是你的背包。有时候拿点什么放到口袋里，有时候从口袋里拿出点东西放在背包里。</li>
+<li>辅存（外存）就是你家里的抽屉。可以放很多东西，但存取不方便。</li>
+</ul>
+</li>
+<li>解释二：如果把被储存的东西比作能量<ul>
+<li>寄存器就是 ATP，可以随时拿来用，性能高，但数量有限；</li>
+<li>内存就是葡萄糖，性能一般，但是存量可以比较多；</li>
+<li>外存（比如硬盘）就是脂肪，容量可以非常大，性能很差，要先转化为葡萄糖（存进内存），然后转化为 ATP（放到寄存器）才能直接利用（存取）。</li>
+</ul>
+</li>
+<li>解释三：按最简单的数据的存储和操作距离来理解它们的区别：<ul>
+<li>CPU（数据的操作）&lt;&#x3D;&#x3D;&#x3D;&#x3D;&gt;缓存（数据的存储）&lt;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt;寄存器（指令等存储）&lt;&#x3D;&#x3D;&#x3D;&#x3D;&gt;内存（需要等待的所有数据的存储）&lt;&#x3D;&#x3D;&#x3D;&#x3D;&gt;外部存储器（硬盘、光盘等）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>8086 CPU （Intel 8086 是一个由Intel于1978年所设计的16位微处理器芯片，是x86架构的鼻祖）有14个16位寄存器 AX、BX、CX、DX、SI、DI、SP、BP、IP、CS、SS、DS、ES、PSW，其中AX，BX，CX，DX 这4个通常用来存放一般性数据，被称为通用寄存器</p>
+<p>注意：8086 CPU 的上一代，也就是8086 CPU 的老爸实际是8位的，当然8086是16位的兼容8位的，所以为了兼容上一代的CPU， AX 寄存器（16位）可以分为两个<code>独立</code>的8位寄存器 AH，AL。同理，BX可分为BH、BL。CX分为CH、CL。DX分为DH、DL。</p>
+<p>8086 cpu可以一次处理2种尺寸数据：字节(byte)和字(word) ，一个字等于两个字节</p>
+<p>简单了解如下汇编指令： ( 汇编指令大小写都一样 )</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov ax,18    将18送入寄存器AX    AX = 18</span><br><span class="line">mov ah,88    将88送入寄存器AH中   AH=88</span><br><span class="line">add ax,8     AX = AX+8</span><br><span class="line">mov ax,bx    AX的值 = BX</span><br><span class="line">add ax,bx    ax = ax+bx</span><br><span class="line"></span><br><span class="line">mov ax,bl  这条指令是不正确的，ax是16位寄存器，bl是8位的，前后必须保持一致</span><br></pre></td></tr></table></figure>
+
+<p>作业：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">程序段中的指令     指令执行后AX中的值    指令执行后BX中的值</span><br><span class="line">mov ax,4E20H      4E20H                   0000H</span><br><span class="line">add ax,1406H      6226H                   0000H</span><br><span class="line">mov bx,2000H      6226H                   2000H</span><br><span class="line">add ax,bx         8226H                   2000H</span><br><span class="line">mov bx,ax         8226H                   8226H</span><br><span class="line">add ax,bx           ?                     8226H</span><br><span class="line"></span><br><span class="line">注意:后面的H字母表示十六进制数（Hex）</span><br><span class="line">计算：</span><br><span class="line">add ax,1406H 也就是16进制4E20+1406=6226，直接用计算器</span><br><span class="line">add ax,bx  也就是16进制ax=6226+2000=8626</span><br><span class="line">add ax,bx  也就是ax=8226+8226=1 044C</span><br><span class="line">注意：这里最后？计算出来的结果为1044C，但是由于AX是16位寄存器，所以最前面的1溢出了，得到的？值为044C</span><br></pre></td></tr></table></figure>
+
+<p>8086有20根总线，可以传送20位地址，寻址能力达到1MB，但是 </p>
+<p>16位寄存器寻址是2的16次方，也就是65536bit，即64KB，也就是说只能处理 64K的内存数据，64K内存的电脑能用？？？cpu和内存之间通过20条地址总线相连接，可以传送20位地址，寻址能力达到1MB。</p>
+<p>那么内部寄存器为16位，那么如何来寻找20位地址？？采用地址合成（两个16位进行地址合成得到20位）</p>
+<img src="/2022/05/03/22-0503-02/image-20220516221525519.png" alt="image-20220516221525519" style="zoom:80%;">
+
+<p>​	</p>
+<p>例如，1230和00C8进行合成，步骤如下：</p>
+<img src="/2022/05/03/22-0503-02/image-20220516221919295.png" alt="image-20220516221919295" style="zoom:80%;">
+
+<p>寻址123c8H的内存单元  地址加法器采用段地址 x 16 + 偏移地址的方法合成<code>物理地址</code>，其实就是用一个基础地址加上一个偏移地址</p>
+<p>注意：</p>
+<ul>
+<li>这里的段地址×16，段地址是1230，这是十六进制，但是16是十进制，所以我们把1230转为十进制，也就是4656，然后再用4656×16&#x3D;74496，而76696转为十六进制就是12300</li>
+<li>或者这样想也行，段地址*16相当于这个“16进制数”左移1位，后面补个0，1230就变成了12300</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">段地址和偏移地址理解：（参考：https://blog.csdn.net/qq_18360881/article/details/107225697）</span><br><span class="line">如果让你去一个地方，这个地方叫野猪窝（哈哈，这是个地名），那你知道怎么走吗？如果你不知道地址，你是不是会把中国遍历一下。也挺好，你可能会找到若干个野猪窝。如果我告诉你，这个地方在陕西省西安市蓝田县汤峪镇。你是不是很快就能找到目标?</span><br><span class="line">先别急，让我们一步一步来，假设你的定位范围是整个地球，首先我告诉你在中国，那么你就可以过滤掉美国，日本，英国等一系列国家，从而在我们中国内部进行检索。这时我又告诉你在陕西省，那么你离目标是不是又近了一步？然后是西安市、蓝田县······一步一步的，你就找到了这个地方。</span><br><span class="line">在上面的介绍中，中国可以认为是一级段地址，通过他可以过滤掉一系列其他国家，进行下一级行政单位（省份）的确定，陕西省是中国的偏移地址，进入中国范围后，可以通过陕西省过滤掉我国的其他省份，同样陕西省也是他下一级行政单位（西安市）的段地址，依次递推。这是不是就明了许多了？</span><br><span class="line">我们将这个概念再带回计算机上，假设你现在有1024字节的内存，你将他们分为四个段，每个段有256个字节。把这四个段分别编号为A，B，C，D。当你想要唯一的定位一个字节时，你应当先找到他所在的段地址，然后就可以排除其他三个段地址了。这样你的检索范围就会大大缩小。比如说你要检索的数据在C段，那你就可以只检索C段内的256个字节，如果再告诉你偏移地址，比如说是第123个字节，那么就很容易定位了。</span><br></pre></td></tr></table></figure>
+
+<p>编程的时候可以根据需要将若干地址连续的内存单元看做一个段，由于前面说过段地址要×16，所以段地址必然是16的倍数，那么偏移地址也是16位，所以一个段的最大长度是2的16次方，也就是64KB</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">1.给定段地址为0001H，仅通过变化偏移地址寻址，CPU的寻址范围为____0010H___到___1000F_____。</span><br><span class="line">2.有一段数据存放在内存20000H的单元中，现给定段地址为SA，若想用偏移地址去寻址到这个单元，则SA满足的条件</span><br><span class="line">是：最小为___1001_____，最大为______2000H_______</span><br><span class="line"></span><br><span class="line">1.解析：</span><br><span class="line">由于CPU的范围是“段地址×16”+偏移寻址，由于偏移寻址是16位，那么最大就是FFFF，最小就是0啦，所以最小范围就是0001H×16，最大就是0001H×16后再加FFFF</span><br><span class="line">2.解析：</span><br><span class="line">这里和第1题恰好反过来了，这里知道物理地址是20000H，所以先减去FFFF得到1 0001，再把10001转为十进制再÷16得到4096，再把4096转为十六进制就是1000H，但是1000H如果是段地址，那么进一位（×16），也就是10000H，但是应该是1001H才行，所以前面的段地址最小应该是1001H</span><br><span class="line">最大为2000H</span><br></pre></td></tr></table></figure>
+
+<p>段地址实际就是由段寄存器提供，8086 CPU有4个段寄存器：CS  DS  SS   ES </p>
+
         </div>		
 		
         <section class="post-tags">
