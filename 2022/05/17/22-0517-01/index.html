@@ -12,7 +12,7 @@
 
 
 
-<title>汇编 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+<title>汇编day1 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
 
 
 
@@ -157,75 +157,11 @@
             <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
-    </div>
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a onclick="go_top()">△ 顶部</a>
-        <a onclick="go_bottom()">▽ 底部</a>
-    </div>
-</div>
-
-<script>
-    document.ready(
-        function () {
-            tocbot.init({
-                tocSelector: '.tocbot-list',
-                contentSelector: '.post-content',
-                headingSelector: 'h1, h2, h3, h4, h5',
-                collapseDepth: 1,
-                orderedList: false,
-                scrollSmooth: true,
-            })
-        }
-    )
-
-    function expand_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 6,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "collapse_toc()");
-        b.innerHTML = "▼ 收起目录"
-    }
-
-    function collapse_toc() {
-        var b = document.querySelector(".tocbot-toc-expand");
-        tocbot.init({
-            tocSelector: '.tocbot-list',
-            contentSelector: '.post-content',
-            headingSelector: 'h1, h2, h3, h4, h5',
-            collapseDepth: 1,
-            orderedList: false,
-            scrollSmooth: true,
-        });
-        b.setAttribute("onclick", "expand_toc()");
-        b.innerHTML = "▶︎ 展开目录"
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-</script>
-    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">汇编</h1>
+            <h1 class="post-title">汇编day1</h1>
             
                 <div class="post-meta">
                     
@@ -238,12 +174,12 @@
                         <span class="post-time">
                         <!--发布时间:-->
                         <i class="iconfont icon-time"></i>
-                        <a href="#">2022-05-03&nbsp;&nbsp;21:42:39</a> &nbsp;
+                        <a href="#">2022-05-17&nbsp;&nbsp;16:35:19</a> &nbsp;
                         </span>
                     
                     
                     
-                    <span id="/2022/05/03/22-0503-02/" class="leancloud-visitors view" data-flag-title="汇编">
+                    <span id="/2022/05/17/22-0517-01/" class="leancloud-visitors view" data-flag-title="汇编day1">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -257,7 +193,7 @@
         </header>
 
         <div class="post-content">
-            <h1 id="DAY1"><a href="#DAY1" class="headerlink" title="DAY1"></a>DAY1</h1><p>进制基础：</p>
+            <p>进制基础：</p>
 <p>bit（比特） &#x3D; 一个bit是一个0或1，叫做一个二进制位<br>byte（字节）&#x3D;  1byte 是 8 个比特<br>16进制 &#x3D; 4个2进制</p>
 <p>汇编语言组成：</p>
 <ol>
@@ -295,7 +231,7 @@
 </ul>
 <p>8086 CPU （Intel 8086 是一个由Intel于1978年所设计的16位微处理器芯片，是x86架构的鼻祖）有14个16位寄存器 AX、BX、CX、DX、SI、DI、SP、BP、IP、CS、SS、DS、ES、PSW，其中AX，BX，CX，DX 这4个通常用来存放一般性数据，被称为通用寄存器</p>
 <p>注意：8086 CPU 的上一代，也就是8086 CPU 的老爸实际是8位的，当然8086是16位的兼容8位的，所以为了兼容上一代的CPU， AX 寄存器（16位）可以分为两个<code>独立</code>的8位寄存器 AH，AL。同理，BX可分为BH、BL。CX分为CH、CL。DX分为DH、DL。</p>
-<p>8086 cpu可以一次处理2种尺寸数据：字节(byte)和字(word) ，一个字等于两个字节</p>
+<p>8086 cpu可以一次处理2种尺寸数据：<code>字节(byte)和字(word) ，一个字等于两个字节</code></p>
 <p>简单了解如下汇编指令： ( 汇编指令大小写都一样 )</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov ax,18    将18送入寄存器AX    AX = 18</span><br><span class="line">mov ah,88    将88送入寄存器AH中   AH=88</span><br><span class="line">add ax,8     AX = AX+8</span><br><span class="line">mov ax,bx    AX的值 = BX</span><br><span class="line">add ax,bx    ax = ax+bx</span><br><span class="line"></span><br><span class="line">mov ax,bl  这条指令是不正确的，ax是16位寄存器，bl是8位的，前后必须保持一致</span><br></pre></td></tr></table></figure>
 
@@ -305,11 +241,11 @@
 <p>8086有20根总线，可以传送20位地址，寻址能力达到1MB，但是 </p>
 <p>16位寄存器寻址是2的16次方，也就是65536bit，即64KB，也就是说只能处理 64K的内存数据，64K内存的电脑能用？？？cpu和内存之间通过20条地址总线相连接，可以传送20位地址，寻址能力达到1MB。</p>
 <p>那么内部寄存器为16位，那么如何来寻找20位地址？？采用地址合成（两个16位进行地址合成得到20位）</p>
-<img src="/2022/05/03/22-0503-02/image-20220516221525519.png" alt="image-20220516221525519" style="zoom:80%;">
+<img src="/2022/05/17/22-0517-01/image-20220516221525519.png" alt="image-20220516221525519" style="zoom:80%;">
 
 <p>​	</p>
 <p>例如，1230和00C8进行合成，步骤如下：</p>
-<img src="/2022/05/03/22-0503-02/image-20220516221919295.png" alt="image-20220516221919295" style="zoom:80%;">
+<img src="/2022/05/17/22-0517-01/image-20220516221919295.png" alt="image-20220516221919295" style="zoom:80%;">
 
 <p>寻址123c8H的内存单元  地址加法器采用段地址 x 16 + 偏移地址的方法合成<code>物理地址</code>，其实就是用一个基础地址加上一个偏移地址</p>
 <p>注意：</p>
@@ -322,7 +258,139 @@
 <p>编程的时候可以根据需要将若干地址连续的内存单元看做一个段，由于前面说过段地址要×16，所以段地址必然是16的倍数，那么偏移地址也是16位，所以一个段的最大长度是2的16次方，也就是64KB</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">1.给定段地址为0001H，仅通过变化偏移地址寻址，CPU的寻址范围为____0010H___到___1000F_____。</span><br><span class="line">2.有一段数据存放在内存20000H的单元中，现给定段地址为SA，若想用偏移地址去寻址到这个单元，则SA满足的条件</span><br><span class="line">是：最小为___1001_____，最大为______2000H_______</span><br><span class="line"></span><br><span class="line">1.解析：</span><br><span class="line">由于CPU的范围是“段地址×16”+偏移寻址，由于偏移寻址是16位，那么最大就是FFFF，最小就是0啦，所以最小范围就是0001H×16，最大就是0001H×16后再加FFFF</span><br><span class="line">2.解析：</span><br><span class="line">这里和第1题恰好反过来了，这里知道物理地址是20000H，所以先减去FFFF得到1 0001，再把10001转为十进制再÷16得到4096，再把4096转为十六进制就是1000H，但是1000H如果是段地址，那么进一位（×16），也就是10000H，但是应该是1001H才行，所以前面的段地址最小应该是1001H</span><br><span class="line">最大为2000H</span><br></pre></td></tr></table></figure>
 
-<p>段地址实际就是由段寄存器提供，8086 CPU有4个段寄存器：CS  DS  SS   ES </p>
+<p>段地址实际就是由段寄存器提供，8086 CPU有4个段寄存器：CS 、DS、SS 、ES </p>
+<p>其中CS和IP它们指示了CPU当前要读取的地址，CS叫代码段寄存器，IP为指令指针寄存器，比如：在任意时刻，8086 CPU将从CS中的内容×16+IP的内容单元处开始读取一条指令（可以将CS理解为段地址、IP理解为偏移地址）</p>
+<p>如下图：B8、23、01这些都是机器码，后面的20000、20001、20002这些是内存地址，后面是B8、23、01机器码对应的汇编指令（注意：<code>每个内存地址对应一个存储单元，每个存储单元大小为1字节</code>，恰好这里B8、23、01这些十六进制都是1个字节）</p>
+<img src="/2022/05/17/22-0517-01/image-20220517151633426.png" alt="image-20220517151633426" style="zoom:80%;">
+
+<p>8086 PC读取和执行指令的相关部件以及过程如下：</p>
+<p>步骤一：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517152407335.png" alt="image-20220517152407335" style="zoom:80%;">
+
+<p>步骤二：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517152442067.png" alt="image-20220517152442067" style="zoom:80%;">
+
+<p>步骤三：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517152534502.png" alt="image-20220517152534502" style="zoom:80%;">
+
+<p>步骤四：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517152555710.png" alt="image-20220517152555710" style="zoom:80%;">
+
+<p>步骤五：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517152653651.png" alt="image-20220517152653651" style="zoom:80%;">
+
+<p>步骤六：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517152728600.png" alt="image-20220517152728600" style="zoom:80%;">
+
+<p>步骤七：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517152908895.png" alt="image-20220517152908895" style="zoom:80%;">
+
+<p>步骤八：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517152926114.png" alt="image-20220517152926114" style="zoom:80%;">
+
+<p>步骤九：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517152959272.png" alt="image-20220517152959272" style="zoom:80%;">
+
+<p>步骤十：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517153033855.png" alt="image-20220517153033855" style="zoom:80%;">
+
+<p>步骤十一：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517153051739.png" alt="image-20220517153051739" style="zoom:80%;">
+
+<p>步骤十二：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517153113823.png" alt="image-20220517153113823" style="zoom:80%;">
+
+<p>步骤十三：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517153254512.png" alt="image-20220517153254512" style="zoom:80%;">
+
+<p>步骤十四：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517153444855.png" alt="image-20220517153444855" style="zoom:80%;">
+
+<p>步骤十五：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517153507665.png" alt="image-20220517153507665" style="zoom:80%;">
+
+<p>步骤十六：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517153543779.png" alt="image-20220517153543779" style="zoom:80%;">
+
+<p>经过上面的步骤，可总结CPU执行指令的步骤如下：</p>
+<ol>
+<li>从CS:IP指向的内存单元读取指令，读取的指令进入指令缓冲器</li>
+<li>IP &#x3D; IP+读取的指令的长度，指向下一条指令</li>
+<li>执行指令，执行完成转到步骤1，重复这个过程</li>
+</ol>
+<p>8086 CPU加电启动或复位后，CS和IP的值被设置为CS&#x3D;FFFFH、IP&#x3D;0000H，开机后执行的第一条指令的内存地址就是 CS&#x3D;FFFFH、IP&#x3D;0000H	</p>
+<p>如何要同时修改CS:IP的值，那么可以通过jmp（跳转）指令来实现，比如：<code>jmp 0fffh:0100h</code>，把CS修改为0fffh，IP改为0100h</p>
+<p>如果仅仅修改IP的值，jmp 某个寄存器，比如：<code>mov ax,0fffh,jmp ax</code>，可以将这个分开理解，<code>mov ax,0fffh</code>就是ax&#x3D;0fffh，后面的<code>jmp ax</code>可以理解为<code>mov ip,ax</code>，也就是ip&#x3D;ax&#x3D;0fffh，这样ip就成了0fffh，为啥修改ip的值要这么麻烦呢？？？因为语法就这么规定的。。。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">mov ax,bx</span><br><span class="line">sub ax,ax</span><br><span class="line">jmp ax</span><br><span class="line">这3条指令执行后，CPU几次修改IP？都是在什么时候？，最后IP的值是多少？</span><br><span class="line">解答：</span><br><span class="line">注意：sub是减法指令</span><br><span class="line">mov ax,bx  读取到指令缓冲器mov ax,bx 修改自己ip+2  执行</span><br><span class="line">sub ax,ax  读取sub ax，bx 修改ip+2   执行</span><br><span class="line">jmp ax     读取jmp ax ，修改ip+2  执行</span><br><span class="line">注意：jmp ax，这里由于sub ax，ax后，ax为0，也就是jmp 0，所以还会修改ip，ip还会修改1次</span><br><span class="line">所以ip一共修改了4次</span><br><span class="line"></span><br><span class="line">扩展：汇编语言指令长度</span><br><span class="line">1.没有操作数的指令</span><br><span class="line">	指令长度为1个字节</span><br><span class="line">2.操作数只涉及寄存器的的指令</span><br><span class="line">	指令长度为2个字节 如：mov bx,ax</span><br><span class="line">3.操作数涉及内存地址的指令</span><br><span class="line">	指令长度为3个字节 如：mov ax,ds:[bx+si+idata]</span><br><span class="line">4.操作数涉及立即数的指令</span><br><span class="line">	指令长度为：寄存器类型+1</span><br><span class="line">		8位寄存器，寄存器类型=1，如：mov al,8；指令长度为2个字节</span><br><span class="line">		16位寄存器，寄存器类型=2，如：mov ax,8；指令长度为3个字节</span><br><span class="line">5.跳转指令</span><br><span class="line">	分为2种情况：</span><br><span class="line">		5.1 段内跳转</span><br><span class="line">			指令长度为2个字节或3个字节</span><br><span class="line">			jmp指令本身占1个字节</span><br><span class="line">			段内短转移，8位位移量占一个字节，加上jmp指令一个字节，整条指令占2个字节  如：jmp short opr</span><br><span class="line">			段内近转移，16位位移量占两个字节，加上jmp指令一个字节，整条指令占3个字节  如：jmp near ptr opr</span><br><span class="line">		5.2 段间跳转</span><br><span class="line">			指令长度为5个字节 如：jmp dword ptr table[bx][di] 或 jmp far ptr opr 或 jmp dword ptr opr</span><br><span class="line">7.push指令</span><br><span class="line">	占用一个字节</span><br><span class="line">8.segment声明</span><br><span class="line">	占用两个字节 如codesg segment</span><br><span class="line">9.int 21h</span><br><span class="line">	占用两个字节		</span><br></pre></td></tr></table></figure>
+
+<p>debug的使用方法：</p>
+<p>注意：这里要在windows 2003中使用，win10版本太高，无法直接使用</p>
+<p>cmd下直接输入debug即可</p>
+<img src="/2022/05/17/22-0517-01/image-20220517171817011.png" alt="image-20220517171817011" style="zoom:80%;">
+
+<p>-r 查看和改变寄存器内容</p>
+<img src="/2022/05/17/22-0517-01/image-20220517171854179.png" alt="image-20220517171854179" style="zoom:80%;">
+
+<p>-d 以数据方式显示寄存器的内容</p>
+<img src="/2022/05/17/22-0517-01/image-20220517171930399.png" alt="image-20220517171930399" style="zoom:80%;">
+
+<p>-u 以汇编指令的方式显示寄存器的内容</p>
+<img src="/2022/05/17/22-0517-01/image-20220517172026752.png" alt="image-20220517172026752" style="zoom:80%;">
+
+<p>-t 执行一条机器指令</p>
+<img src="/2022/05/17/22-0517-01/image-20220517173737565.png" alt="image-20220517173737565" style="zoom:80%;">
+
+<p>-a 用汇编形式写入指令，这里是向0AEF:100这个地址写入mov ax,100（两次回车退出）</p>
+<img src="/2022/05/17/22-0517-01/image-20220517174211371.png" alt="image-20220517174211371" style="zoom:80%;">
+
+<p>然后-r查看寄存器的内容如下，AX的值是0，我们现在是想把ax值变成100，如果后面执行-t的话，下图中绿色划线的指令mov [96C7],AL，我们只需要让其-t执行mov ax,100即可把ax的值由0变成100</p>
+<img src="/2022/05/17/22-0517-01/image-20220517174440601.png" alt="image-20220517174440601" style="zoom:80%;">
+
+<p>所以我们需要修改IP的值，把IP的值修改成100即可，这样段地址（CS）：偏移地址（IP） &#x3D; 0AEF：0100，这个地址也就对应-a写入时的地址</p>
+<p>通过-r ip修改ip的值，修改后，再次-r查看寄存器内容，指向的就是ax,100</p>
+<img src="/2022/05/17/22-0517-01/image-20220517175011487.png" alt="image-20220517175011487" style="zoom:80%;">
+
+<p>然后-t执行后，ax的值就改成了100</p>
+<img src="/2022/05/17/22-0517-01/image-20220517175105540.png" alt="image-20220517175105540" style="zoom:80%;">
+
+<p>-d 0aef:0170从0aef:0170开始查看数据</p>
+<img src="/2022/05/17/22-0517-01/image-20220517180729533.png" alt="image-20220517180729533" style="zoom:80%;">
+
+<p>如果要查看0aef:0170到0aef:0177之间的数据，如下划红线的数据：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517185008250.png" alt="image-20220517185008250" style="zoom:80%;">
+
+<p>使用 -d 0aef:0170 0177</p>
+<img src="/2022/05/17/22-0517-01/image-20220517180852391.png" alt="image-20220517180852391" style="zoom:80%;">
+
+<p>-e修改数据内容，比如：修改0aef:1000开始的数据，没修改前，数据46,EB,EB，修改成00,11,22</p>
+<img src="/2022/05/17/22-0517-01/image-20220517181144684.png" alt="image-20220517181144684" style="zoom:80%;">
+
+<p>修改后如下：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517181330484.png" alt="image-20220517181330484" style="zoom:80%;">
+
+<p>也可以按字符串修改</p>
+<img src="/2022/05/17/22-0517-01/image-20220517181732072.png" alt="image-20220517181732072" style="zoom:80%;">
+
+<p>修改后如下：</p>
+<img src="/2022/05/17/22-0517-01/image-20220517181754828.png" alt="image-20220517181754828" style="zoom:80%;">
+
+<p>也可以通过-a写入数据，比如通过-a向1000:0这个地方写入mov ax,bx，然后查看</p>
+<img src="/2022/05/17/22-0517-01/image-20220517182351604.png" alt="image-20220517182351604" style="zoom:80%;">
+
+<p>通过-u查看更明显</p>
+<img src="/2022/05/17/22-0517-01/image-20220517182456419.png" alt="image-20220517182456419" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">查看内存中的内容，PC主板上的ROM上有一个生成日期，在内存FFF00-FFFFFH的某几个单元中，请找到这个生产日期并且试图改变他</span><br></pre></td></tr></table></figure>
+
+<p>作业解析：</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">物理地址=段地址*10+偏移地址，这三个地址都是16位数字，数字后面的H可以写，也可以不写，都表示的是16位的数据；16表示的是十进制的，转换成16进制就是10。</span><br><span class="line">段地址占用4个字符，即：fff0，因为物理地址=fff00，所以偏移地址=0，计算过程即：</span><br><span class="line">fff00=fff0*10+0；</span><br><span class="line">同样的道理，物理地址fffff，段地址是fff00，便宜地址是ff</span><br><span class="line">所以，查看内存的指定物理地址的数据，就直接使用命令，</span><br><span class="line">d fff0:0 ff</span><br><span class="line">即可得到该内存中fff00-fffff的数据。</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/17/22-0517-01/image-20220517193427361.png" alt="image-20220517193427361" style="zoom:80%;">
+
+
+
+
+
 
         </div>		
 		
@@ -349,10 +417,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/05/04/22-0504-01/">vulhub靶机—djinn</a>
             
-            
-            <a class="next" rel="next" href="/2022/05/03/22-0503-01/">vulhub靶机—Me and My Girlfriend 1</a>
+            <a class="next" rel="next" href="/2022/05/14/22-0514-01/">PTT</a>
             
         </section>
         <br>
