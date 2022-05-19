@@ -259,7 +259,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">1.给定段地址为0001H，仅通过变化偏移地址寻址，CPU的寻址范围为____0010H___到___1000F_____。</span><br><span class="line">2.有一段数据存放在内存20000H的单元中，现给定段地址为SA，若想用偏移地址去寻址到这个单元，则SA满足的条件</span><br><span class="line">是：最小为___1001_____，最大为______2000H_______</span><br><span class="line"></span><br><span class="line">1.解析：</span><br><span class="line">由于CPU的范围是“段地址×16”+偏移寻址，由于偏移寻址是16位，那么最大就是FFFF，最小就是0啦，所以最小范围就是0001H×16，最大就是0001H×16后再加FFFF</span><br><span class="line">2.解析：</span><br><span class="line">这里和第1题恰好反过来了，这里知道物理地址是20000H，所以先减去FFFF得到1 0001，再把10001转为十进制再÷16得到4096，再把4096转为十六进制就是1000H，但是1000H如果是段地址，那么进一位（×16），也就是10000H，但是应该是1001H才行，所以前面的段地址最小应该是1001H</span><br><span class="line">最大为2000H</span><br></pre></td></tr></table></figure>
 
 <p>段地址实际就是由段寄存器提供，8086 CPU有4个段寄存器：CS 、DS、SS 、ES </p>
-<p>其中CS和IP它们指示了CPU当前要读取的地址，CS叫代码段寄存器，IP为指令指针寄存器，比如：在任意时刻，8086 CPU将从CS中的内容×16+IP的内容单元处开始读取一条指令（可以将CS理解为段地址、IP理解为偏移地址）</p>
+<p>其中CS和IP它们指示了CPU当前要读取的地址，CS叫代码段寄存器，IP为指令指针寄存器，比如：在<code>任意时刻</code>，8086 CPU将从CS中的内容×16+IP的内容单元处开始读取一条指令（可以将CS理解为段地址、IP理解为偏移地址）</p>
 <p>如下图：B8、23、01这些都是机器码，后面的20000、20001、20002这些是内存地址，后面是B8、23、01机器码对应的汇编指令（注意：<code>每个内存地址对应一个存储单元，每个存储单元大小为1字节</code>，恰好这里B8、23、01这些十六进制都是1个字节）</p>
 <img src="/2022/05/17/22-0517-01/image-20220517151633426.png" alt="image-20220517151633426" style="zoom:80%;">
 
@@ -416,6 +416,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/05/17/22-0517-02/">汇编day2</a>
             
             
             <a class="next" rel="next" href="/2022/05/14/22-0514-01/">PTT</a>
