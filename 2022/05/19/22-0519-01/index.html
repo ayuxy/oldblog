@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>汇编day3 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">汇编day3</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-19&nbsp;&nbsp;9:24:13</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/05/19/22-0519-01/" class="leancloud-visitors view" data-flag-title="汇编day3">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>[bx]和loop指令</p>
+<p>在前面day2天学习中，我们了解到了[0]的用法，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov bx,1000H </span><br><span class="line">mov ds,bx	</span><br><span class="line">mov al,[0]</span><br></pre></td></tr></table></figure>
+
+<p>但这里中括号中的0是常量，我们还可放变量，比如：[bx]</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果ds已经是2000H</span><br><span class="line">mov bx,10</span><br><span class="line">mov ax,[bx] //这个指令就相当于mov ax,2000H:10,也就是把2000H:10这个字型数据给ax</span><br><span class="line">如果是mov dl,[0]，那么这个是把字节型数据给mov，因为dl只有8位</span><br></pre></td></tr></table></figure>
+
+<p>inx bx 指令的作用是让bx+1，相当于bx&#x3D;bx+1或者是bx++</p>
+<p>loop 指令，在汇编里面代表循环，类似于c语言的while、for循环。</p>
+<p>loop 指令的使用格式：<code>loop 标号</code>，CPU 执行 loop 指令时，首先执行 CX &#x3D; CX-1，然后判断 CX 的值，CX的值如果不为0，就会跳到标号处执行程序，如果为0，就按顺序向下执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">比如：如果要用指令实现2的三次方，可用如下方法</span><br><span class="line">mov ax,2   //ax=2</span><br><span class="line">add ax,ax  //ax=2+2=4  </span><br><span class="line">add ax,ax  //ax=4+4=8</span><br><span class="line"></span><br><span class="line">但是这里如果要实现2的12次方呢？？？用上面的方法一直加下去就不太好，这里就用循环实现，用如下代码实现</span><br><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov ax,2</span><br><span class="line">	mov cx,11</span><br><span class="line">	</span><br><span class="line">s:	add ax,ax</span><br><span class="line">	loop s</span><br><span class="line">		</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>对上面2的12次方debug下，-u后我们发现ayu.exe会先执行mov ax,0002，然后再执行mov cx,000B，一直向下执行下去，然后到loop指令的时候，会再跳回到上面的add ax,ax指令</p>
+<img src="/2022/05/19/22-0519-01/image-20220519120500018.png" alt="image-20220519120500018" style="zoom:80%;">
+
+<p>然后我们可以-t来一条条的指令看下</p>
+<img src="/2022/05/19/22-0519-01/image-20220519121237782.png" alt="image-20220519121237782" style="zoom:80%;">
+
+<p>注意，上面的第二条指令<code>mov cx,000B</code>，这里000B实际就是十进制的11，也就是源程序中的<code>mov cx,11</code>，当然mov cx,11也可以写成<code>mov cx,0BH</code>，这里必须是0BH，不能写成BH，在汇编中数据不能以字母开头，所以在前面加个0</p>
+<img src="/2022/05/19/22-0519-01/image-20220519121553092.png" alt="image-20220519121553092" style="zoom:80%;">
+
+<p>cx存放的是程序（机器码）长度（字节数），一共15个字节，也就是十六进制的F</p>
+<img src="/2022/05/19/22-0519-01/image-20220519143939141.png" alt="image-20220519143939141" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">编程，用加法计算123*236,结果存在ax中</span><br><span class="line">123*236就是236个123相乘，即123×123×123×123...</span><br><span class="line">代码如下：</span><br><span class="line">code segment</span><br><span class="line">	mov ax,123</span><br><span class="line">	mov cx,236</span><br><span class="line">s:	add ax,ax</span><br><span class="line">	loop s</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>debug和汇编编译器对指令的处理是不同的</p>
+<p>用debug输入如下指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax,2000h</span><br><span class="line">mov ds,ax</span><br><span class="line">mov al,[0]</span><br><span class="line">mov bl,[1]</span><br><span class="line">mov cl,[2]</span><br><span class="line">mov dl,[3]</span><br></pre></td></tr></table></figure>
+
+
+
+<img src="/2022/05/19/22-0519-01/image-20220519145720920.png" alt="image-20220519145720920" style="zoom:80%;">
+
+<p>然后用编译器编译和debug如下程序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov ax,2000h</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov al,[0]</span><br><span class="line">	mov bl,[1]</span><br><span class="line">	mov cl,[2]</span><br><span class="line">	mov dl,[3]</span><br><span class="line">	</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/19/22-0519-01/image-20220519150904121.png" alt="image-20220519150904121" style="zoom:80%;">
+
+<p>那么，我们如何解决上面的问题呢？？把代码改成如下，添加上段前缀<code>ds:</code>，然后编译器就会把[0]当成地址处理了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov ax,2000h</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov al,ds:[0]</span><br><span class="line">	mov bl,ds:[1]</span><br><span class="line">	mov cl,ds:[2]</span><br><span class="line">	mov dl,ds:[3]</span><br><span class="line">	</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>或者用类似如下的形式也可以mov al,<code>[bx]</code>，中括号里面为变量，而不是常量0，如果要用ss段寄存器，那么前面必须有<code>ss:</code>[bx]，而默认中括号前啥都没有就是ds寄存器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov ax,2000h</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov bx,0</span><br><span class="line">	mov al,[bx]</span><br><span class="line">	mov al,ss:[bx]</span><br><span class="line">	</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：我们以后写代码用200:2FF这段空间，这个空间是没有用的，向别的内存空间中写入可能直接会导致死机或者其他的事情。。。</p>
+<img src="/2022/05/19/22-0519-01/image-20220519152331887.png" alt="image-20220519152331887" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">作业:</span><br><span class="line">将内存ffff:0到fff:c的单元中的数据复制到0:200到0:20c单元中，注意：0:200到0:20c等价于0020:0到0020:c，因为合成后物理地址都一样</span><br><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov bx,0</span><br><span class="line">	mov cx,0CH</span><br><span class="line">	</span><br><span class="line">s:	mov ax,0ffffh</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov dx,[bx]</span><br><span class="line">	</span><br><span class="line">	mov ax,0020h</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov [bx],dx</span><br><span class="line">	add bx,2</span><br><span class="line">	loop s</span><br><span class="line">	</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code ends</span><br><span class="line">end</span><br><span class="line">;除了上述方法，还可以用es这个段地址寄存器来实现</span><br><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov bx,0</span><br><span class="line">	mov cx,0CH</span><br><span class="line">	</span><br><span class="line">	mov ax,0ffffh</span><br><span class="line">	mov ds,ax</span><br><span class="line">	</span><br><span class="line">	mov ax,0020h</span><br><span class="line">	mov es,ax</span><br><span class="line">	</span><br><span class="line">s:	mov dx,[bx]</span><br><span class="line">	mov es:[bx],dx   ;es不可省略，分号是汇编的注释符号</span><br><span class="line">	add bx,2</span><br><span class="line">	loop s</span><br><span class="line">	</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>上面的程序中是只有一个段的<code>code segment</code>，也就是代码段，但是有的包含多个段，比如，同时包含代码段和数据段，那么数据段肯定要在内存中占用一定的空间，操作系统就会给数据段分配一定的空间，注意：操作系统给程序分配的空间都是安全的，因为操作系统不会让一个程序所用空间和其他程序或操作系统自己空间相冲突</p>
+<p>程序获取所需要的空间有2种方法：</p>
+<ol>
+<li>加载程序的时候为程序分配内存</li>
+<li>在程序执行过程中向系统申请（c语言的malloc）</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	dw 123h,0456h,0abch</span><br><span class="line">	mov ax,0ffffh</span><br><span class="line">	mov ds,ax </span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>编译，调试上面的程序，我们发现并不是从mov ax,0ffffh开始执行的，如果想从正常从mov ax,0ffffh开始执行的话，需要加上start</p>
+<img src="/2022/05/19/22-0519-01/image-20220519211012219.png" alt="image-20220519211012219" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	dw 123h,0456h,0abch ;定义字型数据，数据之间有逗号隔开</span><br><span class="line">start:	mov ax,0ffffh  ;这里的start可以定义成任意名称</span><br><span class="line">		mov ds,ax </span><br><span class="line">code ends</span><br><span class="line">end start </span><br></pre></td></tr></table></figure>
+
+<p>重新编译，调试，就是从mov ax,0ffffh正常开始执行了，并且我们发现cs:ip变成了076A:0006，偏移地址ip变成了0006，恰好我们定义了三个字型数据，也就是6个字节</p>
+<img src="/2022/05/19/22-0519-01/image-20220519212048553.png" alt="image-20220519212048553" style="zoom:80%;">
+
+<p>查看076a:0的地址内容，就发现了我们的字型数据</p>
+<img src="/2022/05/19/22-0519-01/image-20220519212352214.png" alt="image-20220519212352214" style="zoom:80%;">
+
+<p>定义栈</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line">data segment</span><br><span class="line">	dw 0123h,0456h</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">stack segment</span><br><span class="line">	dw 0,0,0,0,0,0,0,0  ;栈的内存空间</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">	start: </span><br><span class="line">	</span><br><span class="line">		    mov ax,data</span><br><span class="line">			mov ds,ax</span><br><span class="line">			mov ax,stack</span><br><span class="line">			mov ss,ax</span><br><span class="line">			mov sp,10h</span><br><span class="line">		    mov ax,0</span><br><span class="line">		    mov ax,4c00h</span><br><span class="line">		    int 21h</span><br><span class="line">		</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">1.编程向内存0:200~0:23F依次传送数据0~63(3FH) 备注：只能使用9条指令 包括mov ax,4c00h int 21h</span><br><span class="line">2. 下面程序的功能是将&quot;mov ax,4c00h&quot;之前的指令复制到内存0:200处，补全程序用debug调试，跟踪运行结果</span><br><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">    mov ax,_____</span><br><span class="line">    mov ds,ax</span><br><span class="line">    mov ax,0020h</span><br><span class="line">    mov es,ax</span><br><span class="line">    mov bx,0</span><br><span class="line">    mov cx,_____</span><br><span class="line">s:  mov al,[bx]</span><br><span class="line">    mov es:[bx],al</span><br><span class="line">    inc bx</span><br><span class="line">    loop s</span><br><span class="line">    mov ax,4c00h</span><br><span class="line">    int 21h</span><br><span class="line">code ends</span><br><span class="line">end    </span><br><span class="line">3.编写code段中的代码，将naizi段和madou段中的数据依次相加，将结果存到feiwudidi段</span><br><span class="line">assume cs:code</span><br><span class="line">naizi segment</span><br><span class="line"> db 1,2,3,4,5,6,7,8</span><br><span class="line">naizi ends</span><br><span class="line">madou segment</span><br><span class="line"> db 1,2,3,4,5,6,7,8</span><br><span class="line">madou ends</span><br><span class="line">feiwudidi segment</span><br><span class="line"> db 0,0,0,0,0,0,0,0</span><br><span class="line">feiwudidi ends</span><br><span class="line">code segment</span><br><span class="line">start:   ?</span><br><span class="line">code ends</span><br><span class="line">end start</span><br><span class="line">4.编写code段中的代码，用push指令将a段中的前8个字型数据逆序存储到b段中</span><br><span class="line">assume cs:code</span><br><span class="line">a segment</span><br><span class="line">    dw 1,2,3,4,5,6,7,8,9,0ah,0bh,0ch,0dh,0eh,0fh</span><br><span class="line">a ends</span><br><span class="line">b segment</span><br><span class="line">    dw 0,0,0,0,0,0,0,0</span><br><span class="line">b ends</span><br><span class="line">code segment</span><br><span class="line">    start: ?</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/17/22-0517-02/">汇编day2</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+

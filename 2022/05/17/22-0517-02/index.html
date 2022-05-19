@@ -205,6 +205,7 @@
 <p>mov  al,[0]         （注意：因为cpu读取数据时要知道段地址+偏移地址的，ds:[0] &#x3D;&#x3D; 段地址:偏移地址，而中括号里面的0表示的就是偏移地址，中括号表示的是内存单元，上面读取10000H，如果要读取10001H，那么偏移1即可）</p>
 <p>通过上面的三个指令，就可以让al寄存器读取到10000H内存单元的数据，但是如何反过来让寄存器的值赋值到内存单元？？？？通过<code>mov  内存单元地址:寄存器</code>  即可</p>
 <p><strong>另外特别注意</strong>：这里读取的10000H是物理地址，也就是段地址1000H×16（左移1位）再加上偏移地址0，这个概念十分重要，在DAY1天的笔记中多次学习到，一定要适应</p>
+<p>另外，为啥这里要先把1000H先给bx寄存器，然后再通过寄存器把1000H给ds寄存器，不能直接把1000H给ds寄存器吗？？？？？这里鑫哥貌似没有详细说，这个疑惑网上有很多解答。感觉解答的都不一样（先记住，一定不能把值直接给ds寄存器）</p>
 <p>补充：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AX寄存器称为累加器（Accumulator），使用时主要用于存放数据，如存放算术、逻辑运算中的操作数或结果。也可临时时用于存放地址。</span><br><span class="line">BX寄存器称为基址寄存器（BaseRegister），常用来存放访问存储器时的地址。</span><br><span class="line">CX寄存器称为计数寄存器（CountRegister），常用于保存计算值，如在移位指令，循环（loop）和串处理指令中用作隐含的计数器。</span><br><span class="line">DX寄存器称为数据寄存器（DataRegister），常用于数据传递。在寄存器间接寻址中的I／O指令中存放I／O端口的地址。</span><br></pre></td></tr></table></figure>
 
@@ -301,6 +302,8 @@
 
 <p>如何上述asm文件如何编译？？</p>
 <p>省略</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">1.将下面的程序保存为demo.asm，将其生成可执行文件naizi.exe，用debug跟踪naizi.exe，写出每一步执行后，相关寄存器和栈顶的内容</span><br><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line">   mov ax,2000H</span><br><span class="line">   mov ss,ax</span><br><span class="line">   mov sp,0</span><br><span class="line">   add sp,10</span><br><span class="line">   pop ax</span><br><span class="line">   pop bx</span><br><span class="line">   push ax</span><br><span class="line">   push bx</span><br><span class="line">   pop ax</span><br><span class="line">   pop bx</span><br><span class="line">   mov ax,4c00H</span><br><span class="line">   int 21H</span><br><span class="line">codesg ends</span><br><span class="line">end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 
         </div>		
 		
@@ -326,6 +329,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/05/19/22-0519-01/">汇编day3</a>
             
             
             <a class="next" rel="next" href="/2022/05/17/22-0517-01/">汇编day1</a>
