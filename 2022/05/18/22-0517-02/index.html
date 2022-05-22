@@ -174,12 +174,12 @@
                         <span class="post-time">
                         <!--发布时间:-->
                         <i class="iconfont icon-time"></i>
-                        <a href="#">2022-05-17&nbsp;&nbsp;22:10:19</a> &nbsp;
+                        <a href="#">2022-05-18&nbsp;&nbsp;16:31:33</a> &nbsp;
                         </span>
                     
                     
                     
-                    <span id="/2022/05/17/22-0517-02/" class="leancloud-visitors view" data-flag-title="汇编day2">
+                    <span id="/2022/05/18/22-0517-02/" class="leancloud-visitors view" data-flag-title="汇编day2">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -195,7 +195,7 @@
         <div class="post-content">
             <p>内存中字的存储</p>
 <p>8086 CPU是用16位寄存器来存储一个字，内存单元是以字节划分的，如下：0,1,2,3， 0,1两个内存单元存放的就是4120H</p>
-<img src="/2022/05/17/22-0517-02/image-20220517224950252.png" alt="image-20220517224950252" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220517224950252.png" alt="image-20220517224950252" style="zoom:80%;">
 
 <p>DS段寄存器和[address]</p>
 <p>在CPU要读写内存单元的时候，我们必须得给出内存单元的地址才行呀，那么在8086 CPU里，内存地址由段地址+偏移地址组成，里面有一个DS的段寄存器来存放段地址</p>
@@ -228,18 +228,18 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">写几条指令，累加数据段中的前3个字型数据，段地址为123BH</span><br><span class="line">mov ax,0  	 先把ax的数据置空</span><br><span class="line">mov ax,123BH</span><br><span class="line">mov ds,ax</span><br><span class="line">add ax,[0]   	 也可以写成add ax,ds:[0]</span><br><span class="line">add ax,[2]	 这里为啥是2呢，因为这里是“字”型数据，所以为16位，也就2个存储单元（2个字节），所以每次增加2</span><br><span class="line">add ax,[4]</span><br></pre></td></tr></table></figure>
 
 <p>对上面作业理解：</p>
-<img src="/2022/05/17/22-0517-02/image-20220518201329814.png" alt="image-20220518201329814" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518201329814.png" alt="image-20220518201329814" style="zoom:80%;">
 
 <p><code>add ax,[0]</code>也就是把3412这个数据给ax，然后<code>add ax,[2]</code>把7856这个数据给ax，<code>add ax,[4]</code>把6622这个数据给ax，这样就累加了前3个字型数据</p>
 <p>栈：特殊的访问方式的存储结构，CPU都有栈的设计，CPU提供相关指令以栈的方式读取内存空间，我们编程的时候可以将一段内存当作栈来使用</p>
 <p>栈的结构如下：</p>
-<img src="/2022/05/17/22-0517-02/image-20220518202914049.png" alt="image-20220518202914049" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518202914049.png" alt="image-20220518202914049" style="zoom:80%;">
 
 <p>栈有点类似于杯子，如果以a、b、c进栈，然后出栈的时候就是c、b、a，同时始终有一个标记指向栈顶，如果c出栈之后，那么标记就指向b</p>
 <p>有两条指令可以操作栈，PUSH（入栈）、POP（出栈），入栈和出栈都是以<code>字</code>为单位</p>
 <p>比如：<code>push ax</code>就是将ax的值放入栈，<code>pop ax</code>将栈顶的值出栈放入ax</p>
 <p>这里要注意：比如，ax&#x3D;1000H，然后我们 push ax，把ax的值压栈，注意：这里最下面是高地址，所以存放1000H时候，下面10，上面是00。然后再次把2000H压栈，如下：</p>
-<img src="/2022/05/17/22-0517-02/image-20220518204849942.png" alt="image-20220518204849942" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518204849942.png" alt="image-20220518204849942" style="zoom:80%;">
 
 <p>现在，我们要取出ax的值1000H，是不是只要执行pop ax 即可呢？？肯定不是，如果我们pop ax的话取出的值实际是2000H，pop指令肯本不知道ax是啥东西，只会取出栈顶的数据，那么我们如何取出ax的值呢？？？</p>
 <p>可以先pop取出2000H，然后放到bx寄存器中，然后再取出1000H即可</p>
@@ -247,40 +247,40 @@
 <p>上面了解了栈，虽然在内存中是可以方便的定义一个栈了，但是，我们为什么要定义这么一个栈呢？自然，是为了操作方便，同时提供给 CPU 使用的，既然 CPU 要使用的话，自然，CPU 又必须根据一定的方式找到这个栈，而这就需要使用 SS 和 SP 寄存器了 </p>
 <p>栈顶的段地址存放在 SS 中，偏移地址在 SP 中，<code>任意时刻</code>，SS:SP就可以知道栈顶在哪里</p>
 <p>如下：栈顶就是073F:00FD</p>
-<img src="/2022/05/17/22-0517-02/image-20220518212248588.png" alt="image-20220518212248588" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518212248588.png" alt="image-20220518212248588" style="zoom:80%;">
 
 <p>再举个栗子，如下是内存中的栈</p>
 <p>执行AX &#x3D; 1122H，然后 PUSAH AX，执行后如下图，这里的栈顶SS:SP为1000H:000EH，那么这个栈顶是看出来的呀？因为SS是栈段地址，SP是栈的偏移地址，由于段地址×16+偏移地址就是实际的物理地址，而物理地址为1000EH，所以拆解1000EH即可得到SS为1000H，而SP为000EH</p>
-<img src="/2022/05/17/22-0517-02/image-20220518214154047.png" alt="image-20220518214154047" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518214154047.png" alt="image-20220518214154047" style="zoom:80%;">
 
 <p>然后再次压栈，bx &#x3D; 6677H，push bx，执行压栈后，SP的值发生变化，sp &#x3D; sp-2，原本sp&#x3D;000EH，减2后，sp&#x3D;000C。而这里段地址SS肯定是不发生变化的，那么SS:SP &#x3D; 1000H:000CH，如下图：</p>
-<img src="/2022/05/17/22-0517-02/image-20220518215237726.png" alt="image-20220518215237726" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518215237726.png" alt="image-20220518215237726" style="zoom:80%;">
 
 <p>然后执行出栈操作，pop ax，注意：这里pop出ax的值为6677H，然后再执行SP &#x3D; SP + 2，执行后sp的值由000CH变成000EH，如下图 ：</p>
-<img src="/2022/05/17/22-0517-02/image-20220518214154047.png" alt="image-20220518214154047" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518214154047.png" alt="image-20220518214154047" style="zoom:80%;">
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">将10000H-1000FH这段空间当作栈，初始状态栈是空的，此时SS=1000H，SP=？？</span><br><span class="line">0010H</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">将10000H-1000FH这段空间当作栈，初始状态栈是空的，此时SS=1000H，SP=？？ （特别注意）</span><br><span class="line">0010H</span><br></pre></td></tr></table></figure>
 
 <p>作业解答：</p>
 <p>如下图，栈是空的</p>
-<img src="/2022/05/17/22-0517-02/image-20220518221350463.png" alt="image-20220518221350463" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518221350463.png" alt="image-20220518221350463" style="zoom:80%;">
 
 <p>如果这里我们压入数据 1122H，这里那么毫无疑问，如下图：</p>
-<img src="/2022/05/17/22-0517-02/image-20220518221656020.png" alt="image-20220518221656020" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518221656020.png" alt="image-20220518221656020" style="zoom:80%;">
 
 <p>但是这里问题是没有任何数据，那么我们直接把刚才写入的数据出栈即可，sp由000EH减2，如下图：</p>
-<img src="/2022/05/17/22-0517-02/image-20220518221936042.png" alt="image-20220518221936042" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518221936042.png" alt="image-20220518221936042" style="zoom:80%;">
 
 <p>最终得到SP&#x3D;0010H</p>
 <p>栈溢出简单了解</p>
 <p>如果栈内存大小就是4个字节，那么我们向里面压入数据，1122H、3344H，如下，已经放满了数据了</p>
-<img src="/2022/05/17/22-0517-02/image-20220518223218023.png" alt="image-20220518223218023" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518223218023.png" alt="image-20220518223218023" style="zoom:80%;">
 
 <p>但是如果我们持续push压入数据的话，那么就会覆盖掉其它的数据，如下，并且如果压入的指令的话，并且把指令压入了CS:IP指向的内存空间，而8086 cpu任意时刻都会从CS:IP指向的内存中读取指令，那么程序就直接执行我们压入的指令了</p>
-<img src="/2022/05/17/22-0517-02/image-20220518223612696.png" alt="image-20220518223612696" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518223612696.png" alt="image-20220518223612696" style="zoom:80%;">
 
 <p>pop可能造成栈顶越界，栈顶到了其它的内存空间</p>
-<img src="/2022/05/17/22-0517-02/image-20220518224705126.png" alt="image-20220518224705126" style="zoom:80%;">
+<img src="/2022/05/18/22-0517-02/image-20220518224705126.png" alt="image-20220518224705126" style="zoom:80%;">
 
 <p>为了防止上面的溢出或者越界，CPU最好能够记录栈顶的上限和下限在哪里，这样一直pop就不越界，但这里学习的16位cpu没有该功能，32位的是有这个功能的。（金丝雀保护机制，后续再学习）</p>
 <p>除了能够push ax外，也可以push [0] 也就是 push内存地址，还可以push ds</p>
@@ -303,6 +303,57 @@
 <p>如何上述asm文件如何编译？？</p>
 <p>省略</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">1.将下面的程序保存为demo.asm，将其生成可执行文件naizi.exe，用debug跟踪naizi.exe，写出每一步执行后，相关寄存器和栈顶的内容</span><br><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line">   mov ax,2000H</span><br><span class="line">   mov ss,ax</span><br><span class="line">   mov sp,0</span><br><span class="line">   add sp,10</span><br><span class="line">   pop ax</span><br><span class="line">   pop bx</span><br><span class="line">   push ax</span><br><span class="line">   push bx</span><br><span class="line">   pop ax</span><br><span class="line">   pop bx</span><br><span class="line">   mov ax,4c00H</span><br><span class="line">   int 21H</span><br><span class="line">codesg ends</span><br><span class="line">end</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 扩展：对栈的分析</p>
+</blockquote>
+<p>向2000:0写入11,22,33,44,55,66</p>
+<img src="/2022/05/18/22-0517-02/image-20220521150308101.png" alt="image-20220521150308101" style="zoom:80%;">
+
+<p>然后把ss:sp设置成2000:0</p>
+<img src="/2022/05/18/22-0517-02/image-20220521150516819.png" alt="image-20220521150516819" style="zoom:80%;">
+
+<p>设置后，类似如下：</p>
+<img src="/2022/05/18/22-0517-02/image-20220521152351032.png" alt="image-20220521152351032" style="zoom:80%;">
+
+<p><strong>pop出栈分析</strong></p>
+<p>然后-a设置来执行pop ax指令</p>
+<img src="/2022/05/18/22-0517-02/image-20220521151523121.png" alt="image-20220521151523121" style="zoom:80%;">
+
+<p>-t执行后，sp的值加了2，并且ax的值变成了2211</p>
+<img src="/2022/05/18/22-0517-02/image-20220521151619258.png" alt="image-20220521151619258" style="zoom:80%;">
+
+<p>pop出栈后，我们再次查看2000:0这里的数据，发现了11,22已经出栈了</p>
+<img src="/2022/05/18/22-0517-02/image-20220521152641387.png" alt="image-20220521152641387" style="zoom:80%;">
+
+<p>然后再次执行pop ax操作，ax的值变成了4433，并且原本的33,44也已经出栈了</p>
+<img src="/2022/05/18/22-0517-02/image-20220521152935572.png" alt="image-20220521152935572" style="zoom:80%;">
+
+<p><strong>push入栈分析</strong></p>
+<p>同样2000:0处数据如下：</p>
+<img src="/2022/05/18/22-0517-02/image-20220521153727400.png" alt="image-20220521153727400" style="zoom:80%;">
+
+<p>然后把ss:sp改成2000:4，图解如下:</p>
+<img src="/2022/05/18/22-0517-02/image-20220521154020835.png" alt="image-20220521154020835" style="zoom:80%;">
+
+<p>然后把ax的值改成0000，并且push ax的值，然后sp的值由4变成了2</p>
+<img src="/2022/05/18/22-0517-02/image-20220521160929508.png" alt="image-20220521160929508" style="zoom:80%;">
+
+<p>同时我们查看d2000:0的数据</p>
+<img src="/2022/05/18/22-0517-02/image-20220521161058916.png" alt="image-20220521161058916" style="zoom:80%;">
+
+<p>压入ax的值0000后，如下：</p>
+<img src="/2022/05/18/22-0517-02/image-20220521162753460.png" alt="image-20220521162753460" style="zoom:80%;">
+
+<p>然后再次压入ax的值0000</p>
+<img src="/2022/05/18/22-0517-02/image-20220521161439842.png" alt="image-20220521161439842" style="zoom:80%;">
+
+<p>图解如下：</p>
+<img src="/2022/05/18/22-0517-02/image-20220521161820013.png" alt="image-20220521161820013" style="zoom:80%;">
+
+<p>在这里压栈要注意下，经常容易有个误区：</p>
+<p>当sp为4时，如果mov ax,0，然后push ax的话，之前一直以为压入栈内的0在如下位置，实际并不是。这里可以结合上面的作业题（当栈为空的时候，求解sp的值）多加理解</p>
+<img src="/2022/05/18/22-0517-02/image-20220521162156794.png" alt="image-20220521162156794" style="zoom:80%;">
 
 
         </div>		

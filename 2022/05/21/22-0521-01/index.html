@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>汇编day4 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">汇编day4</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-21&nbsp;&nbsp;16:31:33</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/05/21/22-0521-01/" class="leancloud-visitors view" data-flag-title="汇编day4">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>and和or指令</p>
+<p>and：逻辑与，按位进行与运算，两个1才为1，不然为0</p>
+<p>or：逻辑或指令，按位进行计算，有一个1就为1，不然为0</p>
+<p>定义字符串</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">string segment</span><br><span class="line">	db &#x27;ayu&#x27;</span><br><span class="line">string ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:	mov ax,string</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>然后调试</p>
+<img src="/2022/05/21/22-0521-01/image-20220521215859183.png" alt="image-20220521215859183" style="zoom:80%;">
+
+<p>疑惑：<code>db &#39;ayu&#39;</code>，到底存储到cs，还是ds中呢，没太搞清楚（一般应该是在ds段寄存器中）。这里采用mov ax,string来测试，发现mov ax,string就是mov ax,076a，所以显然db ‘ayu’ 被存放到了076a</p>
+<p>扩展：psp是啥玩意？？（参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_47902113/article/details/121258277%EF%BC%89">https://blog.csdn.net/m0_47902113/article/details/121258277）</a></p>
+<p>程序加载后，ds中存放着程序所在内存区的段地址，这个内存区的偏移地址为0，则程序所在的内存区的地址为  ds:0，这个内存区的前256个字节（256对应16进制0100）中存放的是PSP，DOS用来和程序进行通信。从256字节处向后的空间存放的是程序。如下图：</p>
+<img src="/2022/05/21/22-0521-01/image-20220521232232336.png" alt="image-20220521232232336" style="zoom:80%;">
+
+<p>注意：上图中为啥不写SA+0100H呢？？？？而是用的SA+10H呢？？？</p>
+<p>正常来说应该是<code>SA+0100H:0</code>那么对应实际物理地址就是<code>SA*16+256 = SA*16+16*16 = 16(SA+16) = 16(DS+16)   </code> (实际地址 &#x3D; 段地址*16+偏移地址，这里的段地址和偏移地址换算成10进制运算)。而真正CS:IP对应的实际物理地址为<code>CS*16+IP</code>，而偏移地址IP开始为0，也就是<code>CS*16</code>，所以<code>DS+16 = CS</code>，由于这里采用的是10进制运算，16 就是十六进制的10h，所以<code>ds+10h = cs</code></p>
+<p>比如：上面的ds&#x3D;075a，那么psp的内容就是从075a:0到075a+10h:0，也就是075a:0到076a:0，而真正程序是从076a:0开始的，所以我们查看076a:0就可以看到我们定义的数据<code>db &#39;ayu&#39;</code></p>
+<img src="/2022/05/21/22-0521-01/image-20220521233732677.png" alt="image-20220521233732677" style="zoom:80%;">
+
+<p>但是这里076a:0为啥并不是CS:IP？？？？</p>
+<img src="/2022/05/21/22-0521-01/image-20220521234021731.png" alt="image-20220521234021731" style="zoom:80%;">
+
+<p>可能是因为<code>db &#39;ayu&#39;</code>是数据，但是CS寄存器存放的是指令，也就是说CS:IP指向存放指令的地方，而076a到076b这里面存放的是一些数据，就比如：刚才我们定义的段<code>db &#39;ayu&#39;</code>，类似如下图：</p>
+<img src="/2022/05/21/22-0521-01/image-20220521234555953.png" alt="image-20220521234555953" style="zoom:80%;">
+
+<p>现在我们将程序删除string段改成如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">start:	mov ax,0</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>重新debug后，如下：恰好DS和CS差10H，那么上面的猜测可能就是正确的</p>
+<img src="/2022/05/21/22-0521-01/image-20220521234441337.png" alt="image-20220521234441337" style="zoom:80%;">
+
+<p>寄存器si和di</p>
+<p>si和di功能和bx差不多的用法，但是不能和bx一样分成两个8位的寄存器</p>
+<p>对于bx，经常的用法为：mov bx,0 或者mov bx,[0]</p>
+<p>同理对于si、di也可以这样用：mov si,0 或者 mov si,[0]、mov di,0 或者 mov di,[0] 等</p>
+<p>寻址方式总结：</p>
+<ul>
+<li>直接寻址，比如：[0]、[1] </li>
+<li>寄存器间接寻址，比如：[bx]、[si]、[di]、[bp]</li>
+<li>寄存器相对寻址，比如：[bx+1]、[si+2] 等</li>
+<li>基址加变址寻址，比如：[bx+si]、[bx+di]等</li>
+<li>相对基址加变址寻址，比如：[bx+si+1]、[bx+di+2]</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">;将naizi、madou、caiji、linhu首字母变成大写</span><br><span class="line">assume cs:code,ds:data</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">	db &#x27;1. naizi........&#x27;</span><br><span class="line">	db &#x27;2. madou........&#x27;</span><br><span class="line">	db &#x27;3. caiji........&#x27;</span><br><span class="line">	db &#x27;4. linhu........&#x27;</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">		mov ax,data</span><br><span class="line">		mov ds,ax</span><br><span class="line">		mov di,0</span><br><span class="line">		mov cx,4</span><br><span class="line">	s:	mov al,[di+3]</span><br><span class="line">		and al,11011111B  ;将首字母变成大写</span><br><span class="line">		mov [di+3],al</span><br><span class="line">		add di,16</span><br><span class="line">		loop s:</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">用两个循环实现把所有字母变成大写</span><br><span class="line">assume cs:code,ds:data</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">	db &#x27;naizi...........&#x27;</span><br><span class="line">	db &#x27;madou...........&#x27;</span><br><span class="line">	db &#x27;caiji...........&#x27;</span><br><span class="line">	db &#x27;linhu...........&#x27;</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">stack segment</span><br><span class="line">	dw 0,0,0,0,0,0,0,0  ;设置栈用于存放cx</span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">		mov ax,stack</span><br><span class="line">		mov ss,ax</span><br><span class="line">		mov sp,16</span><br><span class="line">		mov ax,data</span><br><span class="line">		mov ds,ax</span><br><span class="line">		mov bx,0</span><br><span class="line">		mov cx,4</span><br><span class="line">		</span><br><span class="line">	s0:	push cx</span><br><span class="line">    	mov si,0</span><br><span class="line">		mov cx,5</span><br><span class="line">		</span><br><span class="line">	s:	mov al,[bx+si]</span><br><span class="line">		and al,11011111b</span><br><span class="line">		mov [bx+si],al</span><br><span class="line">		inc si</span><br><span class="line">		loop s</span><br><span class="line">		add bx,16</span><br><span class="line">		pop cx</span><br><span class="line">		loop s0</span><br><span class="line">		</span><br><span class="line">		loop s</span><br><span class="line">		mov ax</span><br><span class="line">		</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>ptr</p>
+<p>下面的指令中，寄存器指明了指令进行的是字操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax,1</span><br><span class="line">mov bx,ds:[0]     </span><br><span class="line">mov ds,ax</span><br><span class="line">mov ds:[0],ax</span><br><span class="line">inc ax</span><br><span class="line">add ax,1000</span><br></pre></td></tr></table></figure>
+
+<p>下面的指令中，寄存器指明了指令进行的是字节操作（因为是al）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov al,1</span><br><span class="line">mov al,bl</span><br><span class="line">mov al,ds:[0]</span><br><span class="line">mov ds:[0],al</span><br><span class="line">inc al</span><br><span class="line">add al,100</span><br></pre></td></tr></table></figure>
+
+<p>在没有寄存器名存在的情况下，既都是在内存，得用操作符 X ptr 指明内存单元的长度，X在汇编指令中可以为byte，word或者DWORD。要不然内存是片连续的区域，操作就乱了</p>
+<p>例如：</p>
+<p>下面的指令中，用word ptr 指明了指令访问的内存单元是一个字单元：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov word ptr ds:[0],1</span><br><span class="line">inc word ptr [bx]</span><br><span class="line">inc word ptr ds:[0]</span><br><span class="line">add word ptr [bx],2</span><br></pre></td></tr></table></figure>
+
+<p>下面的指令中，用byte ptr 指明了指令访问的内存单元是一个字节单元：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov byte ptr ds:[0],1</span><br><span class="line">inc byte ptr [bx]</span><br><span class="line">inc byte ptr ds:[0]</span><br><span class="line">add byte ptr [bx],2</span><br></pre></td></tr></table></figure>
+
+<p>在没有寄存器参与的内存单元访问指令中，用word prt 或byte ptr 显性地指明所要访问的内存单元的长度是很必要的。否则，CPU无法得知所要访问的单元，还是字节单元。假如我们用Debug查看内存的结果如下：</p>
+<p>2000：1000 FF FF FF FF FF FF ……</p>
+<p>那么指令：<br>mov ax,2000H<br>mov ds,ax<br>mov byte ptr [1000H],1<br>将使内存中的内容变为：<br>2000: 1000 01 FF FF FF FF FF ……</p>
+<p>而指令：<br>mov ax,2000H<br>mov ds,ax<br>mov word ptr [1000H],1<br>将使内存中的内容变为：<br>2000：1000 01 00 FF FF FF FF ……</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">综合应用</span><br><span class="line">关于公司的一条记录如下：</span><br><span class="line">公司名称：DEC</span><br><span class="line">公司姓名：naizi</span><br><span class="line">排名：250</span><br><span class="line">收入：20</span><br><span class="line">著名产品：pos</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/21/22-0521-01/image-20220522220717649.png" alt="image-20220522220717649" style="zoom:80%;">
+
+<p>现在进行如下操作：<br>修改排名为100<br>收入为50<br>产品变成amd</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mov ax,seg</span><br><span class="line">mov ds,ax</span><br><span class="line">mov bx,60h</span><br><span class="line">mov word ptr [bx+8],100  ;该指令也可写成mov word ptr [bx].8,100 </span><br><span class="line">mov word ptr [bx+10],50</span><br><span class="line"></span><br><span class="line">mov si,0</span><br><span class="line">mov byte ptr [bx+12+si],&#x27;A&#x27; ;该指令也可写成mov byte ptr [bx][si].12,&#x27;A&#x27; 或写成mov byte ptr [bx].12[si],&#x27;A&#x27;</span><br><span class="line">inc si</span><br><span class="line">mov byte ptr [bx+12+si],&#x27;M&#x27;</span><br><span class="line">inc si</span><br><span class="line">mov byte ptr [bx+12+si],&#x27;D&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>div除法指令</p>
+<p>除法：有8位和16位两种，在一个寄存器或者内存单元中</p>
+<p>被除数：如果除数为8位，被除数为16位，默认放在ax中，如果除数为16位，被除数一定为32位，在dx和ax中存放，dx存放高16位，ax存放低16位（注意：被除数一定比除数值大，除数是16位，则被除数一定是32位）</p>
+<p>结果存放：如果除数为8位，则AL存放除法操作的商，AH存放除法操作的余数；如果除数是16位，则AX存放除法的商，DX存放除数</p>
+<p>div byte ptr ds:[0] 的含义：由于在这里div后面是byte字节，也就是除数是8位，那么被除数一定为16位，AL存放ax÷(ds×16+0) 的商，AH存放ax÷(ds×16+0)的余数</p>
+<p>div word ptr ds:[0] 的含义：由于在这里div后面是word字，也就是除数为16位，那么被除数一定为32位，AX存放的是 (dx×10000H+ax)÷(ds×16+0)的商，DX存放的是 (dx×10000H+ax)÷(ds×16+0)的余数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">;计算100001/100</span><br><span class="line">;100001大于65535，所以用ax加dx两个寄存器联合存放，100001转化成16进制为186A1H</span><br><span class="line"></span><br><span class="line">mov dx,1</span><br><span class="line">mov ax,86A1H</span><br><span class="line">mov bx,100</span><br><span class="line">div bx</span><br><span class="line">;ax=商，dx=余数</span><br></pre></td></tr></table></figure>
+
+<p>伪指令 db 、dw 、dd</p>
+<p>dd 定义两个字型数据：double word</p>
+<p>dup指令：进行数据重复</p>
+<p>db 3 dup(0) 相当于 db 0,0,0</p>
+<p>db 3 dup(0,1,2) 相当于 db 0,1,2,0,1,2,0,1,2</p>
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/19/22-0519-01/">汇编day3</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
