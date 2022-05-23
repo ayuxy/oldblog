@@ -242,6 +242,14 @@
                         </span>
                     
                     
+                        <span class="post-category">
+                        <!--分类:-->
+                        <i class="iconfont icon-category"></i>
+                            
+                                <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a>&nbsp;
+                            
+                        </span>
+                    
                     
                     <span id="/2022/05/10/22-0510-01/" class="leancloud-visitors view" data-flag-title="中间件漏洞">
                         <text class="post-meta-item-text">
@@ -696,8 +704,64 @@
 <h3 id="防御-16"><a href="#防御-16" class="headerlink" title="防御"></a>防御</h3><ol>
 <li>升级nginx</li>
 </ol>
-<h1 id="tomcat"><a href="#tomcat" class="headerlink" title="tomcat"></a>tomcat</h1><h2 id="Tomcat-远程代码执行漏洞（CVE-2017-12615）"><a href="#Tomcat-远程代码执行漏洞（CVE-2017-12615）" class="headerlink" title="Tomcat 远程代码执行漏洞（CVE-2017-12615）"></a>Tomcat 远程代码执行漏洞（CVE-2017-12615）</h2><p>当 Tomcat运行在Windows操作系统时，且启用了HTTP PUT请求方法（例如，将 readonly 初始化参数由默认值设置为 false），攻击者将有可能可通过精心构造的攻击请求数据包向服务器上传包含任意代码的 JSP 文件，JSP文件中的恶意代码将能被服务器执行。导致服务器上的数据泄露或获取服务器权限。</p>
-<h1 id="jboss"><a href="#jboss" class="headerlink" title="jboss"></a>jboss</h1><h1 id="weblogic"><a href="#weblogic" class="headerlink" title="weblogic"></a>weblogic</h1><h1 id="WebSphere"><a href="#WebSphere" class="headerlink" title="WebSphere"></a>WebSphere</h1>
+<h1 id="tomcat"><a href="#tomcat" class="headerlink" title="tomcat"></a>tomcat</h1><p>tomcat是一个开源而且免费的jsp服务器，属于轻量级应用服务器。它可以实现JavaWeb程序的装载，是配置JSP（Java Server Page）和JAVA系统必备的一款环境。</p>
+<h2 id="Tomcat-远程代码执行漏洞（CVE-2017-12615）"><a href="#Tomcat-远程代码执行漏洞（CVE-2017-12615）" class="headerlink" title="Tomcat 远程代码执行漏洞（CVE-2017-12615）"></a>Tomcat 远程代码执行漏洞（CVE-2017-12615）</h2><p>当 Tomcat运行在Windows操作系统时，且启用了HTTP PUT请求方法（例如，将 readonly 初始化参数由默认值设置为 false），攻击者将有可能可通过精心构造的攻击请求数据包向服务器上传包含任意代码的 JSP 文件，JSP文件中的恶意代码将能被服务器执行。导致服务器上的数据泄露或获取服务器权限。</p>
+<p><strong>原理</strong></p>
+<p>CVE-2017-12615影响范围： Apache Tomcat 7.0.0 - 8.5.19</p>
+<p>当在Tomcat的conf（配置目录下）&#x2F;web.xml配置文件中添加readonly设置为false时，将导致该漏洞产生，（需要允许put请求）</p>
+<img src="/2022/05/10/22-0510-01/image-20220523193109437.png" alt="image-20220523193109437" style="zoom:80%;">
+
+<h3 id="复现-17"><a href="#复现-17" class="headerlink" title="复现"></a>复现</h3><p>复现采用vulhub靶场进行复现，启动环境后，进入环境中，查看web.xml，发现确实为false</p>
+<img src="/2022/05/10/22-0510-01/image-20220523195612204.png" alt="image-20220523195612204" style="zoom:80%;">
+
+<p>用burp抓包，并且可以成功上传jsp脚本</p>
+<img src="/2022/05/10/22-0510-01/image-20220523203702519.png" alt="image-20220523203702519" style="zoom:80%;">
+
+<p>用冰蝎可以连接</p>
+<img src="/2022/05/10/22-0510-01/image-20220523203751777.png" alt="image-20220523203751777" style="zoom:80%;">
+
+<p>注意：支持三种上传绕过方式默认使用put 加文件名是失败的需要绕过，绕过方法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PUT/shell.jsp%20</span><br><span class="line">PUT/shell.jsp::$DATA </span><br><span class="line">PUT/shell.jsp/</span><br></pre></td></tr></table></figure>
+
+<h3 id="防御-17"><a href="#防御-17" class="headerlink" title="防御"></a>防御</h3><ol>
+<li>设置 readonly未true</li>
+</ol>
+<h2 id="tomcat-弱口令-amp-war远程部署"><a href="#tomcat-弱口令-amp-war远程部署" class="headerlink" title="tomcat 弱口令&amp;war远程部署"></a>tomcat 弱口令&amp;war远程部署</h2><p><strong>原理</strong></p>
+<p>在tomcat8环境下默认进入后台的密码为tomcat&#x2F;tomcat，未修改造成未授权即可进入后台，或者管理员把密码设置成弱口令，使用工具对其进行穷举。得到密码后，也可以进行后台上传恶意代码控制服务器。</p>
+<h3 id="复现-18"><a href="#复现-18" class="headerlink" title="复现"></a>复现</h3><p>环境采用vulhub</p>
+<img src="/2022/05/10/22-0510-01/image-20220523205505130.png" alt="image-20220523205505130" style="zoom:80%;">
+
+<p>默认密码为tomcat</p>
+<img src="/2022/05/10/22-0510-01/image-20220523205533465.png" alt="image-20220523205533465" style="zoom:80%;">
+
+<p>然后选择上传war包，把冰蝎自带的shell.jsp压缩成shell.war，然后上传即可</p>
+<img src="/2022/05/10/22-0510-01/image-20220523205803598.png" alt="image-20220523205803598" style="zoom:80%;">
+
+<p>上传成功后</p>
+<img src="/2022/05/10/22-0510-01/image-20220523205847854.png" alt="image-20220523205847854" style="zoom:80%;">
+
+<p>然后连接即可</p>
+<img src="/2022/05/10/22-0510-01/image-20220523205944498.png" alt="image-20220523205944498" style="zoom:80%;">
+
+<h3 id="防御-18"><a href="#防御-18" class="headerlink" title="防御"></a>防御</h3><ol>
+<li><p>设置强口令</p>
+<p>conf&#x2F;tomcat-users.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;userusername=&quot;tomcat&quot;password=&quot;tomcat&quot;roles=&quot;manager-gui,manager-script,manager-jmx,manager-status,admin-gui,admin-script&quot;/&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除manger文件</p>
+</li>
+</ol>
+<h2 id="tomcat-远程代码执行-CVE-2019-0232"><a href="#tomcat-远程代码执行-CVE-2019-0232" class="headerlink" title="tomcat 远程代码执行(CVE-2019-0232)"></a><strong>tomcat</strong> 远程代码执行(CVE-2019-0232)</h2><p>Apache Tomcat是美国阿帕奇（Apache）软件基金会的一款轻量级Web应用服务器。该程序实现了对Servlet和JavaServer Page（JSP）的支持。4月11日，Apache官方发布通告称将在最新版本中修复一个远程代码执行漏洞（CVE-2019-0232），由于JRE将命令行参数传递给Windows的方式存在错误，会导致CGI Servlet受到远程执行代码的攻击，触发该漏洞需要同时满足以下条件：</p>
+<ol>
+<li>系统为Windows</li>
+<li>启用了CGI Servlet（默认为关闭）</li>
+<li>启用了enableCmdLineArguments（Tomcat 9.0.*及官方未来发布版本默认为关闭）</li>
+</ol>
+<p>影响范围：</p>
+<p>Apache  Tomcat  9.0.0.M1  to  9.0.17</p>
+<p>Apache  Tomcat  8.5.0  to  8.5.39</p>
+<p>Apache  Tomcat  7.0.0  to  7.0.93</p>
+<h1 id="jboss"><a href="#jboss" class="headerlink" title="jboss"></a>jboss</h1><h1 id="weblogic"><a href="#weblogic" class="headerlink" title="weblogic"></a>weblogic</h1>
         </div>		
 		
         <section class="post-tags">
