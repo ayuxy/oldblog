@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>汇编day5 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">汇编day5</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-24&nbsp;&nbsp;15:16:01</a> &nbsp;
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                        <!--分类:-->
+                        <i class="iconfont icon-category"></i>
+                            
+                                <a href="/categories/%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0/">汇编学习</a>&nbsp;
+                            
+                        </span>
+                    
+                    
+                    <span id="/2022/05/24/22-0524-01/" class="leancloud-visitors view" data-flag-title="汇编day5">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">1.将datasg段中每个单词的前四个字母改为大写字母，（每个段大小是16字节，对齐方便寻址）</span><br><span class="line">assume cs:codesg,ss:stacksg,ds:datasg</span><br><span class="line">datasg segment</span><br><span class="line">  db &#x27;1. naizi      &#x27;</span><br><span class="line">  db &#x27;2. madou        &#x27;</span><br><span class="line">  db &#x27;3. hackr      &#x27;</span><br><span class="line">  db &#x27;4. sec66       &#x27;</span><br><span class="line">datasg ends</span><br><span class="line"></span><br><span class="line">解答：</span><br><span class="line">assume cs:code,ss:stacksg,ds:datasg</span><br><span class="line">datasg segment</span><br><span class="line">  db &#x27;1. naizi		&#x27;</span><br><span class="line">  db &#x27;2. madou		&#x27;</span><br><span class="line">  db &#x27;3. hackr		&#x27;</span><br><span class="line">  db &#x27;4. sec66		&#x27;</span><br><span class="line">datasg ends</span><br><span class="line">stacksg segment	stack </span><br><span class="line">	db 128 dup()</span><br><span class="line">stacksg ends</span><br><span class="line">code segment</span><br><span class="line">	start:	</span><br><span class="line">		mov ax,stacksg</span><br><span class="line">		mov ss,ax</span><br><span class="line">		mov sp,128</span><br><span class="line">		mov ax,datasg</span><br><span class="line">		mov ds,ax</span><br><span class="line">		mov cx,4</span><br><span class="line">		mov bx,0</span><br><span class="line">		</span><br><span class="line">	s:	push cx</span><br><span class="line">		mov si,0    </span><br><span class="line">		mov cx,5</span><br><span class="line">	s1:	and byte ptr 3[bx][si],11011111B </span><br><span class="line">		inc si</span><br><span class="line">		loop s1</span><br><span class="line">		add bx,16</span><br><span class="line">		pop cx</span><br><span class="line">		loop s</span><br><span class="line">		</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+
+
+<p>offset 取标号的<code>偏移地址</code>，由编译器处理的符号</p>
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov ax,offset start    ;相当于mov ax,0</span><br><span class="line">	s:	mov ax,offset s        ;相当于mov ax,3，由于前面的mov ax,offset start机器码占三个字节，所以这里偏移3，即mov ax,3</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>如下：</p>
+<img src="/2022/05/24/22-0524-01/image-20220524173558750.png" alt="image-20220524173558750" style="zoom:80%;">
+
+<p>注意：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bx不能和bp加在一起寻址，如：[bx+bp]</span><br><span class="line">si不能和di加在一起寻址，如：[si+ds]</span><br><span class="line">可以用	bx+si或di  bp+si或di	</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	s:	mov ax,bx           ;将mov ax,bx指令放到nop处</span><br><span class="line">		mov si,offset s         </span><br><span class="line">		mov di,offset s0</span><br><span class="line">		mov ax,cs:[si]</span><br><span class="line">		mov cs:[di],ax</span><br><span class="line">	s0:	nop</span><br><span class="line">		nop</span><br><span class="line">code ends</span><br><span class="line">end s</span><br></pre></td></tr></table></figure>
+
+<p>详解：</p>
+<p>上述代码目的如下：</p>
+<img src="/2022/05/24/22-0524-01/image-20220525150721693.png" alt="image-20220525150721693" style="zoom:80%;">
+
+<p>调式代码：</p>
+<img src="/2022/05/24/22-0524-01/image-20220525150804132.png" alt="image-20220525150804132" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/24/22-0524-01/image-20220525150839580.png" alt="image-20220525150839580" style="zoom:80%;">
+
+</p><p>注意：这里在-t的话，下一步也就是执行mov ax,cs:[si]</p>
+<img src="/2022/05/24/22-0524-01/image-20220525150923908.png" class title="image-20220525150923908">
+
+<p>执行mov ax,cs:[si]，此时cs为076a，si为0000，也就是cs:si，076a:0地址对应的值如下：</p>
+<img src="/2022/05/24/22-0524-01/image-20220525151335176.png" alt="image-20220525151335176" style="zoom:80%;">
+
+<p>而8BC3也就是mov ax,bx的机器码</p>
+<img src="/2022/05/24/22-0524-01/image-20220525160418955.png" alt="image-20220525160418955" style="zoom:80%;">
+
+<p>然后我们 -T 执行，ax的值变成了C38B，然后再次-T，就会执行mov cs:[di],ax</p>
+<img src="/2022/05/24/22-0524-01/image-20220525151633483.png" alt="image-20220525151633483" style="zoom:80%;">
+
+<p>注意：cs:di是076A:000E，而076a:000E默认对应的机器码是09，执行 NOP指令</p>
+<img src="/2022/05/24/22-0524-01/image-20220525152208037.png" alt="image-20220525152208037" style="zoom:80%;">
+
+<p>执行完mov cs:[di],ax就会将ax的值C38B给076A:000E，那么076A:000E对应机器码就是C38B，NOP指令就会变成mov ax,bx</p>
+<p>我们发现-T执行完 mov cs:[di],ax 后，本来下面应该是执行NOP指令，但是NOP指令已经变成了mov ax,bx，所以下面执行mov ax,bx</p>
+<img src="/2022/05/24/22-0524-01/image-20220525152452437.png" alt="image-20220525152452437" style="zoom:80%;">
+
+<p><strong>注意：</strong><br>这里的cs:[si]，其中cs是指令寄存器的段地址，而[si]是指令寄存器的偏移地址，前面最常用的就是ds:[0]这种，当然前面学习时，经常把ds省略，写成[0]这种形式，当然这样写成[0]这种形式实际不规范（因为汇编编译器和debug对指令的处理不同，详见：汇编day3）</p>
+<p>
+
+</p><p>转移指令（jmp）</p>
+<p>可以修改ip，或者同时修改cs和ip的指令统称之为转移指令</p>
+<p>只修改ip，称之为段内转移，比如：jmp ax</p>
+<p>同时修改cs和ip，称之为段间转移，比如：jmp 1000:0</p>
+<p>偏移地址（寻址范围）最大ffff，转移指令对IP修改的范围不同，段内转移又分为：短转移和近转移</p>
+<p>短转移修改IP的范围为：-128~127（也就是ff 256）</p>
+<p>近转移修改IP的范围为：-32768~32767（也就是ffff 65536）</p>
+<p>转移指令分为以下几类：</p>
+<ol>
+<li>无条件转移指令（如jmp）</li>
+<li>条件转移指令（可以帮助我们做一些类似c语言中的if操作）</li>
+<li>循环转移指令（如：loop）</li>
+<li>中断（后面会学）</li>
+</ol>
+<p>依据位移进行转移的jmp指令，jmp short 标号 （实现段内短转移），short指明的是进行短转移，标号指明要转移的目的地，转移结束后，CS:IP应该指向标号处的指令，范围是8位（-128~127），ip+8位位移</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov ax,123h</span><br><span class="line">		mov bx,0</span><br><span class="line">		jmp short s</span><br><span class="line">		add ax,1</span><br><span class="line">	s:	inc ax</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>调式上述代码，有如下疑惑？？？？</p>
+<img src="/2022/05/24/22-0524-01/image-20220525162219884.png" alt="image-20220525162219884" style="zoom:80%;">
+
+<p>正常的CPU执行指令的过程如下：</p>
+<ol>
+<li>从CS:IP指向内存单元读取指令，读取的指令进入指令缓冲器</li>
+<li>IP+读取到的指令长度，指向下一条指令</li>
+<li>执行指令缓冲器中的指令</li>
+</ol>
+<p>对于上述代码，则过程如下：</p>
+<ol>
+<li>当执行到jmp指令时候，也就是cs:ip &#x3D; 076a:0006 时，对应机器码为EB03</li>
+<li>读取指令EB03进入指令缓冲器</li>
+<li>IP+2&#x3D;<code>0008H</code>（EB03的长度为2），cs:ip指向076a:0008，也就是指向add ax,1</li>
+<li>执行缓冲区指令EB<code>03</code></li>
+<li>然后执行EB03后，进行跳转，跳转到000B，cs:ip指向inc ax（注意：这里的000B实际就是<code>0008+03</code>，EB03就是告诉CPU要转移的位移，当然这里就是转移3）</li>
+</ol>
+<p>jmp near ptr 标号，实现段内近转移，范围是16位（-32768~32767），ip+16位位移</p>
+<p>jmp far ptr 标号，实现段间转移，又称为远转移。cs&#x3D;标号所在段的段地址，ip&#x3D;标号所在段的偏移地址，far ptr 指明了指令用标号的段地址和偏移地址修改cs和ip</p>
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/05/25/22-0525-01/">vulnhub靶机—0s-hackNos-2</a>
+            
+            
+            <a class="next" rel="next" href="/2022/05/21/22-0521-01/">汇编day4</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+

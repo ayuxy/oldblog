@@ -12,7 +12,7 @@
 
 
 
-<title>A记录等 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+<title>vulnhub靶机—0s-hackNos-2 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
 
 
 
@@ -157,11 +157,75 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">A记录等</h1>
+            <h1 class="post-title">vulnhub靶机—0s-hackNos-2</h1>
             
                 <div class="post-meta">
                     
@@ -174,12 +238,20 @@
                         <span class="post-time">
                         <!--发布时间:-->
                         <i class="iconfont icon-time"></i>
-                        <a href="#">2022-04-27&nbsp;&nbsp;23:24:32</a> &nbsp;
+                        <a href="#">2022-05-25&nbsp;&nbsp;17:00:40</a> &nbsp;
                         </span>
                     
                     
+                        <span class="post-category">
+                        <!--分类:-->
+                        <i class="iconfont icon-category"></i>
+                            
+                                <a href="/categories/vulnhub%E9%9D%B6%E6%9C%BA/">vulnhub靶机</a>&nbsp;
+                            
+                        </span>
                     
-                    <span id="/2022/04/27/22-0427-03/" class="leancloud-visitors view" data-flag-title="A记录等">
+                    
+                    <span id="/2022/05/25/22-0525-01/" class="leancloud-visitors view" data-flag-title="vulnhub靶机—0s-hackNos-2">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -193,26 +265,52 @@
         </header>
 
         <div class="post-content">
-            <p><strong>A (Address) 记录</strong></p>
-<p>是用来指定主机名（或域名）对应的IP地址记录。用户可以将该域名下的网站服务器指向到自己的web server上。同时也可以设置您域名的二级域名。</p>
-<p><strong>别名(CNAME)记录</strong></p>
-<p>也被称为规范名字。这种记录允许您将多个名字映射到同一台计算机。 通常用于同时提供WWW和MAIL服务的计算机。例如，有一台计算机名为“host.mydomain.com”（A记录）。 它同时提供WWW和MAIL服务，为了便于用户访问服务。可以为该计算机设置两个别名（CNAME）：WWW和MAIL。 这两个别名的全称就是“<a target="_blank" rel="noopener" href="http://www.mydomain.com”和“mail.mydomain.com”.实际上他们都指向“host.mydomain.com”./">www.mydomain.com”和“mail.mydomain.com”。实际上他们都指向“host.mydomain.com”。</a> 同样的方法可以用于当您拥有多个域名需要指向同一服务器IP，此时您就可以将一个域名做A记录指向服务器IP然后将其他的域名做别名到之前做A记录的域名上，那么当您的服务器IP地址变更时您就可以不必麻烦的一个一个域名更改指向了 只需要更改做A记录的那个域名其他做别名的那些域名的指向也将自动更改到新的IP地址上了。</p>
-<p><strong>如何检测CNAME记录？</strong></p>
-<p>1、进入命令状态；（开始菜单 - 运行 - CMD[回车]）；</p>
-<p>2、输入命令” nslookup -q&#x3D;cname 这里填写对应的域名或二级域名”，查看返回的结果与设置的是否一致即可。 </p>
-<p><strong>MX（Mail Exchanger）记录</strong></p>
-<p>是邮件交换记录，它指向一个邮件服务器，用于电子邮件系统发邮件时根据 收信人的地址后缀来定位邮件服务器。例如，当Internet上的某用户要发一封信给 <a href="mailto:&#117;&#115;&#x65;&#x72;&#64;&#109;&#x79;&#100;&#111;&#x6d;&#97;&#x69;&#x6e;&#46;&#99;&#111;&#109;">&#117;&#115;&#x65;&#x72;&#64;&#109;&#x79;&#100;&#111;&#x6d;&#97;&#x69;&#x6e;&#46;&#99;&#111;&#109;</a> 时，该用户的邮件系统通过DNS查找mydomain.com这个域名的MX记录，如果MX记录存在， 用户计算机就将邮件发送到MX记录所指定的邮件服务器上。</p>
-<p><strong>什么是TXT记录？</strong></p>
-<p>TXT记录一般指为某个主机名或域名设置的说明，如：</p>
-<p>1）admin IN TXT “jack, mobile:13800138000”；</p>
-<p>2）mail IN TXT “邮件主机, 存放在xxx ,管理人：AAA”，Jim IN TXT “contact: <a href="mailto:abc@mailserver.com">abc@mailserver.com</a>“</p>
-<p>也就是您可以设置 TXT ，以便使别人联系到您。</p>
-<p><strong>如何检测TXT记录？</strong></p>
-<p>1、进入命令状态；（开始菜单 - 运行 - CMD[回车]）；</p>
-<p>2、输入命令” nslookup -q&#x3D;txt 这里填写对应的域名或二级域名”，查看返回的结果与设置的是否一致即可。 </p>
-<p><strong>什么是NS记录？</strong></p>
-<p>ns记录全称为Name Server 是一种域名服务器记录，用来明确当前你的域名是由哪个DNS服务器来进行解析的。</p>
+            <blockquote>
+<p>靶机地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/hacknos-os-hacknos-2,403/">https://www.vulnhub.com/entry/hacknos-os-hacknos-2,403/#</a></p>
+<p>kali的ip：192.168.43.237 ，靶机ip：192.168.43.6</p>
+</blockquote>
+<h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>nmap扫描目标网段得到目标ip</p>
+<img src="/2022/05/25/22-0525-01/image-20220525200918836.png" alt="image-20220525200918836" style="zoom:80%;">
 
+<p>nmap扫描目标端口信息，目标开放了80、22端口</p>
+<img src="/2022/05/25/22-0525-01/image-20220525201518454.png" alt="image-20220525201518454" style="zoom:80%;">
+
+<p>扫描目录</p>
+<img src="/2022/05/25/22-0525-01/image-20220525203501919.png" alt="image-20220525203501919" style="zoom:80%;">
+
+<p>发现网站</p>
+<img src="/2022/05/25/22-0525-01/image-20220525205243272.png" alt="image-20220525205243272" style="zoom:80%;">
+
+<p>然后找了把能翻的都翻了下，测了下注入、弱口令、等等也没发现啥鸡毛</p>
+<p>肯定是由漏洞的，太菜了没发现，也可能是不够仔细，然后直接用wpscan来测试（专门用来测试worldpress的）</p>
+<p>首先我们要先注册一个api，在该网站注册：<a target="_blank" rel="noopener" href="https://wpscan.com/api">https://wpscan.com/api</a></p>
+<p>然后进行测试</p>
+<h1 id="利用wpscan扫描wordpress网站插件"><a href="#利用wpscan扫描wordpress网站插件" class="headerlink" title="利用wpscan扫描wordpress网站插件"></a>利用wpscan扫描wordpress网站插件</h1><p><code>wpscan --url http://192.168.43.6 -e vp --api-token yvLFICEuq5svBJLXkb4Vn5yDrcdJFkGMGZRyvpk4SBs   </code>（-e选择测试啥，vp是指测试的是插件）</p>
+<img src="/2022/05/25/22-0525-01/image-20220525212411909.png" alt="image-20220525212411909" style="zoom:80%;">
+
+<p>然后直接利用exp，读取passwd文件</p>
+<img src="/2022/05/25/22-0525-01/image-20220525213202784.png" alt="image-20220525213202784" style="zoom:80%;">
+
+<h1 id="john破解密文"><a href="#john破解密文" class="headerlink" title="john破解密文"></a>john破解密文</h1><p>然后我们利用john来破解 <code>$1$flag$vqjCxzjtRc7PofLYS2lWf/</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">john --format=md5crypt --wordlist=/usr/share/wordlists/rouckyou.txt passwd</span><br><span class="line"># --format=md5crypt 破解方式为md5</span><br><span class="line"># --wordlist=/usr/share/wordlists/rouckyou字典</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/25/22-0525-01/image-20220525214404233.png" alt="image-20220525214404233" style="zoom:80%;">
+
+<p> 破解完后，得到flag用户的密码，topsecret，进行ssh登陆即可</p>
+<img src="/2022/05/25/22-0525-01/image-20220525214630012.png" alt="image-20220525214630012" style="zoom:80%;">
+
+<p>然后查看</p>
+<img src="/2022/05/25/22-0525-01/image-20220525215111906.png" alt="image-20220525215111906" style="zoom:80%;">
+
+<p>对上面密文用john进行破解，得到对应密码<code>!%hack41</code></p>
+<p>然后用rohit用户和密码进行ssh登陆</p>
+<h1 id="sudo提权"><a href="#sudo提权" class="headerlink" title="sudo提权"></a>sudo提权</h1><p>然后利用sudo提权，这里sudo -l 后发现可以利用sudo执行所有的命令</p>
+<img src="/2022/05/25/22-0525-01/image-20220525215359312.png" alt="image-20220525215359312" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/25/22-0525-01/image-20220525215457274.png" alt="image-20220525215457274" style="zoom:80%;">
+</p>
         </div>		
 		
         <section class="post-tags">
@@ -238,10 +336,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/04/28/22-0428-01/">横向移动的方法</a>
             
-            
-            <a class="next" rel="next" href="/2022/04/27/22-0427-02/">域前置技术简单原理</a>
+            <a class="next" rel="next" href="/2022/05/24/22-0524-01/">汇编day5</a>
             
         </section>
         <br>
