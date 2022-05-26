@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>汇编day6 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">汇编day6</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-26&nbsp;&nbsp;22:05:53</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/05/26/22-0526-01/" class="leancloud-visitors view" data-flag-title="汇编day6">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>上节课学了段内和段间转移，但实际在操作中，我们直接使用 jmp s 即可，不需要写成 jmp short s 或 jmp far s 这样 ,不用考虑其它，那些都是编译器要考虑的事情</p>
+<p>转移地址在寄存器里面，如：jmp ax，jmp bx</p>
+<p>转移地址在内存中（段内转移），如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0123H</span><br><span class="line">mov ds:[0],ax</span><br><span class="line">jmp word ptr ds:[0]   ;就是jmp到ds:0123地址的地方，执行后ip=0123h</span><br></pre></td></tr></table></figure>
+
+<p>转移地址在内存中（段间转移），修改cs和ip偏移地址，高地址的字是目的段地址，低地址处存放的目的偏移地址，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0123h</span><br><span class="line">mov ds:[0],ax</span><br><span class="line">mov word ptr ds:[2],0</span><br><span class="line">jmp dword ptr ds:[0]   ;执行完后，ip=0123H，cs=0，即cs:ip = 0000:0123</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">;要求执行jmp指令后，cs:ip指向程序需要的第一条指令</span><br><span class="line">assume cs:code</span><br><span class="line">date segment</span><br><span class="line">	dd 12345678H	</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov ax,data</span><br><span class="line">		mov ds,ax</span><br><span class="line">		mov bx,0</span><br><span class="line">		mov bx,???</span><br><span class="line">		mov [bx+2],??? </span><br><span class="line">		jmp dword ptr ds:[0]</span><br><span class="line">code ends</span><br><span class="line">end start</span><br><span class="line">解答：</span><br><span class="line">第一个？为0,第二个是cs</span><br></pre></td></tr></table></figure>
+
+<p>有条件的跳转指令 jcxz jmp cx zero，所有有条件的转移指令都是短转移，范围是 -128~127，if cx 等于0，那么就jmp short 标号，如果if cx不为0，那么就啥也不干（程序按顺序向下执行），恰好和loop指令相反（loop是cx不等于0的时候执行）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">作业：利用jcxz指令，实现在内存2000H段中查找到第一个值为0的字节，找到后将它的偏移地址存在dx中</span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov ax,2000H</span><br><span class="line">		mov ds,ax</span><br><span class="line">		mov bx,0</span><br><span class="line">	s:	___mov ch,0___           ;这里ch和cl合并就是cx，cx=0时，jcxz跳转</span><br><span class="line">		___mov cl,[bx]___</span><br><span class="line">		___jcxz ok___</span><br><span class="line">		___inc bx___</span><br><span class="line">		jmp s</span><br><span class="line">	ok:	mov dx,bx</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>loop指令也是转移指令，所有循环指令都是短转移，在对应的机器码中包含转移的偏移地址，-128~127</p>
+<p>loop 标号，cx &#x3D; cx -1，判断cx不等于0，转移到标号处执行指令，如果等于0什么也不做。</p>
+<p>通过分析下面的程序，在运行前思考这个程序可以正确返回吗？？运行后再思考：为啥是这种结果？？？通过该程序加深对相关内容理解，注意jmp指令对应的机器码，cpu最终执行的是机器码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line">        mov ax,4c00h</span><br><span class="line">        int 21h</span><br><span class="line">start:  mov ax,0</span><br><span class="line">    s:  nop</span><br><span class="line">        nop</span><br><span class="line"></span><br><span class="line">        mov di,offset s</span><br><span class="line">        mov si,offset s2</span><br><span class="line">        mov ax,cs:[si]</span><br><span class="line">        mov cs:[di],ax</span><br><span class="line"></span><br><span class="line">    s0: jmp short s</span><br><span class="line"></span><br><span class="line">    s1: mov ax,0</span><br><span class="line">        int 21h</span><br><span class="line">        mov ax,0</span><br><span class="line"></span><br><span class="line">    s2: jmp short s1</span><br><span class="line">        nop</span><br><span class="line">codesg ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>自行分析（分析过程省略）</p>
+<p>CALL、RET、RETF指令都是转移指令，其中CALL、RET修改ip，RETF同时修改cs和ip，可以通过这三个指令的配合实现子程序设计（相当于其它语言的函数功能）</p>
+<p>cpu执行ret指令时，把栈顶的数据赋值给ip，就等价于如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pop ip</span><br><span class="line">ip = (ss*16+sp) ,这里用括号表示ip是ss*16+sp地址对应的值</span><br><span class="line">sp = sp+2</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/26/22-0526-01/image-20220526133249893.png" alt="image-20220526133249893" style="zoom:80%;">
+
+<p>cpu执行retf指令时，把栈顶的数据赋值给ip，然后把第二次栈顶的数据赋值给cs，也就是pop两次，先pop ip，再pop cs，如下：</p>
+<img src="/2022/05/26/22-0526-01/image-20220526140354632.png" alt="image-20220526140354632" style="zoom:80%;">
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">作业:</span><br><span class="line">补全程序，实现从内存1000:0000处开始执行指令</span><br><span class="line">stack segment</span><br><span class="line">	db 16 dup (0)</span><br><span class="line">stack ends</span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov ax,stack</span><br><span class="line">		mov ss,ax</span><br><span class="line">		mov sp,16</span><br><span class="line">		mov ax,_1000h___</span><br><span class="line">		push ax</span><br><span class="line">		mov ax,__0000h__</span><br><span class="line">		push ax</span><br><span class="line">		retf</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>call指令（分为依据位移进行转移和转移目的地址在指令中）</p>
+<ul>
+<li><p>依据位移进行转移的call指令</p>
+<ul>
+<li><p>call 标号（将当前的ip压栈后，跳到标号处执行指令）</p>
+<img src="/2022/05/26/22-0526-01/image-20220526211738121.png" alt="image-20220526211738121" style="zoom:80%;">
+
+<p>执行后ax的值为6，执行call s后，会把当前ip 0006放到栈内，然后跳到 s 标号处，执行pop ax命令，将栈顶的0006给ax，所以最终ax为6</p>
+<p><strong>这里一定要记住：CPU执行命令的三部曲：</strong></p>
+<ol>
+<li>从CS:IP指向内存单元读取指令，读取的指令进入指令缓冲器</li>
+<li><strong>IP+读取到的指令长度，指向下一条指令</strong>（所以上面执行call s前，当前的ip为3+3&#x3D;6）</li>
+<li>执行指令缓冲器中的指令</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/25/22-0525-01/">vulnhub靶机—0s-hackNos-2</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
