@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>汇编day7 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">汇编day7</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-26&nbsp;&nbsp;23:20:59</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/05/26/22-0526-02/" class="leancloud-visitors view" data-flag-title="汇编day7">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p> 作业：</p>
+<img src="/2022/05/26/22-0526-02/image-20220527084938453.png" alt="image-20220527084938453" style="zoom:80%;">
+
+<br>
+
+<img src="/2022/05/26/22-0526-02/image-20220527091232566.png" alt="image-20220527091232566" style="zoom:80%;">
+
+<p>实现效果如下：</p>
+<img src="/2022/05/26/22-0526-02/image-20220527091320715.png" alt="image-20220527091320715" style="zoom:80%;">
+
+<blockquote>
+<p>这个题目好tm的难理解。。。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">作业解答:</span><br><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line">data segment	;数据段</span><br><span class="line">	db	&#x27;geinaizishaozhi&#x27;  </span><br><span class="line">	db	1000 0010B		;闪烁(高亮)绿色</span><br><span class="line">	db	1010 0100B        	;高亮绿底红色</span><br><span class="line">	db	1111 0001B			;高亮白底蓝色</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">stack segment stack   ;栈段</span><br><span class="line">	db 128 dup(0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov ax,stack</span><br><span class="line">		mov ss,sp</span><br><span class="line">		mov sp,128</span><br><span class="line">		</span><br><span class="line">		;数据从哪里来？？从data段中来</span><br><span class="line">		mov ax,data</span><br><span class="line">		mov ds,ax</span><br><span class="line">		mov si,0	</span><br><span class="line">		mov bx,16</span><br><span class="line">		</span><br><span class="line">		;数据要到哪里去? 到显存中</span><br><span class="line">		mov ax,0b800H</span><br><span class="line">		mov es,ax</span><br><span class="line">		mov di,160*12+60</span><br><span class="line">		mov cx,3</span><br><span class="line">		</span><br><span class="line">		;处理数据</span><br><span class="line">	s0:	push cx</span><br><span class="line">		push si</span><br><span class="line">		push di</span><br><span class="line">		mov cx,16</span><br><span class="line">		</span><br><span class="line">	s:	mov dh,ds:[bx]			;dx=dh+dl</span><br><span class="line">		mov dl,ds:[si]</span><br><span class="line">		mov es:[di],dx</span><br><span class="line">		inc si</span><br><span class="line">		add di,2</span><br><span class="line">		loop s</span><br><span class="line">		</span><br><span class="line">		pop di</span><br><span class="line">		pop si</span><br><span class="line">		pop cx</span><br><span class="line">		add di,160</span><br><span class="line">		inc bx</span><br><span class="line">		loop s0</span><br><span class="line">		</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">		</span><br><span class="line">code ends</span><br><span class="line">end start	</span><br></pre></td></tr></table></figure>
+
+<p>day6 的学习中最后学习到了 <code>依据位移进行转移的call指令</code> ，今天学习下面的：</p>
+<ul>
+<li><p>转移的目的地址在指令中的CALL：<code>call for ptr 标号</code>实现是段间转移</p>
+<img src="/2022/05/26/22-0526-02/image-20220527211957036.png" alt="image-20220527211957036" style="zoom:80%;">
+</li>
+<li><p>转移地址在寄存器的call：相当于只会push一个ip，然后跳转一个16位寄存器（比如：jmp ax）</p>
+</li>
+<li><p>转移地址在内存中的call：有如下两种格式：</p>
+<ul>
+<li><code>call word ptr [内存单元地址]</code> （相当于先把ip放到栈中push ip，然后跳转到内存单元 jmp word ptr 内存单元）</li>
+<li><code>call dword ptr [内存单元地址]</code>（相当于先push cs，再push ip，然后跳转到内存单元 jmp dword ptr 内存单元 ）</li>
+</ul>
+</li>
+</ul>
+<p>把call指令和ret指令还有retf指令结合使用，如下：</p>
+<p>比如说我们对上面的作业设计成类似C语言的函数的结构，类似于先调用initReg函数，再调用showStr</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line">data segment	;数据段</span><br><span class="line">	db	&#x27;geinaizishaozhi&#x27; </span><br><span class="line">	db	1000 0010B		;闪烁(高亮)绿色</span><br><span class="line">	db	1010 0100B        	;高亮绿底红色</span><br><span class="line">	db	1111 0001B			;高亮白底蓝色</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">stack segment stack   ;栈段</span><br><span class="line">	db 128 dup(0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">	start:				</span><br><span class="line">		call initReg	;目的是初始化 </span><br><span class="line">		call showStr	;目的在屏幕上显示字符串</span><br><span class="line">		</span><br><span class="line">	initReg:</span><br><span class="line">		mov ax,stack</span><br><span class="line">		mov ss,sp</span><br><span class="line">		mov sp,128</span><br><span class="line">		</span><br><span class="line">		;数据从哪里来？？从data段中来</span><br><span class="line">		mov ax,data</span><br><span class="line">		mov ds,ax</span><br><span class="line">		mov si,0	</span><br><span class="line">		mov bx,16</span><br><span class="line">		</span><br><span class="line">		;数据要到哪里去? 到显存中</span><br><span class="line">		mov ax,0b800H</span><br><span class="line">		mov es,ax</span><br><span class="line">		mov di,160*12+60</span><br><span class="line">		mov cx,3</span><br><span class="line">		</span><br><span class="line">		ret </span><br><span class="line">	</span><br><span class="line">	showStr:</span><br><span class="line">		s0:	push cx</span><br><span class="line">			push si</span><br><span class="line">			push di</span><br><span class="line">			mov cx,16</span><br><span class="line">		s:	mov dh,ds:[bx]			;dx=dh+dl</span><br><span class="line">			mov dl,ds:[si]</span><br><span class="line">			mov es:[di],dx</span><br><span class="line">			inc si</span><br><span class="line">			add di,2</span><br><span class="line">			loop s</span><br><span class="line">			</span><br><span class="line">			pop di</span><br><span class="line">			pop si</span><br><span class="line">			pop cx</span><br><span class="line">			add di,160</span><br><span class="line">			inc bx</span><br><span class="line">			loop s0</span><br><span class="line">			</span><br><span class="line">			ret</span><br><span class="line">			</span><br><span class="line">			mov ax,4c00h</span><br><span class="line">			int 21h</span><br><span class="line">code ends</span><br><span class="line">end start	</span><br></pre></td></tr></table></figure>
+
+<p>mul乘法指令，要求两个数都是8位，或者2个数都是16做乘法，如果是8位乘法，一个默认放在al中，另一个在另外一个8位寄存器或者内存里面；如果是16位乘法，一个默认放在ax中，另一个在另外一个16位寄存器或者内存单元里面，8位的乘法结果在ax里面，16位乘法结果高位在DX，低位存放在AX中</p>
+<p>比如：8位的乘法，10*5</p>
+<img src="/2022/05/26/22-0526-02/image-20220527225112832.png" alt="image-20220527225112832" style="zoom:80%;">
+
+<p>比如：16位的乘法，64*2710的值，注意：这里的64和2710都是16进制，如果转为10进制的话就是<code>100*10000</code>，而8位寄存器最大值存放是255，这里显然必须要用到16位寄存器</p>
+<img src="/2022/05/26/22-0526-02/image-20220527231055136.png" alt="image-20220527231055136" style="zoom:80%;">
+
+<p>高位存放在DX中，低位存放在AX中，两个合并后：F4240 即 1,000,000</p>
+<p>除法溢出：（关于除法指令div前面已经学过）</p>
+<img src="/2022/05/26/22-0526-02/image-20220527231848920.png" alt="image-20220527231848920" style="zoom:80%;">
+
+<p>如何解决除法溢出，解决除法溢出的公式如下：</p>
+<p><code>X/N = int(H/N)*65536+[rem(H/N)65536+L]/N</code>该公式其实就是把x&#x2F;n可能溢出的除法运算转变成多个不会产生溢出的除法运算</p>
+<p>其中：X表示被除数，N表示除数，H表示X的高16位，L表示X的低16位，int()表示取商，rem()表示取余数</p>
+<img src="/2022/05/26/22-0526-02/image-20220527233245973.png" alt="image-20220527233245973" style="zoom:80%;">
+
+<p>最后一个寄存器（前面实际已经了解过13个寄存器了）——&gt;标志（FLAG）寄存器<br>作用如下：</p>
+<ol>
+<li>存储相关指令的某些执行结果</li>
+<li>用来为CPU执行相关指令提供依据</li>
+<li>控制CPU的相关工作方式</li>
+</ol>
+<img src="/2022/05/26/22-0526-02/image-20220527234125134.png" alt="image-20220527234125134" style="zoom:80%;">
+
+<p>标志寄存器也是16位，也就是2个字节，标志寄存器存的信息通常被称为程序状态字（PSW），标志寄存器是按位起作用的，一共有16位，每个位的含义都是不同的</p>
+<img src="/2022/05/26/22-0526-02/image-20220527235422077.png" alt="image-20220527235422077" style="zoom:80%;">
+
+<ul>
+<li><p>ZF标志（零标志位）：记录相关运算结果是否为0，如果ZF为1，代表运算结果为0，如果ZF为0，代表运算结果不为0</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,1</span><br><span class="line">sub ax,1  ;sub减法指令</span><br><span class="line">执行上面两条命令后，ax=0，则ZF标志位为1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,2</span><br><span class="line">sub ax,1</span><br><span class="line">执行上面两条指令后，ax≠0，则ZF标志位为0</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/26/22-0526-02/image-20220528095819005.png" alt="image-20220528095819005" style="zoom:80%;">
+
+<p>由于ZF标志位和运算结果相关，那么ZF标志位就会影响到标志寄存器，在8086CPU指令集中，如下指令都会影响到标志寄存器的某些位（这里应该就是影响zf标志位）：<br>add、sub、mul、div、inc、or、and会影响标志寄存器的某些位</p>
+</li>
+<li><p>PF标志位（奇偶数标志位）：相关指令之后，其结果所有的bit位中1的个数是否为偶数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,1</span><br><span class="line">add al,10</span><br><span class="line">执行后的结果为11（注意：这里是10进制的11，但是dosbox这么写貌似是16进制的，实际应该写成mov 10h这种形式才更加规范的表示16进制，后面学习反正也不用dosbox。。），ax对应的二进制就是00001011B，一共有3个(奇数个)1，则pf=0</span><br></pre></td></tr></table></figure>
+
+<p>如下 为dosbox中，和上面例子有些区别。。。这里是16进制，上面例子是10进制的。。。</p>
+<img src="/2022/05/26/22-0526-02/image-20220528113609497.png" alt="image-20220528113609497" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,1</span><br><span class="line">or al,2</span><br><span class="line">执行后的二进制结果为00000011B，有2个(偶数个)1，则pf=1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SF标志位（符号标志位）：这个标志位是对<code>有符号数</code>结果的记录，注意这里记录的是有符号数，比如：对于<code>10000001B</code>而言，如果是无符号数代表129，但如果换算成有符号数则代表-127，计算过程如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">10000001b的反码为11111110b，补码为11111111b（此亦是原码），即十进制的－127。</span><br><span class="line">补充反码和补码计算过程：</span><br><span class="line">正数的反码与其原码相同;负数的反码是对其原码逐位取反,但符号位除外。</span><br><span class="line">正数的补码与其原码相同,负数的补码是在其反码的末位加1</span><br></pre></td></tr></table></figure>
+
+<p>相关指令执行后，其结果是否为负数，则SF&#x3D;1，结果为非负数，则SF&#x3D;0</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,10000001B</span><br><span class="line">add al,1B</span><br><span class="line">执行后结果为1000 0010B，1000 0010B有符号数转化后就是10进制的-126,由于是负数，sf=1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,10000001B</span><br><span class="line">add al,01111111B</span><br><span class="line">执行后结果为0，则sf=0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>CF标志：在进行<code>无符号运算</code>时，记录了2个数做加法的进位值，或是2个数做减法的借位值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,98h</span><br><span class="line">add al,al</span><br><span class="line">上述代码执行后，al=30h，cf=1，cf记录了进位值</span><br></pre></td></tr></table></figure>
+
+<p>两个数字做加法：</p>
+<p>正常来说16进制的：98+98&#x3D;130</p>
+<img src="/2022/05/26/22-0526-02/image-20220528135502362.png" alt="image-20220528135502362" style="zoom:80%;">
+
+<p>通过计算器我们发现两个十六进制98相加后，对应10进制为 1 0011 0000 显然已经超出了16位，那么我们只能将最高位的1放到标志寄存器中，所以最终的结果为 110000B ，也就是30h</p>
+<img src="/2022/05/26/22-0526-02/image-20220528135419918.png" alt="image-20220528135419918" style="zoom:80%;">
+
+<p>两个数字做减法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,97h</span><br><span class="line">sub al,98h</span><br><span class="line">执行后al=FFh，CF=1，cf记录了借位值</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/26/22-0526-02/image-20220528150133600.png" alt="image-20220528150133600" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sub al,al  </span><br><span class="line">执行后al=0，cf=0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>OF标志：记录<code>有符号数</code>运算时是否发生了溢出，溢出，则OF&#x3D;1，没有溢出，则OF&#x3D;0（注意和CF做区分，CF是针对无符号数的）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">比如：</span><br><span class="line">88有符号数(16进制)，对应二进制为10001000，这里的10001000是补码，先将补码转为反码11110111，然后将反码+1转为原码1111 1000，该原码高位第一个1是符号位，剩下的111 1000就是120，也就是-120</span><br><span class="line">F0有符号数(16进制)，对应二进制为11110000，也就是-16（转化过程同上）</span><br><span class="line">mov al,88h</span><br><span class="line">add al,F0</span><br><span class="line">执行指令相加后，-120+(-16)=136，但是8位的al寄存器范围为-128~127，显然这里溢出了</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/26/22-0526-02/image-20220528213420001.png" alt="image-20220528213420001" style="zoom:80%;">
+
+<blockquote>
+<p>注意：debug中标志寄存器的表示如下：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>值为1的标记</th>
+<th>值为0的标记</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>of</td>
+<td>OV (overflow)</td>
+<td>NV(not overflow)</td>
+</tr>
+<tr>
+<td>sf</td>
+<td>NG(负数)</td>
+<td>PL(正数)</td>
+</tr>
+<tr>
+<td>zf</td>
+<td>ZR(为0)</td>
+<td>NZ(not zero 不为0)</td>
+</tr>
+<tr>
+<td>pf</td>
+<td>PE(偶数)</td>
+<td>PO(奇数)</td>
+</tr>
+<tr>
+<td>cf</td>
+<td>CY(carry yes有进位或借位)</td>
+<td>NC(not carry 没有进或借)</td>
+</tr>
+<tr>
+<td>df</td>
+<td>DN(向下)</td>
+<td>UP(向上)</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>adc指令（add+carry）：带进位的加法指令，会把CF位上记录的<code>进位值/借位值</code>加起来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov ax,2</span><br><span class="line">mov bx,1</span><br><span class="line">sub bx,ax  ;由于是无符号数，且1-2肯定是要借位的，CF=1</span><br><span class="line">adc ax,1   ;等价于ax+1，然后再加上cf，也就是ax+1+cf=2+1+1=4</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,1</span><br><span class="line">add ax,ax	;这里没有进位或借位，cf=0</span><br><span class="line">adc ax,5	;ax+5+cf=2+5+9=7</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">利用adc对任意大的数据进行加法，计算1EF0001000H+2010001EF0H</span><br><span class="line">1EF0001000H = 001E F000 1000H</span><br><span class="line">2010001EF0H = 0020 1000 1EF0H</span><br><span class="line">mov ax,001EH</span><br><span class="line">mov bx,F000H</span><br><span class="line">mov cx,1000H</span><br><span class="line">add cx,1EF0H</span><br><span class="line">adc bx,1000H</span><br><span class="line">adc ax,0020H</span><br></pre></td></tr></table></figure>
+
+<p>sbb指令：带借位的减法指令（应用类似于adc）</p>
+<p>cmp比较指令：功能相当于减法指令，但是不保存结果，cmp指令执行后，对标志寄存器产生影响</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cmp ax,ax	;相当于ax-ax，但是并不保存结果在ax中，仅仅是为了影响标志寄存器的相关位，该指令执行后，标志寄存器中的zf=1，pf=1，sf=0，cf=0，f=0</span><br><span class="line"></span><br><span class="line">无符号数的比较</span><br><span class="line">cmp ax,bx</span><br><span class="line">如果ax = bx 相减结果为0，所以zf=1</span><br><span class="line">如果ax 不等于 bx，相减结果不为0，所以zf=0</span><br><span class="line">如果ax &lt; bx 必然产生借位，所以cf=1</span><br><span class="line">如果ax &gt; bx 既不会产生借位，结果又不可能是0，所以cf=0并且zf=0</span><br><span class="line">如果ax 大于等于 bx，不会借位，cf=0</span><br><span class="line">如果ax 小于等于 bx，可能会产生借位，结果也可能为0，所以cf=1或zf=1</span><br><span class="line">通过这点我们就可以看出这指令的设计思路：通过做减法运算，影响标志寄存器，标志寄存器的相关位就记录了比较的结果</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>检测比较结果的条件转移指令（转移指令：即修改ip的指令，比如之前学过的jcxz指令）</p>
+<p>cmp和检测标志位的条件转移配合使用，就像call和ret</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">指令    含义     检测的相关标志位</span><br><span class="line">je   等于则转移   zf=1</span><br><span class="line">jne  不等于则转移  zf=0</span><br><span class="line">jb   低于则转移   cf=1 </span><br><span class="line">jnb  不低于则转移  cf=0</span><br><span class="line">ja   高于则转移    cf=0且zf=0</span><br><span class="line">jna  不高于则转移  cf=1或zf=1</span><br><span class="line"></span><br><span class="line">比如：实现条件判断……（相当于高级语言的if）</span><br><span class="line">如果ah = bh 则ah= ah+ah 否则ah=ah+bh</span><br><span class="line">实现的具体指令如下：</span><br><span class="line">cmp ah,bh	;比较ah和bh的值</span><br><span class="line">je s		;如果ah和bh相等，则跳转到s标号</span><br><span class="line">add ah,bh	</span><br><span class="line">jmp ok		;为了避免执行完add ah,bh后执行s标号处的指令，所以直接跳转到程序结束	</span><br><span class="line">s:add ah,ah</span><br><span class="line"></span><br><span class="line">ok:mov ax,4c00h	;程序结束的地方</span><br><span class="line">	int 21h</span><br></pre></td></tr></table></figure>
+
+<p>DF标志位（方向标志位）：控制si、di的增减</p>
+<ul>
+<li>df&#x3D;0时，si、di递增</li>
+<li>df&#x3D;1时，每次操作si、di递减</li>
+</ul>
+<p>串传送指令</p>
+<ul>
+<li><p>movsb：每次传送一个字节，将ds:si指向的内存单元中的字节送入es:di中，根据df的值，将si和di递增或递减</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov es:[di],ds:[si] </span><br><span class="line">df=0的话</span><br><span class="line">inc si</span><br><span class="line">inc di</span><br><span class="line">df=1的话</span><br><span class="line">dec si</span><br><span class="line">dec di</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>movsw：每次传送一个字，将ds:si指向的内存单元中的字节送入es:di中，根据df的值，将si和di递增2或者递减2</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov es:[di],ds:[si] </span><br><span class="line">df=0的话</span><br><span class="line">add si,2</span><br><span class="line">add di,2</span><br><span class="line">df=1的话</span><br><span class="line">sub si,2</span><br><span class="line">sub di,2</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>rep指令：作用是重复后面的指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">比如说:rep movsb 也就是一直执行movsb指令，等价于下面的指令：</span><br><span class="line">s: movsb</span><br><span class="line">loop s</span><br></pre></td></tr></table></figure>
+
+<p>cld指令：将DF位设置为0</p>
+<p>std指令：将DF位设置为1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">作业：</span><br><span class="line">;将data段中的第一个字符串复制到它后面的空间中</span><br><span class="line">data segment</span><br><span class="line">	db &#x27;geinaizishaozhi!&#x27;</span><br><span class="line">	db 16 dup (0)</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">	;设置ds:si指向data:0</span><br><span class="line">	mov ax,data</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov si,0</span><br><span class="line">	</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov di,16</span><br><span class="line">	mov cx,16</span><br><span class="line">	</span><br><span class="line">	cld;设置df=0，每次si和di递增</span><br><span class="line">	</span><br><span class="line">	rep movsb;如果每次传送一个字cx改成8，movsb替换成movsw</span><br><span class="line">	</span><br><span class="line">code ends</span><br></pre></td></tr></table></figure>
+
+<p>pushf指令：将标志寄存器的值压栈</p>
+<ul>
+<li><p>当前栈的内容</p>
+<img src="/2022/05/26/22-0526-02/image-20220528230646877.png" alt="image-20220528230646877" style="zoom:80%;">
+</li>
+<li><p>执行pushf后栈的内容</p>
+<img src="/2022/05/26/22-0526-02/image-20220528230927972.png" alt="image-20220528230927972" style="zoom:80%;">
+
+<p>7202是标志寄存器的值，转化成二进制即：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">111 0010 0000 0010</span><br></pre></td></tr></table></figure>
+
+<p>这16位就对应如下图：</p>
+<img src="/2022/05/26/22-0526-02/image-20220528231216595.png" alt="image-20220528231216595" style="zoom:80%;"></li>
+</ul>
+<p>popf指令：从栈顶弹出数据送入标志寄存器</p>
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/26/22-0526-01/">汇编day6</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
