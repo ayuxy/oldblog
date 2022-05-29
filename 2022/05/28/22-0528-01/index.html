@@ -12,7 +12,7 @@
 
 
 
-<title>A记录等 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+<title>汇编day8 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
 
 
 
@@ -161,7 +161,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">A记录等</h1>
+            <h1 class="post-title">汇编day8</h1>
             
                 <div class="post-meta">
                     
@@ -174,12 +174,12 @@
                         <span class="post-time">
                         <!--发布时间:-->
                         <i class="iconfont icon-time"></i>
-                        <a href="#">2022-04-27&nbsp;&nbsp;23:24:32</a> &nbsp;
+                        <a href="#">2022-05-28&nbsp;&nbsp;9:55:34</a> &nbsp;
                         </span>
                     
                     
                     
-                    <span id="/2022/04/27/22-0427-03/" class="leancloud-visitors view" data-flag-title="A记录等">
+                    <span id="/2022/05/28/22-0528-01/" class="leancloud-visitors view" data-flag-title="汇编day8">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -193,25 +193,97 @@
         </header>
 
         <div class="post-content">
-            <p><strong>A (Address) 记录</strong></p>
-<p>是用来指定主机名（或域名）对应的IP地址记录。用户可以将该域名下的网站服务器指向到自己的web server上。同时也可以设置您域名的二级域名。</p>
-<p><strong>别名(CNAME)记录</strong></p>
-<p>也被称为规范名字。这种记录允许您将多个名字映射到同一台计算机。 通常用于同时提供WWW和MAIL服务的计算机。例如，有一台计算机名为“host.mydomain.com”（A记录）。 它同时提供WWW和MAIL服务，为了便于用户访问服务。可以为该计算机设置两个别名（CNAME）：WWW和MAIL。 这两个别名的全称就是“<a target="_blank" rel="noopener" href="http://www.mydomain.com”和“mail.mydomain.com”.实际上他们都指向“host.mydomain.com”./">www.mydomain.com”和“mail.mydomain.com”。实际上他们都指向“host.mydomain.com”。</a> 同样的方法可以用于当您拥有多个域名需要指向同一服务器IP，此时您就可以将一个域名做A记录指向服务器IP然后将其他的域名做别名到之前做A记录的域名上，那么当您的服务器IP地址变更时您就可以不必麻烦的一个一个域名更改指向了 只需要更改做A记录的那个域名其他做别名的那些域名的指向也将自动更改到新的IP地址上了。</p>
-<p><strong>如何检测CNAME记录？</strong></p>
-<p>1、进入命令状态；（开始菜单 - 运行 - CMD[回车]）；</p>
-<p>2、输入命令” nslookup -q&#x3D;cname 这里填写对应的域名或二级域名”，查看返回的结果与设置的是否一致即可。 </p>
-<p><strong>MX（Mail Exchanger）记录</strong></p>
-<p>是邮件交换记录，它指向一个邮件服务器，用于电子邮件系统发邮件时根据 收信人的地址后缀来定位邮件服务器。例如，当Internet上的某用户要发一封信给 <a href="mailto:&#117;&#x73;&#x65;&#x72;&#64;&#x6d;&#x79;&#100;&#111;&#x6d;&#x61;&#x69;&#110;&#x2e;&#99;&#111;&#x6d;">&#117;&#x73;&#x65;&#x72;&#64;&#x6d;&#x79;&#100;&#111;&#x6d;&#x61;&#x69;&#110;&#x2e;&#99;&#111;&#x6d;</a> 时，该用户的邮件系统通过DNS查找mydomain.com这个域名的MX记录，如果MX记录存在， 用户计算机就将邮件发送到MX记录所指定的邮件服务器上。</p>
-<p><strong>什么是TXT记录？</strong></p>
-<p>TXT记录一般指为某个主机名或域名设置的说明，如：</p>
-<p>1）admin IN TXT “jack, mobile:13800138000”；</p>
-<p>2）mail IN TXT “邮件主机, 存放在xxx ,管理人：AAA”，Jim IN TXT “contact: <a href="mailto:abc@mailserver.com">abc@mailserver.com</a>“</p>
-<p>也就是您可以设置 TXT ，以便使别人联系到您。</p>
-<p><strong>如何检测TXT记录？</strong></p>
-<p>1、进入命令状态；（开始菜单 - 运行 - CMD[回车]）；</p>
-<p>2、输入命令” nslookup -q&#x3D;txt 这里填写对应的域名或二级域名”，查看返回的结果与设置的是否一致即可。 </p>
-<p><strong>什么是NS记录？</strong></p>
-<p>ns记录全称为Name Server 是一种域名服务器记录，用来明确当前你的域名是由哪个DNS服务器来进行解析的。</p>
+            <blockquote>
+<p>扩展：cpu的三种工作模式</p>
+</blockquote>
+<ol>
+<li><p>实模式：最早的PC机，没有windows系统，一开机就是dos窗口，缺陷就是不安全，程序可以随意访问任何的物理地址</p>
+</li>
+<li><p>保护模式：32位cpu带有保护模式，特权级 ，0~3，0为最高特权，是内核代码所运行的级别，3是最低权限，为用户程序的运行级别（ring3对抗360貌似就是和这个有关。。。）</p>
+<p>PC加载操作系统的过程：开机—&gt;加电自检—&gt;从磁盘中寻找boot引导程序去加载内核—&gt;如果装的是windows系统（多任务系统），将由它把CPU切换到保护模式下运行</p>
+</li>
+<li><p>虚拟8086（dos）：比如：我们电脑中日常用的dos窗口、前面常用的dosbox都是虚拟出来的</p>
+</li>
+</ol>
+<p>中断分为内中断和外中断</p>
+<ul>
+<li><p>内中断：发生了需要CPU立刻要去处理的信息。CPU发生中断的情况也是不同的，会产生了4种不同的中断信息，那就需要进行不同的处理，如下：</p>
+<ul>
+<li><p>除法错误（除法溢出）</p>
+<img src="/2022/05/28/22-0528-01/image-20220529103843460.png" alt="image-20220529103843460" style="zoom:80%;">
+</li>
+<li><p>单步调试，我们在前面的学习中经常用到dosbox单步调试（-t命令）</p>
+</li>
+<li><p>执行into指令</p>
+</li>
+<li><p>执行int指令</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>中断类型码：CPU在接受到中断信息后，需要判断是啥类型的中断，中断类型码就标识了它是啥中断类型</p>
+<ul>
+<li>除法错误—&gt;中断类型码 0</li>
+<li>单步执行—&gt;中断类型码 1</li>
+<li>执行into指令—&gt;中断类型码 4</li>
+<li>执行int指令（int n）—&gt;中断类型码 n</li>
+</ul>
+<p>中断向量表：通过中断类型码作为表项号去定位中断向量表的表项，从而获得程序的入口地址，对于8086机器，中断向量表指定存放在内存地址0000:0000到0000:03FF之间（一共124个单元）</p>
+<ul>
+<li><p>中断向量表大致如下：</p>
+<img src="/2022/05/28/22-0528-01/image-20220529204944685.png" alt="image-20220529204944685" style="zoom:80%;">
+</li>
+<li><p>中断向量表的一个表项占4个字节（2个字），高位地址存放段地址，低位地址存放偏移地址，比如：0号表项的中断处理程序的入口地址为 CS:IP &#x3D; 0020:0100，那么0号表项具体如下： </p>
+<img src="/2022/05/28/22-0528-01/image-20220529205820681.png" alt="image-20220529205820681" style="zoom:80%;">
+</li>
+<li><p>作业：现在问：2号中断源处理程序的入口地址是啥？？？？</p>
+<p>解答：</p>
+<img src="/2022/05/28/22-0528-01/image-20220529212603474.png" alt="image-20220529212603474" style="zoom:80%;">
+
+<p>2号中断源处理程序的入口地址CS:IP &#x3D; 0070:0008</p>
+</li>
+</ul>
+<p>用中断类型码找到中断向量（中断向量表中的表项），用它设置CS:IP，这个称为中断过程，由CPU硬件自动完成</p>
+<p>整个中断的过程大致如下：<br>CPU收到中断信息—&gt;要对中断信息做处理—&gt;首先将引发中断过程—&gt;硬件完成自动完成中断过程—&gt;CS:IP会指向中断处理程序的入口，CPU就会执行这个中断处理程序</p>
+<p>注意：程序执行完中断处理程序后，肯定还要回到原程序继续往后执行，所以硬件肯定会把执行中断前的CS:IP的值保存起来（通过将CS和IP入栈来进行保存），然后执行完中断处理程序后，再将CS:IP指向之前的CS:IP，使程序继续向下执行</p>
+<p>中断过程6部区：</p>
+<ol>
+<li>取得中断类型码N</li>
+<li>标志寄存器的值入栈</li>
+<li>设置标志寄存器的第8位TF和第9位EF的值，将这两个值改为0</li>
+<li>CS入栈</li>
+<li>IP入栈</li>
+<li>从内存地址中找到中断类型码<code>N*4</code>和<code>N*4+2</code>的两个字单元中，读取中断处理程序的入口地址，设置IP和CS</li>
+</ol>
+<p>IRET指令：中断返回，中断服务程序的最后⼀条指令。IRET指令将推⼊堆栈的段地址和偏移地址弹出，使程序返回到原来发⽣中断的地⽅。其作⽤是从中断中恢复中断前的状态。</p>
+<p>IRET作用大致相当于如下3条指令的功能：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">POP IP</span><br><span class="line">POP CS</span><br><span class="line">POPF</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ul>
+<li><p>外中断 （来自于 CPU 外部，CPU 检测到发送过来的中断信息，引发中断过程，处理外设的输入）</p>
+<p>主板和接口板上装有各种接口芯片，这些外设接口芯片里面有一些寄存器，CPU是把这些寄存器当作<strong>端口</strong>来访问。外设的输入不直接送入内存和CPU，而是送入相关接口芯片端口里面，cpu向外设的输出也是先送到端口，再由端口的相关芯片送到外设。（<strong>cpu通过端口和外部设备进行联系</strong>）</p>
+</li>
+<li><p>外中断源分为2种：</p>
+<ul>
+<li><p>可屏蔽中断，CPU可以不鸟你的外中断，搭不搭理你要看标志寄存器IF位的设置，IF&#x3D;1要搭理你，IF&#x3D;0不鸟你，不响应（几乎所有的外设引发的外中断都是可屏蔽中断）</p>
+<p>如果IF&#x3D;1，那么中断步骤如下：</p>
+<ol>
+<li>取得中断类型码</li>
+<li>标志寄存器入栈 pushf </li>
+<li>TF&#x3D;0 IF&#x3D;0</li>
+<li>CS IP入栈</li>
+<li>设置cs和ip指向处理中断的程序</li>
+</ol>
+</li>
+<li><p>不可屏蔽中断。中断类型码固定是2，见到这个，CPU必须要引发中断过程</p>
+</li>
+</ul>
+</li>
+</ul>
 
         </div>		
 		
@@ -238,10 +310,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/04/28/22-0428-01/">横向移动的方法</a>
             
-            
-            <a class="next" rel="next" href="/2022/04/27/22-0427-02/">域前置技术简单原理</a>
+            <a class="next" rel="next" href="/2022/05/26/22-0526-02/">汇编day7</a>
             
         </section>
         <br>
