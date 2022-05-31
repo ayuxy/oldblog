@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>汇编day9 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">汇编day9</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-29&nbsp;&nbsp;22:24:02</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/05/29/22-0529-01/" class="leancloud-visitors view" data-flag-title="汇编day9">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov ax,0</span><br><span class="line">		mov dx,1</span><br><span class="line">		mov bx,1</span><br><span class="line">		div bx</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>把上面的程序编译成ayu.exe，由于除数为bx（16位），那么被除数一定为32位，被除数的高位存放在dx中，低位存放在ax中，那么根据上述程序，除数bx&#x3D;1h，被除数为dx中高位的1和ax中存放的低位0，也就是10000H，那么10000H&#x2F;1H&#x3D;10000H，而由于最后的结果存放在ax中，但是10000H远远超出了ax能存放的范围，所以会溢出，会显示出的内容如下：（注意：这个除法溢出的中断要在虚拟机windows2003下执行，在win10的dosbox中不会提示Divide overflow）</p>
+<img src="/2022/05/29/22-0529-01/image-20220530110048732.png" alt="image-20220530110048732" style="zoom:80%;">
+
+
+
+<p>这里将 Divide overflow 改成显示 geinaizigegeshaozhi</p>
+<p>整体思路如下：</p>
+<ol>
+<li>除法溢出CPU拿到0号中断类型码去中断向量表找到我们程序的入口地址</li>
+<li>我们程序执行向屏幕上打印naizigegeshaozhi</li>
+<li>程序返回DOS</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">;内存中有一段安全空间，0:200~0:2FF ，下面程序将shaozhi标号处内容存储到内存的0:200处</span><br><span class="line">assume cs:code</span><br><span class="line">stack segment stack</span><br><span class="line">	db 128 dup (0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">	db &#x27;geinaizigegeshaozhi!!!&#x27;,0</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov ax,stack</span><br><span class="line">		mov ss,ax</span><br><span class="line">		mov sp,128</span><br><span class="line">		</span><br><span class="line">		mov ax,cs</span><br><span class="line">		mov ds,ax</span><br><span class="line">		mov si,offset shaozhi</span><br><span class="line">		</span><br><span class="line">		mov ax,0</span><br><span class="line">		mov es,ax</span><br><span class="line">		mov di,200H</span><br><span class="line">		</span><br><span class="line">		mov cx,shaozhi_end - shaozhi</span><br><span class="line">		cld</span><br><span class="line">		rep movsb</span><br><span class="line">		</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">		</span><br><span class="line">	;向屏幕打印给乃子烧纸</span><br><span class="line">	shaozhi:</span><br><span class="line">		mov ax,1</span><br><span class="line">		mov ax,1</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">	shaozhi_end:</span><br><span class="line">		nop</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>编译上述程序，并且debug调试程序：</p>
+<p>开始在内存地址为0:200上全是0，没有数据</p>
+<img src="/2022/05/29/22-0529-01/image-20220530165242736.png" alt="image-20220530165242736" style="zoom:80%;">
+
+<p>然后 -U 调试</p>
+<img src="/2022/05/29/22-0529-01/image-20220530171448244.png" alt="image-20220530171448244" style="zoom:80%;">
+
+<p>然后执行完程序</p>
+<img src="/2022/05/29/22-0529-01/image-20220530171543083.png" alt="image-20220530171543083" style="zoom:80%;">
+
+<p>然后再次d查看0:200处的地址的内容</p>
+<img src="/2022/05/29/22-0529-01/image-20220530171608675.png" alt="image-20220530171608675" style="zoom:80%;">
+
+<p>然后查看0:200对应的指令，发现我们确实把 <code>shaozhi</code> 标号处的4条指令放到了内存 0:200 处</p>
+<img src="/2022/05/29/22-0529-01/image-20220530171648713.png" alt="image-20220530171648713" style="zoom:80%;">
+
+<p>然后我们把<code>shaozhi</code>标号处的内容换成<code>geinaizigegeshaozhi</code>，并且把 中断类型码为 0 的地址对应的内容改成 0:200，代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">stack segment stack</span><br><span class="line">	db 128 dup (0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">	</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov ax,stack</span><br><span class="line">		mov ss,ax</span><br><span class="line">		mov sp,128</span><br><span class="line">		</span><br><span class="line">		mov ax,cs</span><br><span class="line">		mov ds,ax</span><br><span class="line">		mov si,offset shaozhi</span><br><span class="line">		</span><br><span class="line">		mov ax,0</span><br><span class="line">		mov es,ax</span><br><span class="line">		mov di,200H</span><br><span class="line">		</span><br><span class="line">		mov cx,shaozhi_end - shaozhi</span><br><span class="line">		cld</span><br><span class="line">		rep movsb</span><br><span class="line">		</span><br><span class="line">		;将0号中断入口程序地址（除法溢出中断类型码是0）改成0:200地址的内容</span><br><span class="line">		mov ax,0</span><br><span class="line">		mov es,ax</span><br><span class="line">		mov word ptr es:[0*4],200H</span><br><span class="line">		mov word ptr es:[0*4+2],0</span><br><span class="line">		</span><br><span class="line">		;执行除法，使程序溢出</span><br><span class="line">		mov ax,0</span><br><span class="line">		mov dx,1</span><br><span class="line">		mov bx,1</span><br><span class="line">		div bx</span><br><span class="line">		</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">		</span><br><span class="line">	;向屏幕打印给乃子烧纸</span><br><span class="line">	shaozhi:</span><br><span class="line">		jmp shaozhi_start</span><br><span class="line">		db &#x27;geinaizigegeshaozhi!!!&#x27;,0</span><br><span class="line">	shaozhi_start:</span><br><span class="line">		mov ax,0</span><br><span class="line">		mov ds,ax</span><br><span class="line">		mov si,203h</span><br><span class="line">			</span><br><span class="line">		mov ax,0b800h</span><br><span class="line">		mov es,ax</span><br><span class="line">		mov di,12*160+72</span><br><span class="line">	</span><br><span class="line">	show_string:</span><br><span class="line">		mov dl,ds:[si]</span><br><span class="line">		cmp dl,0</span><br><span class="line">		je return</span><br><span class="line">		mov es:[di],di</span><br><span class="line">		inc si</span><br><span class="line">		add si,2</span><br><span class="line">		jmp show_string</span><br><span class="line">	</span><br><span class="line">	return:</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">	shaozhi_end:</span><br><span class="line">		nop</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>这里很奇怪，执行后，没有成功。。。实际应该是可以成功的。。。</p>
+<br>
+
+
+
+<p>CPU怎么知道发生中断的，它是检测标志寄存器的TF位为1的话就引发中断过程，比如中断类型码为1，则中断过程如下：</p>
+<ol>
+<li>取得中断类型码1</li>
+<li>标志寄存器入栈，TF、IF设置为0</li>
+<li>cs、ip入栈</li>
+<li>ip&#x3D;1x4 、cs&#x3D;1x4+2</li>
+</ol>
+<p>CPU为什么要提供<strong>中断</strong>的功能？</p>
+<p>我们知道CPU执行程序时候是从CS:IP指向某个地址开始，自动向下读取指令执行，如果没有这个功能，CPU一加电，就从预设的CS:IP开始读取指令一直执行下去，不可能说执行完一条指令，去做别的事情，只有CPU提供中断后，才能够执行完一条指令后，去做一些其他的事情（比如：debug和其他断点调试就是利用CPU的中断，dosbox的-t参数就是中断，debug使用-t命令时候将TF设置1，使得CPU工作于单步中断下，在CPU执行完这条指令后就会引发单步中断）</p>
+<p>为啥要设置TF&#x3D;0 ？？</p>
+<p>由于TF&#x3D;1，cpu执行完一条指令后会引发单步中断，转去执行中断处理程序。所以为了避免一直中断，那么在进入中断处理程序之前，设置TF&#x3D;0，从而避免CPU在执行中断处理程序的时候又发生中断过程导致一直中断，产生死循环</p>
+<br>
+
+<p>中断处理程序也叫中断例程</p>
+<p>int指令格式为：int n，n就代表中断类型码，功能是引发中断过程，和call命令类似</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		int 0</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>编译上述程序，在windows2003下执行，然后就会报除法溢出错误（0号中断类型码为除法溢出）</p>
+<img src="/2022/05/29/22-0529-01/image-20220530214618708.png" alt="image-20220530214618708" style="zoom:80%;">
+
+<p>编写一个中断例程，功能是返回一个word型数据的平方，编译如下程序为test.exe</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov ax,1234</span><br><span class="line">		int 7ch			;调用7ch中断例程，拿到ax的平方</span><br><span class="line">		</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">		</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>编写7ch中断例程，如下，然后编译成ayu.exe</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov ax,cs</span><br><span class="line">		mov ds,ax</span><br><span class="line">		mov si,offset sqr</span><br><span class="line">		mov ax,0</span><br><span class="line">		mov es,ax</span><br><span class="line">		mov di,200H</span><br><span class="line">		mov cx,offset sqrend - offset sqr</span><br><span class="line">		cld</span><br><span class="line">		rep movsb</span><br><span class="line">		</span><br><span class="line">		mov ax,0</span><br><span class="line">		mov es,ax</span><br><span class="line">		mov word ptr es:[7ch*4],200H</span><br><span class="line">		mov word ptr es:[7ch*4+2],0</span><br><span class="line">		</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">					</span><br><span class="line">sqr:	mul ax		;mul乘法指令，即执行ax*ax，也就是ax²</span><br><span class="line">	iret	  	;call指令和ret配合，这里int和iret配合，iret的作用就是 1.pop ip  2.pop cs  3.popf</span><br><span class="line">sqrend:	nop</span><br><span class="line">		</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>调试 ayu.exe 和 test.exe，先调试 ayu.exe ，如下：</p>
+<img src="/2022/05/29/22-0529-01/image-20220531153856320.png" alt="image-20220531153856320" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/05/29/22-0529-01/image-20220531152833927.png" alt="image-20220531152833927" style="zoom:80%;">
+
+</p><p>然后调试 test.exe，引发7ch中断例程的IP为<code>7ch*4=1F0</code>地址处的值 ，CS为<code>7ch*4+2=1F2</code>地址处的值，即CS:IP&#x3D;0:200</p>
+<img src="/2022/05/29/22-0529-01/image-20220531153804498.png" alt="image-20220531153804498" style="zoom:80%;">
+
+<p>然后一步步调试，十进制1234转为16进制也就是3C44，然后3C44*3C44&#x3D;173C44，存放在AX和DX两个寄存器中，高位在DX中，低位在AX中，如下：</p>
+<img src="/2022/05/29/22-0529-01/image-20220531154045567.png" alt="image-20220531154045567" style="zoom:80%;">
+
+
+
+<br>
+
+<p>在系统板的ROM种存放着一套程序，称为BIOS（基本输入输出系统），BIOS主要包含以下内容：</p>
+<ol>
+<li>硬件系统的检测和初始化程序</li>
+<li>存储着外部中断和内部中断的中断例程</li>
+<li>用于对硬件设备进行I&#x2F;O操作的中断例程</li>
+<li>其他和硬件系统相关的中断例程</li>
+</ol>
+<p>操作系统DOS提供了中断例程（如果操作系统为windows，那么windows系统API就类似中断例程），DOS的中断例程其实就是操作系统给我们程序员提供的编程资源 （我们可以直接int指令调用中断例程，类似上面的 int 7ch 直接得到 ax 的平方）</p>
+<p>BIOS和DOS（操作系统）所提供的中断例程中包含了许多子程序（造好的轮子），这些子程序实现了我们在编程的时候经常要用的功能，所以我们要用这些功能的时候不用自己造轮子，直接int指令调用即可</p>
+<p>BIOS和DOS中断例程安装过程：</p>
+<ol>
+<li>CPU一加电（开机），初始化CS&#x3D;0FFFFH,IP&#x3D;0,自动从FFFF:0单元开始执行程序，FFFF:0处有一条跳转指令，CPU执行该指令后，转去执行BIOS中的硬件系统检测和初始化程序</li>
+<li>初始化程序将把BIOS提供的中断例程的入口地址登记在中断向量表中</li>
+<li>硬件检测和初始化完成后，调用19h(int 19h)进行操作系统的引导，从此之后计算机交由操作系统控制</li>
+<li>操作系统（dos）启动后，除了完成其他工作外，还将它所提供的中断例程装入内存，并建立相应的中断向量（提供的中断例程的入口地址登记在中断向量表中）</li>
+</ol>
+<p>一个供程序员调用的中断例程中往往包含多个子程序，中断例程内部用传递进来的参数来决定执行哪一个子程序。BIOS和DOS提供的中断例程都用<code>ah</code>来传递内部子程序的编号</p>
+<p>例如 int 10h 中断例程（int 10h是BIOS提供的）中包含了很多与屏幕输出相关的子程序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">	</span><br><span class="line">	mov ah,2		;10h中断例程里的第2个子程序功能是设置光标</span><br><span class="line">	;设置参数</span><br><span class="line">	mov bh,0		;显存第0页</span><br><span class="line">	mov dh,5		;第5行</span><br><span class="line">	mov dl,12		;第12列</span><br><span class="line">	</span><br><span class="line">	;参数设置完后调用中断例程</span><br><span class="line">	int 10h</span><br><span class="line">		</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>编译上述程序，然后运行exe文件</p>
+<img src="/2022/05/29/22-0529-01/image-20220531162658177.png" alt="image-20220531162658177" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">	mov ah,2			;设置光标位置</span><br><span class="line">	mov bh,0</span><br><span class="line">	mov dh,7</span><br><span class="line">	mov dl,13</span><br><span class="line">	int 10h</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	mov ah,9			;9号子程序，功能是在光标位置显示字符</span><br><span class="line">	mov al,&#x27;X&#x27;</span><br><span class="line">	mov bl,11001010b		;00000100b颜色属性</span><br><span class="line">	mov bh,0			;第0页</span><br><span class="line">	mov cx,5			;字符重复个数</span><br><span class="line">	int 10h</span><br><span class="line">		</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>编译中上述程序，执行</p>
+<img src="/2022/05/29/22-0529-01/image-20220531163043222.png" alt="image-20220531163043222" style="zoom:80%;">
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/28/22-0528-01/">汇编day8</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
