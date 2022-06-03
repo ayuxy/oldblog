@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>汇编day10 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">汇编day10</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-06-03&nbsp;&nbsp;9:09:09</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/06/03/22-0603-01/" class="leancloud-visitors view" data-flag-title="汇编day10">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>DOS中断例程</p>
+<p>实际之前我们已经接触过dos中断例程，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ax,4c00h</span><br><span class="line">int 21h</span><br></pre></td></tr></table></figure>
+
+<p>而 mov  ax,4c00h 也就是 mov ah,4ch mov al,00h </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ah,4ch</span><br><span class="line">mov al,0</span><br><span class="line">int 21h		;表示使用int 21h中断例程的4ch子程序，功能为程序返回，ah传递参数</span><br></pre></td></tr></table></figure>
+
+<p>作业：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code,ds:data</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">	db &#x27;Welcome to naizishaozhi&#x27;,&#x27;$&#x27;	;这里的$表示字符串结束的标志</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		</span><br><span class="line">		mov ah,2	;调用2号子程序，来设置光标</span><br><span class="line">		;设置参数</span><br><span class="line">		mov bh,0	;设显存置第0页</span><br><span class="line">		mov dh,5	;设置第5行</span><br><span class="line">		mov dl,12	;设置第12列</span><br><span class="line">		int 10h		;设置完参数后调用10h中断例程</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		mov ax,data		</span><br><span class="line">		mov ds,ax</span><br><span class="line">		mov dx,0	;ds:dx，指向data段字符串的首地址</span><br><span class="line">		mov ah,9	;调用号子程序，功能是在光标处显示字符串</span><br><span class="line">		int 21h		;注意:调用21h中断例程时候，该例程是以dx为偏移的，所以在前面把dx设置为0</span><br><span class="line">		</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>编译上述程序，指向后如下：</p>
+<img src="/2022/06/03/22-0603-01/image-20220603172546722.png" alt="image-20220603172546722" style="zoom:80%;">
+
+<br>
+
+<br>
+
+<p>CPU 是一块芯片，通过地址线、数据线、控制线和其他电子器件链接，那么我们在键盘上按下 ‘A’ ，CPU如何获取到我们键盘上按下的 ‘A’ 呢 ？？</p>
+<p>在电脑的主板上有很多接口，如下，这些接口上有很多芯片，这些芯片上还有一些寄存器，比如：笔记本上的插键盘的usb接口，这个接口上就有芯片，芯片上就有寄存器。</p>
+<img src="/2022/06/03/22-0603-01/image-20220603174049492.png" alt="image-20220603174049492" style="zoom:80%;">
+
+<p>比如：我们在键盘上按下 ‘A’ ，由于键盘上肯定也有芯片，芯片上就有寄存器，那么当我们在键盘上按下 ‘ A’ 的时候，就会把 ‘A’ 存放到键盘芯片上的寄存器中，然后通过 “端口” 把A发送给CPU，实际这里端口就是键盘和电脑连接的usb接口上的寄存器，每个端口都有一个编号，类似于内存的地址。CPU通过端口地址来定位端口，端口的范围是64KB，即 0~65535</p>
+<img src="/2022/06/03/22-0603-01/image-20220603175122384.png" alt="image-20220603175122384" style="zoom:80%;">
+
+<p>注意：对端口的读写不能使用 mov push pop 等内存指令，端口的读写有2条：In（读）和 out（写）</p>
+<p>比如：访问60号端口的内容  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">In al,60h	;这里必须是al或者ax，这个是固定的格式，访问8位端口用al，访问16位端口用ax</span><br></pre></td></tr></table></figure>
+
+<p>具体如下： </p>
+<p>CPU要读取60h号端口的内容，那么CPU通过地址总线将60h这个地址信息发送出去，找到60h端口，然后通过控制线告诉这个端口要执行In读命令，那么芯片所在的60h端口会把数据通过地址线直接放到CPU的寄存器中</p>
+<p>比如：对0~255（8位）以内的端口进行读写时，这里以20h端口为例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">in al,20h	</span><br><span class="line">out 20h,al</span><br></pre></td></tr></table></figure>
+
+<p>比如：对256~65535（16位）进行读写，端口号放dx中，这里的端口号为3f8h（10进制的1016）为例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov dx,3f8h</span><br><span class="line">in al,dx</span><br><span class="line">out dx,al</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>CMOS RAM 芯片（简称CMOS）</p>
+<ol>
+<li><p>CMOS芯片是电脑主板上的一块可读写的RAM芯片，因为可读写的特性，所以在电脑主板上用来保存BIOS设置完电脑硬件参数后的数据，这个芯片仅仅是用来存放数据的。</p>
+</li>
+<li><p>CMOS芯片包含一个实时钟（用来显示当前时间）和一个有128个存储单元的RAM存储器</p>
+</li>
+<li><p>128个字节的RAM中内部实时钟占用0~0dh单元用，来保存时间信息，其余大部分单元用于保存系统配置信息，供系统启动时BIOS程序读取</p>
+</li>
+<li><p>CMOS RAM 存储的具体时间信息如下：</p>
+<p>年、月、日、时、分、秒，这六个信息长度都为1个字节，存放单元为：秒:0   分:2   时:4  日: 7   月:8   年:9 </p>
+<p>这些时间数据都是以BCD码的方式存放</p>
+<p>BCD码是以4位二进制数表示十进制数码的编码方法，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">十进制数码:      0       1      2      3      4     5       6       7       8      9</span><br><span class="line">对应的BCD码:   0000    0001   0010   0011   0100   0101   0110    0111    1000    1001</span><br></pre></td></tr></table></figure>
+
+<p>比如：数值26，用BCD码表示为: 0010 0110</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">;作业：编程在屏幕中间显示当前的月份</span><br><span class="line">;分析：当前日期为6月，我们拿到的数据实际是bcd码，也就是0000 0110，然后我们右移四位，拿到4个高位数据0000，然后and指令拿到低4位0110，然后把高位和低位分别+30h，拿到对应的ascii码，然后写入显存，显示出来对应月份</span><br><span class="line">assume cs:code,ds:data</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">	db &#x27;Welcome to naizishaozhi&#x27;,&#x27;$&#x27;</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov al,8</span><br><span class="line">		out 70h,al</span><br><span class="line">		in al,71h</span><br><span class="line">		</span><br><span class="line">		mov ah,al</span><br><span class="line">		mov cl,4</span><br><span class="line">		shr ah,cl	;拿到月份高位（十位）</span><br><span class="line">		and al,00001111b	;拿到月份的低位（个位）</span><br><span class="line">		;加上30H显示对应的ASCII码</span><br><span class="line">		add ah,30H</span><br><span class="line">		add al,30H</span><br><span class="line">		</span><br><span class="line">		mov bx,0b800h</span><br><span class="line">		mov es,bx</span><br><span class="line">		mov byte ptr es:[160*12+40*2],ah</span><br><span class="line">		mov byte ptr es:[160*12+40*2+1],11001100b</span><br><span class="line">		mov byte ptr es:[160*12+40*2+2],al</span><br><span class="line">		mov byte ptr es:[160*12+40*2+3],11001100b</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>编译运行上述程序后，结果如下：</p>
+<img src="/2022/06/03/22-0603-01/image-20220603213046104.png" alt="image-20220603213046104" style="zoom:80%;">
+</li>
+<li><p>该芯片有电池供电，所以关机后内部的时钟依然可以正常工作，RAM中信息不丢失</p>
+</li>
+<li><p>该芯片有两个端口：70h和71h，CPU通过这两个端口来读写CMOS RAM</p>
+</li>
+<li><p>70h为地址端口，存放要访问的CMOS RAM单元的地址；71h为数据端口，存放从选定的CMOS RAM单元中读取的数据，或要写入其中的数据。</p>
+<p>比如：要读取cmos 2号单元的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">out 70h,2	;①将2送入端口70h</span><br><span class="line">in al,71h	;②从端口71h读出2号单元的内容</span><br></pre></td></tr></table></figure>
+
+<p>具体内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov al,2</span><br><span class="line">		out 70h,al</span><br><span class="line">		in al,71h</span><br><span class="line">		</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>调式上述程序如下：</p>
+<img src="/2022/06/03/22-0603-01/image-20220603204911894.png" alt="image-20220603204911894" style="zoom:80%;">
+
+<p>执行完 in al,71 指令后，al由 02 变成了 48，而2号单元对应的是分钟，此时恰好是48分</p>
+</li>
+</ol>
+<br>
+
+<p>shl（l&#x3D;left 逻辑左移指令）和 shr（r&#x3D;right 逻辑右移指令）</p>
+<p>shl：将一个寄存器或内存单元中的数据向左移位，将<code>最后移出</code>的一位写入CF中，最低位用0补位</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov al,01001000b</span><br><span class="line">shl al,1	;从右向左移1位</span><br><span class="line">执行上面指令后</span><br><span class="line">al=10010000 CF=0</span><br><span class="line">然后再次执行 sh1 al,1 指令，执行后结果如下：</span><br><span class="line">al=00100000 CF=1</span><br></pre></td></tr></table></figure>
+
+<p>如果一次移动多位，位数大于1时，必须将移动位数放在cl中</p>
+<p>比如：我们向左移动5位，如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,01010001b</span><br><span class="line">mov cl,5</span><br><span class="line">shl al,cl</span><br></pre></td></tr></table></figure>
+
+<p>shr：将一个寄存器或内存单元中的数据向右移，将<code>最后移出</code>的一位写入CF中，最高位用0补位</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,01001001b</span><br><span class="line">shr al,1</span><br><span class="line">;执行后al=00100100b cf=1</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p> 外中断</p>
+<p>外中断分为可屏蔽和不可屏蔽，CPU通过标志寄存器的IF位来判断是可屏蔽还是不可屏蔽，可屏蔽可以不响应（当然也可以响应）。如果不可屏蔽，则必须响应。IF&#x3D;0为可屏蔽中断，IF&#x3D;1为可屏蔽中断</p>
+<p>可屏蔽外中断流程：</p>
+<ol>
+<li>中断后，取中断类型码 n（是为了定位中断例程的入口地址）</li>
+<li>标志寄存器入栈，设置 IF&#x3D;0 TF&#x3D;0（pushf）</li>
+<li>cs、ip入栈</li>
+<li>ip&#x3D;n*4，cs&#x3D;nx4+2</li>
+</ol>
+<p>不可屏蔽中断流程：</p>
+<ol>
+<li>标志寄存器入栈，IF&#x3D;0 TF&#x3D;0（不可屏蔽中断类型码固定是2，不需要取中断类型码）</li>
+<li>cs、ip入栈</li>
+<li>ip&#x3D;n*4，cs&#x3D;nx4+2</li>
+</ol>
+<p>理解可屏蔽中断和不可屏蔽中断：比如，我们在键盘上按下按键，就属于可屏蔽中断，有时候会显示，有时候不显示</p>
+<img src="/2022/06/03/22-0603-01/image-20220603214936400.png" alt="image-20220603214936400" style="zoom:80%;">
+
+<p>键盘处理过程如下：</p>
+<ol>
+<li><p>键盘上的每个键相当于一个开关，键盘中有一个芯片对键盘上的每一个键的开关状态进行扫描（判断我们到底有没有按这个按键）</p>
+</li>
+<li><p>按下一个键，开关接通，该芯片产生一个扫描码，扫描码就说明了你按的是哪个键，扫描码会送到接口芯片的寄存器中，外设都是通过端口来读取数据的，键盘的端口地址为60h</p>
+</li>
+<li><p>按下一个键产生的扫描码又称为通码，松开一个键产生扫描码称为断码。扫描码为一个字节。通码的第7位为0，断码的第7位为1</p>
+<p>比如：g键的通码为 22h （对应二进制为 00100010 ），断码只需要将通码二进制第7位变为1即可，即 10100010 ，对应十六进制为a2h</p>
+</li>
+<li><p>键盘的输入到达60h端口，相关芯片给CPU发出了中断类型码为9的可屏蔽中断信息，CPU检测到该信息后，如果这时IF&#x3D;1,则响应，去执行int 9中断例程</p>
+</li>
+<li><p>BIOS提供了int 9中断例程用来进行基本的键盘输入处理</p>
+<p>int 9 中断例程进行基本的键盘输入处理大致如下：</p>
+<ol>
+<li>读出60h端口中的扫描码</li>
+<li>如果是字符键的扫描码，将该扫描码和对应的ASCII码送入内存的BIOS键盘缓冲区，如果是控制键比如CTRL和CAPSLOCK，则将其转变为状态字节（用二进制记录控制键和切换键状态的字节），写入内存中存储状态的字节单元</li>
+<li>对键盘系统进行相关控制</li>
+</ol>
+</li>
+</ol>
+<p>BIOS键盘缓冲区用于存放 int 9 中断例程所接收的键盘输入内存区，该内存区可以存储15个键盘输入，用一个字单元存放扫描码和ASCII码，高位字节存放扫描码，低位存放ASCII码</p>
+<p>如果我们在键盘上按的是控制键，那么会存储在内存单元中，0040:17单元存放键盘状态字节，该字节记录了控制键的切换键的状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">;显示0040:17存储的字节内容，该部分代码主要做演示用</span><br><span class="line">assume cs:code,ss:stack</span><br><span class="line"></span><br><span class="line">stack segment stack</span><br><span class="line">	db 128 dup (0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov bx,stack</span><br><span class="line">		mov ss,bx</span><br><span class="line">		mov sp,128</span><br><span class="line">		</span><br><span class="line">		mov bx,0b800h</span><br><span class="line">		mov es,bx</span><br><span class="line">		mov bx,40H</span><br><span class="line">		mov ds,bx</span><br><span class="line">		</span><br><span class="line">		mov si,17H</span><br><span class="line">s:	 	mov di,160*10+40*2</span><br><span class="line">		mov al,ds:[si]</span><br><span class="line">		call show_s</span><br><span class="line">		jmp s</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">show_s:	push cx</span><br><span class="line">		push ax</span><br><span class="line">		push ds</span><br><span class="line">		push es</span><br><span class="line">		push si</span><br><span class="line">		push di</span><br><span class="line">		mov cx,8</span><br><span class="line">show:	mov dx,0</span><br><span class="line">		shl al,1</span><br><span class="line">		adc dx,30H</span><br><span class="line">		mov es:[di],dl</span><br><span class="line">		add di,2	</span><br><span class="line">		loop show </span><br><span class="line">		pop di</span><br><span class="line">		pop si</span><br><span class="line">		pop es</span><br><span class="line">		pop ds</span><br><span class="line">		pop ax</span><br><span class="line">		pop cx</span><br><span class="line">		ret</span><br><span class="line">		</span><br><span class="line">		mov ax,4c00h  		;ah=4c al=00</span><br><span class="line">		int 21h</span><br><span class="line">		</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>编译上述程序，如下：</p>
+<img src="/2022/06/03/22-0603-01/image-20220603222053402.png" alt="image-20220603222053402" style="zoom:80%;">
+
+<p>当我们按下shift键时，如下：</p>
+<img src="/2022/06/03/22-0603-01/image-20220603222229806.png" alt="image-20220603222229806" style="zoom:80%;">
+
+<p>这8个0表示的含义如下：</p>
+<ul>
+<li>字节第0位：键盘右边的shift状态，1表示按下</li>
+<li>字节第1位：键盘左边的shift状态，1表示按下</li>
+<li>字节第2位：键盘Ctrl状态，1表示按下</li>
+<li>字节第3位：键盘Alt状态，1表示按下</li>
+<li>字节第4位：键盘ScrollLock状态，置为1表示Scroll灯亮</li>
+<li>字节第5位：键盘NumLock状态，置为1表示小键盘已开启</li>
+<li>字节第6位：键盘CapsLock状态，置为1表示输入大写字母</li>
+<li>字节第7位：键盘Insert状态，置为1表示处于删除状态</li>
+</ul>
+<p>编写程序覆盖int 9程序，按照自己意图来处理键盘的输入，比如在屏幕中间依次显示a~z，在显示的过程中，按下Esc键改变显示的颜色</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">;请将代码编写完成</span><br><span class="line">assume cs:code,ss:stack</span><br><span class="line"></span><br><span class="line">stack segment stack</span><br><span class="line">	db 128 dup (0)</span><br><span class="line">stack ends</span><br><span class="line">code segment</span><br><span class="line">	start:</span><br><span class="line">		mov ax,stack</span><br><span class="line">		mov ss,ax</span><br><span class="line">		mov sp,128</span><br><span class="line">	</span><br><span class="line">		mov ax,0b800h</span><br><span class="line">		mov es,ax</span><br><span class="line">		mov ah,&#x27;a&#x27;</span><br><span class="line">	s:	mov es:[160*12+40*2],ah</span><br><span class="line">		call sleep</span><br><span class="line">		inc ah</span><br><span class="line">		cmp ah,&#x27;z&#x27;</span><br><span class="line">		jna s</span><br><span class="line">		mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">		</span><br><span class="line">	</span><br><span class="line">sleep:	push ax</span><br><span class="line">		push dx</span><br><span class="line">		mov dx,1h;循环1000 0000h次</span><br><span class="line">		mov ax,0</span><br><span class="line">	s1:	sub ax,1</span><br><span class="line">		sbb dx,0</span><br><span class="line">		cmp ax,0</span><br><span class="line">		jne s1</span><br><span class="line">		cmp dx,0</span><br><span class="line">		jne s1</span><br><span class="line">		pop dx</span><br><span class="line">		pop ax</span><br><span class="line">		ret</span><br><span class="line"></span><br><span class="line">.............</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/05/31/22-0531-01/">shiro|fastjson漏洞复现</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
