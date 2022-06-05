@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>汇编day11 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">汇编day11</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-06-04&nbsp;&nbsp;17:03:46</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/06/04/22-0604-01/" class="leancloud-visitors view" data-flag-title="汇编day11">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>不带冒号的标号可以描述内存地址和单元长度，这种标号称为数据标号，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data segment</span><br><span class="line">	a dw 0,0	;标号a描述了地址data:0，还有就是从这个地址开始，后面内存单元都是字单元</span><br><span class="line">	b db 1,2	;标号b描述了地址data:4，还有就是从这个地址开始，后面的内存单元都是字节单元</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">另外还有如下使用方法：</span><br><span class="line">mov al,b 相当于mov ax,ds:[4]</span><br><span class="line">mov al,b[si] 以数组形式使用 </span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>直接定址表</p>
+<p>一个字节用两个十六进制数码来表示，用一个字节的高 4 位和低 4 位分开，分别用它们的值得到对应的数码字符。比如 2Bh，可以得到高 4 位的值为 2，低 4 位的值为 11</p>
+<p>即，当数值为2，则显示2；当数值为11，则显示B</p>
+<p>那么，我们就可以建立一张映射表。通过依据数据，直接对应的结果，类似如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">数值 ——&gt; ASCII字符</span><br><span class="line"> 0       0</span><br><span class="line"> 1       1</span><br><span class="line"> 2       2</span><br><span class="line"> 3       3</span><br><span class="line"> 4       4</span><br><span class="line"> 5       5</span><br><span class="line"> 6       6</span><br><span class="line"> 8       8</span><br><span class="line"> 9       9 </span><br><span class="line"> 10      A </span><br><span class="line"> 11      B </span><br><span class="line"> 12      C </span><br><span class="line"> 13      D </span><br><span class="line"> 14      E </span><br><span class="line"> 15      F </span><br></pre></td></tr></table></figure>
+
+<p>用汇编代码表示如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">table db &#x27;0123456789ABCDEF&#x27;</span><br><span class="line">table[0]  	;对应的就是0，这里中括号里面的0有点类似数组的下表</span><br><span class="line">table[10] 	;对应的就是A</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>day10 学习过扫描码和对应的ASCII码被送入内存的BIOS键盘缓冲区，当我们按下 a 键时，具体流程是啥 ？？</p>
+<ol>
+<li><p>当我们按下 a 键的时候，此时键盘缓冲区的高地址为扫描码（通码）1E，低地址为ASCII码 61</p>
+<img src="/2022/06/04/22-0604-01/image-20220604233531741.png" alt="image-20220604233531741" style="zoom:80%;">
+
+<p>附键盘按键的各种编码对照表：<a target="_blank" rel="noopener" href="https://blog.csdn.net/liuyukuan/article/details/120575746">https://blog.csdn.net/liuyukuan/article/details/120575746</a></p>
+</li>
+<li><p>然后 cpu 执行 int 9，从 60h 端口读取 a 的通码。然后检测状态字节（判断我们有没有按下 shift、ctrl 等控制键），这里我们没有按下shift键</p>
+</li>
+</ol>
+<p>BIOS提供了int 16h中断例程给我们从键盘缓冲区读取一个键盘输入（ 前面学过的int 9的功能是将扫描码和ASCII码写入缓冲区 ）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">;使用16号中断例程的0号子程序</span><br><span class="line">mov ah,0 	;设置参数，用ah表示使用哪个子程序</span><br><span class="line">int 16h</span><br><span class="line"></span><br><span class="line">int 16h 0号功能进行如下操作：</span><br><span class="line">检测缓冲区是否有数据，没有就继续等待，有的话读取缓冲区第一个字单元的键盘输入，将读取的扫描码送入ah，ASCII码送入al,将已读取的键盘输入从缓冲区里删除</span><br><span class="line">比如说：现在缓冲区只有1E61，那么就会将1E给ah，61给al，然后将1E61从缓冲区中删除，现在缓冲区没有数据了，就会继续等待</span><br></pre></td></tr></table></figure>
+
+<p>编写一个程序，要求：接受用户的键盘输入，输入 ‘r’ 将屏幕上的字符都设置为红色，输入 ‘g’ 显示绿色，输入 ‘b’ 显示蓝色</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">	</span><br><span class="line">	start:</span><br><span class="line">		mov ah,0</span><br><span class="line">		int 16h</span><br><span class="line">		</span><br><span class="line">		mov ah,1		;ah保存扫描码，这里把扫描码暂时设置1，即0000 0001</span><br><span class="line">		cmp al,&#x27;r&#x27;		;al存放的是ascii码，比较按下的键位是不是r</span><br><span class="line">		je red			;如果是r，跳转到red标号			</span><br><span class="line">		cmp al,&#x27;g&#x27;</span><br><span class="line">		je green</span><br><span class="line">		cmp al,&#x27;b&#x27;</span><br><span class="line">		je blue</span><br><span class="line">		jmp jieshu</span><br><span class="line">		</span><br><span class="line">red:		shl ah,1		;将ah中值左移1位，即0000 0010</span><br><span class="line">green:		shl ah,1		;将ah中值左移1位，即0000 0100，而0000 0100就是红色</span><br><span class="line">blue:		mov bx,0b800h	</span><br><span class="line">		mov es,bx		</span><br><span class="line">		mov bx,1		</span><br><span class="line">		mov cx,2000				;循环2000次</span><br><span class="line">s:		and byte ptr es:[bx],11111000b		;采用and指令，全1为1，所以会把后三位表示颜色的位设置成0,</span><br><span class="line">		or es:[bx],ah				;将颜色设置为相对应的颜色</span><br><span class="line">		add bx,2				;循环，将屏幕上所有的字符全部设置成相对应的颜色</span><br><span class="line">		loop s	</span><br><span class="line">	</span><br><span class="line">jieshu:	mov ax,4c00h</span><br><span class="line">		int 21h</span><br><span class="line">		</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p>按下r</p>
+<img src="/2022/06/04/22-0604-01/image-20220605124229154.png" alt="image-20220605124229154" style="zoom:80%;">
+
+<p>按下g</p>
+<img src="/2022/06/04/22-0604-01/image-20220605124334011.png" alt="image-20220605124334011" style="zoom:80%;">
+
+<p>按下b</p>
+<img src="/2022/06/04/22-0604-01/image-20220605124348216.png" alt="image-20220605124348216" style="zoom:80%;">
+
+<br>
+
+<br>
+
+<p>字符串输入，如何接受字符串输入 ？？</p>
+<ol>
+<li>在输入的同时需要显示这个字符串</li>
+<li>一般在输入回车后，表示字符串输入结束</li>
+<li>能够删除已经输入的字符串</li>
+</ol>
+<p>字符的输入和输出是按照栈的访问规则进行的，后进先出，如下：</p>
+<img src="/2022/06/04/22-0604-01/GIF 2022-6-5 13-00-55.gif" alt="GIF 2022-6-5 13-00-55" style="zoom:80%;">
+
+<p>所以字符串的存储空间实际上是一个字符栈，从栈底到栈顶组成了一个字符串，如下：</p>
+<img src="/2022/06/04/22-0604-01/image-20220605130539496.png" alt="image-20220605130539496" style="zoom:80%;">
+
+<p>输入回车符，就在字符串中加入0表示一个字符串结束</p>
+<br>
+
+<p>对汇编语言实质思考</p>
+<p>编程思想：</p>
+<p>比如：计算 1 + 2 + 3 + 4 &#x3D; 10，实际是先算 1 + 2 &#x3D; 3 ，然后算 3 + 3 &#x3D; 6 ，然后算 6 + 4 &#x3D;10</p>
+<p>输入数值—&gt;计算数值—&gt;将计算后数值输出，输出的数值又可以作为输入，所谓的输入和输出其实就是数据从哪里来，数据到哪里去</p>
+<p>这个哪里这个词是不是给人一种空间的感觉呢？那我们学到现在，学过哪些和空间位置信息相关的概念呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CPU中的寄存，比如：ax，bx，cx，dx ......</span><br><span class="line">内存条、显卡中的内存地址、段地址、偏移地址 </span><br><span class="line">外设（比如：键盘）中的端口地址（端口号）</span><br><span class="line">网卡的网络地址</span><br><span class="line">硬盘的硬盘地址</span><br></pre></td></tr></table></figure>
+
+<p>那么以上都是什么的空间位置信息？是数据的空间位置信息，那么这些数据的空间位置信息，它们对应的是哪些物理设备？</p>
+<p>这些设备都是插在一块主板上的，而主板上都是有电路的，这又回到了我们刚开始学习的时候，这些电路需要表示哪些信息啊？</p>
+<p>地址信息，数据信息，控制信息，也就是地址线，数据线，控制线。那么也就是说这些插在主板上的物理设备之间，它们是依靠主板上的电路去传递这些信息，然后进行互相<strong>通信</strong>的。</p>
+<p>通信这个词语很关键，我们程序写到现在，你们应该也发现了，我们汇编程序员就是在用汇编指令去控制插在主板上的CPU，通过这些信息去和同样插在主板上的这些各个物理设备之间去进行通信</p>
+<p>当你在执行很多指令的时候（比如：mov al,ds:[si] 、in al,60H、int 13h 等），你都需要有这些信息，特别是这个地址信息，否则的话你这数据从哪里来的啊？还有这个数据到哪里去？而所谓的读写是不是其实就是在通信</p>
+<p>而像 mov ax,bx 指令，则表示CPU内部寄存器之间的通信</p>
+<p>汇编语言是什么呢？ 语言是一套表示系统，再结合我们刚在所讲的，那么我们可以得到一个思考，汇编语言它是一套控制计算机通信的表示系统</p>
+<br>
+
+<p>编译器和链接器</p>
+<p>如果一个程序中有100W行代码，需要编译5分钟，那么我们一旦需要修改代码，就需要再次编译，并且等待5分钟，这样很麻烦</p>
+<p>那么就可以把100W行代码拆分多个部分，如下：</p>
+<p>t1.asm</p>
+<p>t2.asm</p>
+<p>t3.asm</p>
+<p>t4.asm</p>
+<p>然后把这些编译成obj</p>
+<p>t1.asm —&gt; t1.obj</p>
+<p>t2.asm —&gt; t2.obj</p>
+<p>t3.asm —&gt; t3.obj</p>
+<p>t4.asm —&gt; t4.obj</p>
+<p>然后再通过链接器把所有obj文件链接在一起变成可执行的exe文件</p>
+<p>假设我们需要修改 t1 里面的代码，我们是不是只需要编译 t1 就行了，其他的不用再编译，节省时间</p>
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/06/03/22-0603-01/">汇编day10</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
