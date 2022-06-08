@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>x86保护模式day1 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">x86保护模式day1</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-06-06&nbsp;&nbsp;19:07:03</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/06/06/22-0606-01/" class="leancloud-visitors view" data-flag-title="x86保护模式day1">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>段的划分</p>
+<p>程序把数据和指令集中起来，在前面学习8086汇编时，我们经常划分数据段（用来存放全局变量等）、代码段（用来存放指令），但是我们虽然进行了划分，但并没有改变内存上的物理性质。</p>
+<p>程序的重定位</p>
+<p>程序具体在内存中的哪个位置，并不能由我们来决定，在我们双击程序 A ，程序 A 加载到内存的位置是随机的（内存中哪里有空闲的地址，就会被加载到哪里）</p>
+<p>我们在学8086汇编的时候，访问内存地址都是用的偏移地址来访问。那么，我们为啥不用物理地址来访问呢 ？？？</p>
+<p>假设，程序加载到内存后的地址是从0开始的，并且代码段有条指令要求访问物理地址为4的数据，进而得到了FF</p>
+<img src="/2022/06/06/22-0606-01/image-20220606202738108.png" alt="image-20220606202738108" style="zoom:80%;">
+
+<p>但是，由于程序加载到内存后的位置是随机的，那么如果程序加载到内存后是从1000开始的，但代码段中的指令是不变的，所以如果还是取物理地址为4的数据，那么肯定无法得到FF，而应该取1004地址的数据，这就是用物理地址来访问的弊端，而我们只需要把代码段设置成CS，程序里面直接用偏移地址（IP）即可</p>
+<img src="/2022/06/06/22-0606-01/image-20220606203524664.png" alt="image-20220606203524664" style="zoom:80%;">
+
+<p>汇编中用 reg 表示寄存器，即 reg 也就是 ax、bx、bx、dx、sp、bp、si 、di 。用 sreg 表示段寄存器，即 sreg 也就是 ds、ss、cs、es</p>
+<br>
+
+<p>安装nasm（编译后的exe可编译在linux和windows上），直接下一步即可</p>
+<p>安装后可以手动编译和自动编译，笔记中只记录自动编译方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmd /k pushd &quot;$(CURRENT_DIRECTORY)&quot; &amp; D:\nasm\nasm.exe -f bin  &quot;$(FULL_CURRENT_PATH)&quot; -o &quot;$(NAME_PART).bin&quot; &amp; PAUSE &amp; EXIT</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/06/06/22-0606-01/image-20220606211537817.png" alt="image-20220606211537817" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/06/06/22-0606-01/image-20220606212355135.png" alt="image-20220606212355135" style="zoom:80%;">
+
+</p><p>然后运行nasm</p>
+<img src="/2022/06/06/22-0606-01/image-20220606212505489.png" alt="image-20220606212505489" style="zoom:80%;">
+
+<p>即可得到编译后的bin文件</p>
+<img src="/2022/06/06/22-0606-01/image-20220606212435888.png" alt="image-20220606212435888" style="zoom:80%;">
+
+<p>然后查看二进制bin文件，并且转为16进制（因为16进制更方便观看）</p>
+<img src="/2022/06/06/22-0606-01/image-20220606212803586.png" alt="image-20220606212803586" style="zoom:80%;">
+
+<p>转为16进制形式后如下：</p>
+<img src="/2022/06/06/22-0606-01/image-20220606214210259.png" alt="image-20220606214210259" style="zoom:80%;">
+
+<p>注意这里为啥有一些点，因为这里是一个字节来对应的，比如：16进制的69对应的ascii码就是i，但表示汉字需要两个字节，所以一些无法表示出来的就用点来表示</p>
+<br>
+
+<p>每种操作系统都对管理的程序提出了种种格式的要求，比如，windows的PE、linux的elf。如果在windows上的程序格式不是PE，那么就会提示不是有效的windows程序，那么我们如何绕过这个限制呢 ？？？</p>
+<p>我们要了解计算机的启动过程大致是啥样的 ？？？如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 通电</span><br><span class="line">2. 读取ROM里面的BIOS，用来检查硬件</span><br><span class="line">3. 硬件检查通过</span><br><span class="line">4. BIOS根据指定的顺序，检查引导设备的第一扇区（即主引导扇区），加载在内存地址 0x7C00</span><br><span class="line">5. 主引导记录把操作权交给操作系统（注意：操作系统放在硬盘的活动分区内）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>计算机有三种启动过程：</p>
+<ol>
+<li><p>冷启动（加电）：指计算机在没有加电的状态下初始加电，一般原则是，先开外设电源，后开主机电源，因为主机的运行需要非常稳定的电源，为了防止外设启动引起电源波动影响主机运行，应该先把外设电源接通，同时应避免主机启动后，在同一电源线上再启动其他电器设备，如：电视，冰箱，空调等家电设备。</p>
+</li>
+<li><p>热启动：计算机在DOS状态下运行时，同时按下 “ctrl”、“alt”、“del” 三个键,计算机会重新启动，这种启动方式是在不断电状态下进行计算机的程序启动，所以也叫做热启动。</p>
+</li>
+<li><p>复位启动（复位）：指在计算机停止响应后（死机），甚至连键盘都不能响应时采用的一种热启动方式，一般在主机面板上都有一个复位按钮开关，轻轻按一下即可，计算机会重新加载硬盘等所有硬件以及系统的各种软件，当然它的威胁不亚于热启动。</p>
+</li>
+</ol>
+</li>
+<li><p>处理器（CPU）</p>
+<ul>
+<li><p>CPU有很多引脚，其中有一个是专门用来接受复位信号的，当计算机启动时，会执行硬件初始化，将CPU内部所有寄存器的内容初始化到一个预知的状态。</p>
+</li>
+<li><p>对于 8086 CPU 而言，如果接受到复位信号，会使 CS 代码段寄存器置为 0xFFFF，其他所有寄存器的内容都置为 0x000（注意：8086之后的CPU没有延续这样的设计）</p>
+</li>
+<li><p>处理器的作用主要还是取指令、执行指令</p>
+</li>
+</ul>
+</li>
+<li><p>内存</p>
+<ul>
+<li><p>内存有两种</p>
+<ul>
+<li><p>一种是主内存，如：内存条，在断电后，内存条保存的内容全部消失。刚开机的时候，内存条中啥数据也没有，所以CPU不可能从内存条中取指令。</p>
+</li>
+<li><p>另一种只读内存（ROM），只读内存实际就是一块单独的内部存储器，比如：我们常说的BIOS，断电后，里面的数据不会消失，开机后，CPU就是从这里面取指令</p>
+<p>补充BIOS的概念和功能：BIOS是一组固化到计算机内主板上一个ROM芯片上的程序，它保存着计算机最重要的基本输入输出的程序、开机后自检程序和系统自启动程序，它可从CMOS中读写系统设置的具体信息</p>
+<p>读取ROM里面的BIOS来检测硬件过程如下：</p>
+<img src="/2022/06/06/22-0606-01/image-20220606235250461.png" alt="image-20220606235250461" style="zoom:80%;"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br>
+      
+<p>硬盘（如：机械硬盘）</p>
+<p>结构如下：</p>
+<img src="/2022/06/06/22-0606-01/image-20220607083008459.png" alt="image-20220607083008459" style="zoom:80%;">
+
+<p>主引导扇区：（更多相关：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%B8%BB%E5%BC%95%E5%AF%BC%E6%89%87%E5%8C%BA/7612621?fr=aladdin%EF%BC%89">https://baike.baidu.com/item/%E4%B8%BB%E5%BC%95%E5%AF%BC%E6%89%87%E5%8C%BA/7612621?fr=aladdin）</a></p>
+<p>硬件第一个扇区就是主引导扇区（位置为 0面 0道 1扇区，包括硬盘主引导记录和分区表），开机启动并检测完硬件后，BIOS将读取硬盘主引导扇区内容把它加载到内存地址 0x0000 : 0x7C00（ 对应的物理地址为0x7C000 ），然后用 jmp 跳转指令跳转到这个地址，CS : IP 将会从0x7C000 这个物理地址开始执行汇编指令（实际0x7C000这个物理地址就是主引导记录的内存地址），而主引导记录会把操作系统的引导扇区调入内存加以执行，这样就把操作权交给了操作系统</p>
+<p>我们如果修改主引导扇区，就会导致无法加载操作系统</p>
+<br>
+
+<p>虚拟机</p>
+<p>虚拟机也是需要存储器的（类似于机械硬盘等），但在虚拟机并不需要真正的磁盘，而是用一个文件（如：vhd格式文件、vmdk格式文件）当作虚拟磁盘</p>
+<p>Oracle VM VirtualBox 对应的磁盘就是 vhd 格式文件，这里我们主要以 vhd 格式文件来学习</p>
+<p>在读取磁盘的时候，会从 0 面 0道 1 扇区开始读取，读取完后，再读取 0 面 0道 2 扇区，当0道上所有的扇区全部读取完后，然后会读取 0 面 1 道 1扇区，然后再读取0 面 1 道 2扇区 ，以此类推，读取完道后，再读取面</p>
+<p>vhd文件里一开始的512个字节对应真正硬盘的 0面 0 道 1扇区，也就是对应主引导扇区，第二个512个字节对应物理硬盘的 0面 0道 2扇区，第三个512个字节对应物理硬盘的 0面 0道 3扇区，假设只有3个扇区，然后下一个512个字节就会读取下一个道，那么第四个512个字节对应物 理硬盘的 0面 1道 1扇区，以此类推</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">;向显存中写入数据naizigege,编译后的文件为ayu.bin</span><br><span class="line">mov ax,0xb800</span><br><span class="line">mov ds,ax</span><br><span class="line">mov byte [0x00],&#x27;n&#x27;</span><br><span class="line">mov byte [0x02],&#x27;a&#x27;</span><br><span class="line">mov byte [0x04],&#x27;i&#x27;</span><br><span class="line">mov byte [0x06],&#x27;z&#x27;</span><br><span class="line">mov byte [0x08],&#x27;i&#x27;</span><br><span class="line">mov byte [0x0a],&#x27;g&#x27;</span><br><span class="line">mov byte [0x0c],&#x27;e&#x27;</span><br><span class="line">mov byte [0x0e],&#x27;g&#x27;</span><br><span class="line">mov byte [0x10],&#x27;e&#x27;</span><br><span class="line"></span><br><span class="line">infi:</span><br><span class="line">	jmp near infi</span><br><span class="line">times 510-($-$$) db 0</span><br><span class="line">db 0x55,0xaa</span><br></pre></td></tr></table></figure>
+
+<p>然后利用如下工具向虚拟硬盘中写数据，首先选择要写入的虚拟硬盘</p>
+<img src="/2022/06/06/22-0606-01/image-20220608191010746.png" alt="image-20220608191010746" style="zoom:80%;">
+
+<p>然后选择写入的数据，这里写入ayu.bin文件（因为计算机识别的就是二进制文件，无法识别源码），即显示naizigege</p>
+<img src="/2022/06/06/22-0606-01/image-20220608191357709.png" alt="image-20220608191357709" style="zoom:80%;">
+
+<p>然后选择LBA模式写入文件，会提示写入成功</p>
+<img src="/2022/06/06/22-0606-01/image-20220608191646077.png" alt="image-20220608191646077" style="zoom:80%;">
+
+<p>然后用 Oracle VM VirtualBox 新建虚拟机</p>
+<img src="/2022/06/06/22-0606-01/image-20220608191900136.png" alt="image-20220608191900136" style="zoom:80%;">
+
+<p>然后分配内存，如下</p>
+<img src="/2022/06/06/22-0606-01/image-20220608192005659.png" alt="image-20220608192005659" style="zoom:80%;">
+
+<p>然后使用我们刚才写入数据的虚拟磁盘</p>
+<img src="/2022/06/06/22-0606-01/image-20220608192200280.png" alt="image-20220608192200280" style="zoom:80%;">
+
+<p>然后开机，显示如下</p>
+<img src="/2022/06/06/22-0606-01/image-20220608192247479.png" alt="image-20220608192247479" style="zoom:80%;">
+
+<br>
+
+<p>大小端模式</p>
+<p>小端模式：指数据的高字节保存在内存的高地址中，而数据的低字节保存在内存的低地址中，在前面我们学16位汇编时，就是小端模式，而x86汇编中也是小端模式</p>
+<img src="/2022/06/06/22-0606-01/image-20220608195724952.png" alt="image-20220608195724952" style="zoom:80%;">
+
+<p>为啥需要区分大小端模式呢 ？？？</p>
+<p>因为在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为 8bit，对于位数大于 8位 的处理器，例如 16位 或者 32位 的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。</p>
+<p>小端模式的优势</p>
+<p>在进行强制类型转换时，由低精度向高精度进行转化时，比如：由 short 类型（2个字节）的 0x1234 转为 int 类型（4个字节）的 0x00001234，转换完后，数值是不变的，只是存储形式变了。</p>
+<img src="/2022/06/06/22-0606-01/image-20220608200900183.png" alt="image-20220608200900183" style="zoom:80%;">
+
+<p>如果是从高精度向低精度转换，比如：从 0x00001234 转为 0x1234 ，那么只需要将高地址的内容砍掉就好了</p>
+<img src="/2022/06/06/22-0606-01/image-20220608201517812.png" alt="image-20220608201517812" style="zoom:80%;">
+
+<br>
+
+<p>大端模式的优势</p>
+<p>优点在于对于有符号数而言，判断更加方便，假设是大端模式的话，如果地址 073F:2000 的内容为十六进制的1234，并且是负数的话，那么对应大致如下：</p>
+<img src="/2022/06/06/22-0606-01/image-20220608202624687.png" alt="image-20220608202624687" style="zoom:80%;">
+
+<p>由于符号位在低地址处，所以我们一开始就可以在低地址处知道符号位是负的</p>
+<br>
+
+<p>为啥我们能够向屏幕上能够显示东西 ？？？</p>
+<p>为了显示数据，必须存在两大硬件:显卡+显示器。显卡是为显示器提供需要显示的数据，控制显示器的模式和状态。而显示器是将目标数据以可见的方式呈现在屏幕上。显存的概念和意义就是显卡拥有自己内部的而数据存储器，显存在本质上和普通内存无差别，用于存储目标数据，操作显存中的数据将导致显示器上内容的改变。</p>
+<p>对于显卡，有两种工作模式，一个是文本模式，另一个是图形模式，开机启动后，默认是文本模式，文本模式下会把显存里面的内容映射到内存中</p>
+<br>
+
+<p>在16位汇编中的寄存器为：AX、BX、CX 等等</p>
+<p>在32位汇编中的寄存器为：EAX、EBX、ECX 等等 ，EAX可拆分成两个16位的寄存器使用</p>
+<p>在64位汇编中 的寄存器为：RAX、RBX、RCX 等等、RAX可拆分成两个32位的寄存器使用，当然低32位寄存器还可以继续拆分。还新增了 R8、R9 等，这些不能拆分</p>
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/06/05/22-0605-01/">汇编day12</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
