@@ -87,6 +87,16 @@
                         标签
                     </a>
                 
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                            <i class="iconfont icon-link "></i>
+                        
+                        链接
+                    </a>
+                
                 <input id="switch_default" type="checkbox" class="switch_default">
                 <label for="switch_default" class="toggleBtn"></label>
             </div>
@@ -133,6 +143,14 @@
                         
                         
                         标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                        链接
                     </a>
                 
             </div>
@@ -279,7 +297,7 @@
 <img src="/2022/06/06/22-0606-01/image-20220607083008459.png" alt="image-20220607083008459" style="zoom:80%;">
 
 <p>主引导扇区：（更多相关：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%B8%BB%E5%BC%95%E5%AF%BC%E6%89%87%E5%8C%BA/7612621?fr=aladdin%EF%BC%89">https://baike.baidu.com/item/%E4%B8%BB%E5%BC%95%E5%AF%BC%E6%89%87%E5%8C%BA/7612621?fr=aladdin）</a></p>
-<p>硬件第一个扇区就是主引导扇区（位置为 0面 0道 1扇区，包括硬盘主引导记录和分区表），开机启动并检测完硬件后，BIOS将读取硬盘主引导扇区内容把它加载到内存地址 0x0000 : 0x7C00（ 对应的物理地址为0x7C000 ），然后用 jmp 跳转指令跳转到这个地址，CS : IP 将会从0x7C000 这个物理地址开始执行汇编指令（实际0x7C000这个物理地址就是主引导记录的内存地址），而主引导记录会把操作系统的引导扇区调入内存加以执行，这样就把操作权交给了操作系统</p>
+<p>硬件第一个扇区就是主引导扇区（位置为 0面 0道 1扇区，包括硬盘主引导记录和分区表），开机启动并检测完硬件后，BIOS将读取硬盘主引导扇区内容把它加载到内存地址 0x0000 : 0x7C00（ 对应的物理地址为0x07C00 ），然后用 jmp 跳转指令跳转到这个地址，CS : IP 将会从0x07C00 这个物理地址开始执行汇编指令（实际0x07C00这个物理地址就是主引导记录的内存地址），而主引导记录会把操作系统的引导扇区调入内存加以执行，这样就把操作权交给了操作系统</p>
 <p>我们如果修改主引导扇区，就会导致无法加载操作系统</p>
 <br>
 
@@ -368,6 +386,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/06/09/22-0609-01/">x86保护模式day2</a>
             
             
             <a class="next" rel="next" href="/2022/06/05/22-0605-01/">汇编day12</a>

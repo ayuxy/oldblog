@@ -87,6 +87,16 @@
                         标签
                     </a>
                 
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                            <i class="iconfont icon-link "></i>
+                        
+                        链接
+                    </a>
+                
                 <input id="switch_default" type="checkbox" class="switch_default">
                 <label for="switch_default" class="toggleBtn"></label>
             </div>
@@ -133,6 +143,14 @@
                         
                         
                         标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                        链接
                     </a>
                 
             </div>
@@ -375,8 +393,8 @@
 <li><p>movsw：每次传送一个字，将ds:si指向的内存单元中的字节送入es:di中，根据df的值，将si和di递增2或者递减2</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov es:[di],ds:[si] </span><br><span class="line">df=0的话</span><br><span class="line">add si,2</span><br><span class="line">add di,2</span><br><span class="line">df=1的话</span><br><span class="line">sub si,2</span><br><span class="line">sub di,2</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>rep指令：作用是重复后面的指令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">比如说:rep movsb 也就是一直执行movsb指令，等价于下面的指令：</span><br><span class="line">s: movsb</span><br><span class="line">loop s</span><br></pre></td></tr></table></figure>
+<p>rep指令：在CX不等于0的情况下，重复执行后面的指令，重复的次数也在CX中，重复一次后CX-1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">比如说:rep movsb 也就是一直执行movsb指令（当然还要看cx的值），等价于下面的指令：</span><br><span class="line">s: movsb</span><br><span class="line">loop s</span><br></pre></td></tr></table></figure>
 
 <p>cld指令：将DF位设置为0</p>
 <p>std指令：将DF位设置为1</p>

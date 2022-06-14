@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>x86保护模式day2 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                            <i class="iconfont icon-link "></i>
+                        
+                        链接
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                        链接
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">x86保护模式day2</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-06-09&nbsp;&nbsp;22:02:22</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/06/09/22-0609-01/" class="leancloud-visitors view" data-flag-title="x86保护模式day2">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">          jmp near start			;为啥开头要jmp指令，因为部分数据可能会被当成指令执行</span><br><span class="line">       </span><br><span class="line">mytext db &#x27;L&#x27;,0x07,&#x27;a&#x27;,0x07,&#x27;b&#x27;,0x07,&#x27;e&#x27;,0x07,&#x27;l&#x27;,0x07,&#x27; &#x27;,0x07,&#x27;o&#x27;,0x07,&#x27;f&#x27;,0x07,&#x27;f&#x27;,0x07,&#x27;s&#x27;,0x07,&#x27;e&#x27;,0x07,&#x27;t&#x27;,0x07,&#x27;:&#x27;,0x07		</span><br><span class="line"></span><br><span class="line">number db 0,0,0,0,0</span><br><span class="line"></span><br><span class="line">start:</span><br><span class="line">       mov ax,0x7c0                  ;设置数据段基地址 </span><br><span class="line">       mov ds,ax</span><br><span class="line">       </span><br><span class="line">       mov ax,0xb800                 ;设置附加段基地址 </span><br><span class="line">       mov es,ax</span><br><span class="line">       </span><br><span class="line">       cld			;标志寄存器第6位ZF 零标志位  第10位是DF direction flag 通过指令设置1或0，cld设置0，表示正方向</span><br><span class="line">				;std设置1，表示反方向  SF符号位 计算结果如果最高位是0  SF处理器自动设0  否则1 PF </span><br><span class="line">       mov si,mytext                 </span><br><span class="line">       mov di,0</span><br><span class="line">       mov cx,(number-mytext)/2      ;实际上等于 13</span><br><span class="line">       rep movsw;movsb  源</span><br><span class="line">   </span><br><span class="line">       ;得到标号所代表的偏移地址</span><br><span class="line">       mov ax,number</span><br><span class="line">       </span><br><span class="line">       ;计算各个数位</span><br><span class="line">       mov bx,ax</span><br><span class="line">       mov cx,5                      ;循环次数 </span><br><span class="line">       mov si,10                     ;除数 </span><br><span class="line">digit: </span><br><span class="line">       xor dx,dx</span><br><span class="line">       div si</span><br><span class="line">       mov [bx],dl                   ;保存数位</span><br><span class="line">       inc bx </span><br><span class="line">       loop digit</span><br><span class="line">       </span><br><span class="line">       ;显示各个数位</span><br><span class="line">       mov bx,number </span><br><span class="line">       mov si,4                      </span><br><span class="line"> show:</span><br><span class="line">       mov al,[bx+si]</span><br><span class="line">       add al,0x30</span><br><span class="line">       mov ah,0x04</span><br><span class="line">       mov [es:di],ax</span><br><span class="line">       add di,2</span><br><span class="line">       dec si</span><br><span class="line">       jns show </span><br><span class="line">       </span><br><span class="line">       mov word [es:di],0x0744  </span><br><span class="line"></span><br><span class="line">       jmp near $ </span><br><span class="line"> </span><br><span class="line">times 510-($-$$) db 0 ;  naizi: jmp near naizi/jmp near $  $表示当前行首的标号  $$代表当前汇编代码的起始汇编地址</span><br><span class="line">                 db 0x55,0xaa</span><br></pre></td></tr></table></figure>
+
+<p>将上述asm文件编译成列表文件</p>
+<img src="/2022/06/09/22-0609-01/image-20220609230642961.png" alt="image-20220609230642961" style="zoom:80%;">
+
+<p>编译后的列表文件的内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"> 1 00000000 E91F00                                 jmp near start</span><br><span class="line"> 2                                           </span><br><span class="line"> 3 00000003 4C076107620765076C-       mytext db &#x27;L&#x27;,0x07,&#x27;a&#x27;,0x07,&#x27;b&#x27;,0x07,&#x27;e&#x27;,0x07,&#x27;l&#x27;,0x07,&#x27; &#x27;,0x07,&#x27;o&#x27;,0x07,&#x27;f&#x27;,0x07,&#x27;f&#x27;,0x07,&#x27;s&#x27;,0x07,&#x27;e&#x27;,0x07,&#x27;t&#x27;,0x07,&#x27;:&#x27;,0x07		</span><br><span class="line"> 3 0000000C 0720076F0766076607-</span><br><span class="line"> 3 00000015 7307650774073A07   </span><br><span class="line"> 4                                  </span><br><span class="line"> 5 0000001D 0000000000                number db 0,0,0,0,0</span><br><span class="line"> 6                                    </span><br><span class="line"> 7                                    start:</span><br><span class="line"> 8 00000022 B8C007                           mov ax,0x7c0                  ;设置数据段基地址 </span><br><span class="line"> 9 00000025 8ED8                             mov ds,ax</span><br><span class="line">10                                           </span><br><span class="line">11 00000027 B800B8                           mov ax,0xb800                 ;设置附加段基地址 </span><br><span class="line">12 0000002A 8EC0                             mov es,ax</span><br><span class="line">13                                           </span><br><span class="line">14 0000002C FC                               cld;标志寄存器第6位ZF 零标志位  第10位是DF direction flag 通过指令设置1或0，cld设置0，表示正方向</span><br><span class="line">15                                  			;std设置1，表示反方向  SF符号位 计算结果如果最高位是0  SF处理器自动设0  否则1 PF </span><br><span class="line">16 0000002D BE[0300]                         mov si,mytext                 </span><br><span class="line">17 00000030 BF0000                           mov di,0</span><br><span class="line">18 00000033 B90D00                           mov cx,(number-mytext)/2      ;实际上等于 13</span><br><span class="line">19 00000036 F3A5                             rep movsw;movsb  源</span><br><span class="line">20                                       </span><br><span class="line">21                                           ;得到标号所代表的偏移地址</span><br><span class="line">22 00000038 B8[1D00]                         mov ax,number</span><br><span class="line">23                                           </span><br><span class="line">24                                           ;计算各个数位</span><br><span class="line">25 0000003B 89C3                             mov bx,ax</span><br><span class="line">26 0000003D B90500                           mov cx,5                      ;循环次数 </span><br><span class="line">27 00000040 BE0A00                           mov si,10                     ;除数 </span><br><span class="line">28                                    digit: </span><br><span class="line">29 00000043 31D2                             xor dx,dx</span><br><span class="line">30 00000045 F7F6                             div si</span><br><span class="line">31 00000047 8817                             mov [bx],dl                   ;保存数位</span><br><span class="line">32 00000049 43                               inc bx </span><br><span class="line">33 0000004A E2F7                             loop digit</span><br><span class="line">34                                           </span><br><span class="line">35                                           ;显示各个数位</span><br><span class="line">36 0000004C BB[1D00]                         mov bx,number </span><br><span class="line">37 0000004F BE0400                           mov si,4                      </span><br><span class="line">38                                     show:</span><br><span class="line">39 00000052 8A00                             mov al,[bx+si]</span><br><span class="line">40 00000054 0430                             add al,0x30</span><br><span class="line">41 00000056 B404                             mov ah,0x04</span><br><span class="line">42 00000058 268905                           mov [es:di],ax</span><br><span class="line">43 0000005B 83C702                           add di,2</span><br><span class="line">44 0000005E 4E                               dec si</span><br><span class="line">45 0000005F 79F1                             jns show </span><br><span class="line">46                                           </span><br><span class="line">47 00000061 26C7054407                       mov word [es:di],0x0744  </span><br><span class="line">48                                  </span><br><span class="line">49 00000066 E9FDFF                           jmp near $ </span><br><span class="line">50                                   </span><br><span class="line">51 00000069 00&lt;rep 195h&gt;              times 510-($-$$) db 0 ;  naizi: jmp near naizi/jmp near $  $表示当前行首的标号  $$代表当前汇编代码的起始汇编地址</span><br><span class="line">52 000001FE 55AA                                       db 0x55,0xaa</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>分析：为啥要设置数据段的基地址为0x7c0 ？？？</p>
+<p>程序加载后，如果是从偏移地址为0开始的</p>
+<p>那么执行 jmp label_a，而如果 label_a 标号的偏移地址是0x08，所以这里 jmp 指令就会跳转到 0x08 这个地址</p>
+<p>前面day1学过，实际BIOS会将硬盘主引导扇区内容加载到0x7c00这个物理地址，而物理地址由段地址和偏移地址组合来，0x07c00这个物理地址可以表示成 0x0000:0x7c00，当然也可以表示成 0x07c0:0x0000 这种形式</p>
+<p>程序加载后，如果段地址为0，那么偏移地址就是0x7c00，偏移地址也就不是从0开始的，那么我们执行 jmp label_a 指令，还是会跳到 0x08和这个偏移地址，而实际 label_a 标号的地址应该为 [0x7c00+0x08] 这个地址</p>
+<p>那么，如果我们直接把 DS 设置为 0x07c0，那么偏移地址肯定就是 0x000，偏移地址就是从0开始，这样我们直接 jmp label_a 对应的就是跳转到 label_a 标号的地址是0x08</p>
+<br>
+
+<p>计算机中的正数&#x2F;负数</p>
+<p>定义一些十进制的数据如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db 128,127,3,2,1,0,-1,-2,-3,-127,-128</span><br></pre></td></tr></table></figure>
+
+<p>编译成二进制后，以十六进制形式查看：</p>
+<img src="/2022/06/09/22-0609-01/image-20220613085325296.png" alt="image-20220613085325296" style="zoom:80%;">
+
+<p>10进制 -1 即 0-1 ，由于计算机中识别的是0和1，即对应二进制的 0 - 1，需要一直向前借位，如下：</p>
+<img src="/2022/06/09/22-0609-01/image-20220613091635771.png" alt="image-20220613091635771" style="zoom:80%;">
+
+<p>而10进制的 -2 即 0 - 2，对应成二进制就是 0 - 10，如下：</p>
+<img src="/2022/06/09/22-0609-01/image-20220613092221478.png" alt="image-20220613092221478" style="zoom:80%;">
+
+<p>注意：即然 -2 是 FFFFF…FFFFE，那么上面为啥只有 FE 呢 ？？？</p>
+<p>可能是因为计算后的结果保存在了8位寄存器中，所以这里只有 1111 1110，对应的16进制就是FF</p>
+<p>那么对于0xFF我们就可以表示成10进制的-1，也可以表示成10进制的255，但是具体表示成啥呢 ？？？</p>
+<p>这里就引入了有符号数和无符号数来区分，如果我们看成有符号数，最高位为0，即表示正数，最高位为-1，即表示负数。如果我们看成无符号数，那么不存在正负，全表示正数</p>
+<p>假设我们现在把 1111 看成有符号数，该数字就是一个负数，而这个负数实际是 0 减 一个正数 得到的结果，那么我们如何得到这个正数呢 ？？？</p>
+<p>由于 0 - 正数 &#x3D; 负数，所以正数&#x3D;0-负数，即 该正数 &#x3D; 0 - 1111 &#x3D; 0000 - 1111 &#x3D; 0001</p>
+<br>
+
+<p>neg指令：neg是汇编指令中的求补指令，对操作数执行求补运算：用零减去操作数，然后结果返回操作数。求补运算也可以表达成：将操作数按位取反后加1，简单来说该指令会把正数变成负数、负数变成正数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">neg al ;如果al中保存的值为 0000 1000，也就是10进制的8，一般十进制表示成8D</span><br><span class="line">执行neg al后，al内的值变成了 1111 1000，也就是10进制的-8 （0000 1000——&gt;按位取反——&gt;1111 0111——&gt;然后再加1——&gt;1111 1000）</span><br><span class="line">注意：这里为啥是-8，-8不应该是 1 1000 吗 ？？？，最前面的1表示符号位</span><br><span class="line">为了方便,假设是8位二进制7的二进制是0000 0111按位求反就是1111 1000注意最高位是1,说明这是个负数,负数在计算机内是补码,补码的值怎么能知道呢把补码求反再+1,(当然最高位的1不变,因为那是负号)所以是1000 0111+1是1000 1000这个数正好是-8</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>CBW指令：CBW属于符号扩展指令，它可以把8位扩展到16位，扩展前后两数的真值不变，主要用于数据类型不同时用符号扩展指令可以使得数据类型相同</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">比如：把AL中的有符号数扩展到整个AX中</span><br><span class="line">al=0100 1111</span><br><span class="line">cbw</span><br><span class="line">执行cbw后，ax= 0000 0000 0100 1111</span><br><span class="line"></span><br><span class="line">上面的例子中al为正数，如果al为负数呢 ？？？</span><br><span class="line">al=1000 1101</span><br><span class="line">cbw</span><br><span class="line">执行cbw后，ax= 1111 1111 1000 1101</span><br></pre></td></tr></table></figure>
+
+<p>CWD指令：CWD是字到双字符的扩展指令，可将AX内容扩展到DX:AX</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">AX = 0100 1111 0111 0001</span><br><span class="line">CWD</span><br><span class="line">执行cwd指令后，dx= 0000 0000 0000 0000 ax= 0100 1111 0111 0001 </span><br><span class="line"></span><br><span class="line">如果ax为负数</span><br><span class="line">AX = 1100 1111 0111 0001</span><br><span class="line">CWD</span><br><span class="line">执行cwd指令后，dx= 1111 1111 1111 1111 ax= 1100 1111 0111 0001</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p>在编写汇编程序时，如下：</p>
+<p>AX &#x3D; 0XBFFF </p>
+<p>注意0xBFFF对应的十进制是49151，如下：</p>
+<img src="/2022/06/09/22-0609-01/image-20220614152757128.png" alt="image-20220614152757128" style="zoom:80%;">
+
+<p>这里是把 0XBFFF ，即 1011 1111 1111 1111 看成了无符号数才表示成49151，如果我们把 1011 1111 1111 1111 看成有符号数，那么这个数肯定是负数，由于计算机中的负数都是补码表示的，所以 1011 1111 1111 1111 即负数的补码，我们把这个补码转为原码，对应原码为 1100 0000 0000 0001 ，第一位符号位表示负数，也就是 -16385</p>
+<img src="/2022/06/09/22-0609-01/image-20220614164734282.png" alt="image-20220614164734282" style="zoom:80%;">
+
+<p>那么到底是表示 49151 还是表示 -16385 呢 ？？？</p>
+<p>其实计算机不会进行区分，主要是取决于我们自己如何看待，是看作有符号数，还是看作无符号数 </p>
+<br>
+
+<p>解释文章开头第一个代码块中的部分指令</p>
+<p>jns指令：当执行jns指令时，如果标志位 SF&#x3D;0，则跳转到指定的地址，如果 SF&#x3D;1，不跳转 （ 注意：SF表示符号标志位，如果运算结果为负数（也就是有符号数最高位为1），SF&#x3D;1，反之若为正数 SF&#x3D;0 ）</p>
+<p>js指令：当执行js指令时，如果标志位 SF&#x3D;1，则跳转到指定地址，如果 SF&#x3D;0，不跳转，该指令恰好和 jns 指令相反</p>
+<p>times指令：该指令实际前面在学习16位的masm汇编的时，学过类似的指令，即dup指令</p>
+<ul>
+<li><p>dup是masm的指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;开辟200字节内存空间</span><br><span class="line">times 200 db 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>times是nasm的指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;开辟200字节内存空间</span><br><span class="line">times 200 db 0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>$ 符号：$符号的作用是表示当前行首的标号地址</p>
+<p>比如：naizi：jmp near naizi，该指令的作用就是跳到标号naizi当前行，然后一直进行死循环，而 jmp near $ 也是跳转到当前行</p>
+<p>$$ 符号：表示当前汇编代码的开始地址</p>
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,1</span><br><span class="line">mov bx,1</span><br><span class="line">jmp near $$ ;实际就是跳转到mov ax,1这里</span><br></pre></td></tr></table></figure>
+
+<p>db 0x55,0xaa 代表啥意思：主扇区代码结尾必须要用0x55和0xaa，主扇区一共为512个字节，那么0x55和0xaa占用了两个字节，前面还有510个字节</p>
+<br>
+
+<p>8086 寻址方式</p>
+<p>如何找到要操作的数，以及如何找到存放操作结果的地方 ？？？</p>
+<ol>
+<li><p>寄存器寻址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">操作数位于寄存器中</span><br><span class="line">mov ax,cx</span><br><span class="line">add bx,0xff00</span><br><span class="line">inc bx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>立即寻址（立即数寻址）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add bx,0xff00   (第一条指令add的目的操作数bx采用了寄存器寻址，而0xfff就是一个立即给出的数值，即立即数，这个立即数是cpu生成的)</span><br><span class="line">mov dx,label	(label编译后会转为一个地址，这个地址也是一个数值，也是立即数)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>内存寻址</p>
+<ol>
+<li><p>直接寻址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,[0x1111]</span><br><span class="line">and word [0x023],0x555</span><br><span class="line">xor byte [es:label],0x555</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基址寻址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">如果我们有一大堆数据要处理，可以用如下的方式处理</span><br><span class="line">buffer dw 0x10,0x20,0x30</span><br><span class="line">inc word [buffer]</span><br><span class="line">inc word [buffer+2]</span><br><span class="line">inc word [buffer+4]</span><br><span class="line">基址寻址就是在指令的地址部分使用基址寄存器BX或者BP来提供偏移地址，如下：</span><br><span class="line">mov [bx],dx</span><br><span class="line">add byte [bp],0x222</span><br><span class="line">基址寻址也可以在寄存器的基础上使用一个偏移量</span><br><span class="line">mov dx,[bp-2]</span><br><span class="line">对于处理一大堆数据，可以用基址寻址来实现，如下：</span><br><span class="line">mov bx,buffer</span><br><span class="line">mov cx,4</span><br><span class="line">s:inc word [bx]</span><br><span class="line"> add bx,2</span><br><span class="line"> loop s</span><br></pre></td></tr></table></figure>
+
+<p>扩展：bp寄存器的作用 （bp作用为访问现行堆栈段提供方便的寄存器）</p>
+<p>mov ax,0x6666<br>push ax<br>mov ax,0x8888<br>push ax</p>
+<p>这里压入两个数据0x6666和0x8888，这里很显然，如果要用pop指令弹出数据，就必须先pop弹出0x8888这个数据，然后才能弹出0x6666这个数据，那么我们有没有方法直接拿到0x6666这个数据呢？？？</p>
+<p>当然是有的，嘿嘿 ，我们可以修改SP的位置，如下：</p>
+<img src="/2022/06/09/22-0609-01/image-20220614221249321.png" alt="image-20220614221249321" style="zoom:80%;">
+
+<p>但是如果直接修改SP，这样就直接破坏了栈的结构。而在高级语言中，所有的参数都位于栈中，为了访问到哪些被压在栈底的参数，就使用了BP来实现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax,0x6666</span><br><span class="line">push ax</span><br><span class="line">mov bp,sp</span><br><span class="line">mov ax,0x8888</span><br><span class="line">push ax</span><br><span class="line">mov dx,[bp]  ;这样就拿到了0x6666，dx的内容就为0x6666，注意：这里[bp]就是ss:[bp]，默认省略了段寄存器ss</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>变址寻址</p>
+<p>类似于基址寻址，不过这种寻址使用的是变址寄存器（索引寄存器）di、si ，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov [si],dx</span><br><span class="line">mov ax,[di]</span><br><span class="line"></span><br><span class="line">mov [si+0x222],al</span><br><span class="line">and byte [di+100],0x888</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基址变址寻址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">基址变址就如下四种：</span><br><span class="line">mov ax,[bx+si]</span><br><span class="line">mov ax,[bx+di]</span><br><span class="line">mov ax,[bp+di]</span><br><span class="line">mov ax,[bp+si]</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<p>​     </p>
+<p>​      </p>
+<p>​      </p>
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/06/14/22-0614-01/">为啥计算机用补码存储数据（转载）</a>
+            
+            
+            <a class="next" rel="next" href="/2022/06/06/22-0606-01/">x86保护模式day1</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
