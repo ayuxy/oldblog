@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>x86保护模式day3 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                            <i class="iconfont icon-link "></i>
+                        
+                        链接
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                        链接
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">x86保护模式day3</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-06-15&nbsp;&nbsp;8:56:36</a> &nbsp;
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                        <!--分类:-->
+                        <i class="iconfont icon-category"></i>
+                            
+                                <a href="/categories/x86%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/">x86保护模式学习</a>&nbsp;
+                            
+                        </span>
+                    
+                    
+                    <span id="/2022/06/15/22-0615-01/" class="leancloud-visitors view" data-flag-title="x86保护模式day3">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>操作系统（实际可以看成一个软件）往往肩负多种任务，如：处理器管理、内存分配、程序加载、进程调度、外围设备的控制（显卡、声卡等）</p>
+<p>程序保存到硬盘上的，然后我们双击程序运行后，首先要读取硬盘，知道该程序保存到了硬盘的什么位置上（比如：该程序保存到了c盘上），然后会把程序加载到内存的空闲地址，载入内存后要重新计算程序的段地址，这就是段的重定位（重定位在前面学习过）</p>
+<p>注意：操作系统下运行用户exe文件时，操作系统就类似于一个加载器来加载用户exe文件</p>
+<p>该节课的任务：写一个加载器，充分理解段的重定位，也就是实模式下的分段内存管理机制</p>
+<p>我们在学习16位汇编时，用的是segment来定义一个段，而在32位汇编中用 SECTION 来定义一个段， SECTION 后面是段的名称，如下：</p>
+<img src="/2022/06/15/22-0615-01/image-20220615203418093.png" alt="image-20220615203418093" style="zoom:80%;">
+
+<p>注意： 在学习16位汇编时，在段的结束都有end，而32位不需要end</p>
+<p>align&#x3D;16 表示含义是处理器要求段在内存中的起始物理地址必须是16字节对齐的，如下：</p>
+<img src="/2022/06/15/22-0615-01/image-20220615204608792.png" alt="image-20220615204608792" style="zoom:80%;">
+
+<p>为啥要进行16字节对齐呢 ？？？</p>
+<p>因为16字节对齐后，才能保证偏移地址从0开始</p>
+<p>如下：</p>
+<img src="/2022/06/15/22-0615-01/image-20220615213450709.png" alt="image-20220615213450709" style="zoom:80%;">
+
+<br>
+
+<p>SECTION.段名称.start 表达式可以取得该段的汇编地址，比如下面的代码中：</p>
+<img src="/2022/06/15/22-0615-01/image-20220618204940104.png" alt="image-20220618204940104" style="zoom:80%;">
+
+<br>
+
+<p>vstart的作用：声明的是该段的地址或者说段号，具体如下：</p>
+<img src="/2022/06/15/22-0615-01/image-20220618221824523.png" alt="image-20220618221824523" style="zoom:80%;">
+
+<p>注意：如果段没有写vstart，那么该段的起始汇编地址是相当于整个程序开头来计算的，如下：汇编代码最后定义了一个trail段，并且没有写vstart，那么trail段中program_end标号的地址是相当于整个程序开头计算的，也就是整个程序的大小</p>
+<img src="/2022/06/15/22-0615-01/image-20220618224123478.png" alt="image-20220618224123478" style="zoom:80%;">
+
+<br>
+
+<p>加载器加载用户程序就必须要了解用户程序必要信息（比如windows的PE格式），这些信息不是很多，但是足以让加载器了解如何来加载用户程序，一般来说，这些信息放在用户程序的头部，包含以下内容：</p>
+<ol>
+<li>程序的大小（以字节为单位，加载器会根据程序大小来读取多少个逻辑扇区）</li>
+<li>用户程序的入口点</li>
+<li>段重定位表项数</li>
+<li>段重定位表</li>
+</ol>
+<p>补充，段重定位表的作用：有时候我们会把asm文件编译成lst列表文件，打开在lst文件后，我们可以看到编译后一些指令对应的汇编地址，但实际计算机执行的是bin文件，就是把bin文件加载到内存的空闲区域，这样在实际内存中，我们并不知道具体会把bin文件的内容加载到内存哪里，这与列表文件中对应的汇编地址是完全不同的。所以我们要知道程序中的段实际加载到内存的啥地方，我们就用重定位表来解决问题。但是由于计算机并不知道程序中一共有多少个段，所以我们还需要重新定位表项数</p>
+<p>如下：在asm文件中定义了用户程序的必要信息：</p>
+<img src="/2022/06/15/22-0615-01/image-20220618232112689.png" alt="image-20220618232112689" style="zoom:80%;">
+
+<br>
+
+<p>加载器工作流程：</p>
+<ol>
+<li>加载器要加载一个程序并让它开始执行，需要知道内存什么地方是空闲的，就是从哪个物理内存地址开始加载程序</li>
+<li>加载器还要知道这个程序位于硬盘上的什么地方，即程序的逻辑扇区编号</li>
+</ol>
+<br>
+
+<p>输入输出设备（I&#x2F;O设备）</p>
+<p>在屏幕上显示内容，就需要显卡，而对于电脑外放声音，就需要声卡，而显卡、声卡这些就是I&#x2F;O接口，I&#x2F;O接口可以是一个电路板，也可以是一个芯片，I&#x2F;O接口就是一个信号处理器，负责把CPU的信号转换为外围设备能够接受的另一种信号，还会负责把外围设备信号转为CPU能够接受的信号</p>
+<p>但是由于外围设备（键盘、显示器、音响等等）是特别多的，如果我们直接把这些I&#x2F;O接口和CPU进行连接的话，CPU上需要连接很多线，这显然是不合适的，与此同时，如果多个I&#x2F;O接口同时直接与CPU连接，那么每个设备的I&#x2F;O接口都会同时与CPU进行通信，造成冲突</p>
+<p>既然I&#x2F;O不能进行直接和CPU进行连接，那么咋办呢 ？？？</p>
+<ol>
+<li>对于CPU上需要连接多条线，可以采用总线来解决</li>
+<li>而对于I&#x2F;O接口会与CPU通信冲突，可以采用输入输出设备集中器（即南桥芯片）</li>
+</ol>
+<img src="/2022/06/15/22-0615-01/image-20220619131950220.png" alt="image-20220619131950220" style="zoom:80%;">
+
+<p>当CPU要和某个外围设备通信时，首先南桥芯片会接到通知，然后负责和相对应传输通道进行通信，并且如果CPU如果和USB接口进行通信，南桥芯片还会控制其它的接口不进行通信。实际CPU和外围设备通信就是和USB接口等这些I&#x2F;O接口的通信，也就是和端口通信</p>
+<p>处理器通过端口来和外围设备通信，本质上，端口就是一些寄存器，跟处理器寄存器差不多，不同的是这些叫做端口的寄存器位于I&#x2F;O接口的电路中</p>
+<p>每一个I&#x2F;O接口都可能拥有好几个端口，分别用于不同的目的。连接硬盘的PATA&#x2F;SATA接口就有几个端口，分别是命令端口，向这个端口写入0x20表示从硬盘读数据，写0x30表示写；状态端口，CPU根据这个端口来判断硬盘工作是否正常；参数端口，CPU通过这个端口告诉硬盘读写的扇区数量，以及起始的逻辑扇区号；数据端口，通过这个端口连续读写数据</p>
+<p>端口在不同的计算机系统中有不同的实现方式，在一些计算机系统中，端口号是映射到内存地址空间的，在另外一些里面，端口又是独立编址的，不和内存发生关系</p>
+<p>现在我们的系统既有内存映射又有独立编址</p>
+<p>南桥芯片里集成了2个PATA&#x2F;SATA接口，分别是主硬盘接口和副硬盘接口。主硬盘分配的端口号是 0x1f0 ~ 0x1f7 ，副硬盘 0x170 ~ 0x177</p>
+<p>端口访问指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">in al,dx  ;访问8位端口</span><br><span class="line">in ax,dx  ;访问16位端口</span><br><span class="line">in al,0xf0</span><br><span class="line">in ax,0xf0 </span><br><span class="line"></span><br><span class="line">out 操作数可以是8位立即数或DX ，源操作数必须是AL或AX</span><br><span class="line">out 0x37,al</span><br><span class="line">out 0x37,ax</span><br><span class="line">out dx,al</span><br><span class="line">out dx,ax</span><br></pre></td></tr></table></figure>
+
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/06/16/22-0616-01/">JAVA反序列化—基础</a>
+            
+            
+            <a class="next" rel="next" href="/2022/06/14/22-0614-02/">个人随笔—2022上半年总结</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
