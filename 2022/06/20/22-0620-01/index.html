@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>x86保护模式day4 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                            <i class="iconfont icon-link "></i>
+                        
+                        链接
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                        链接
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">x86保护模式day4</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-06-20&nbsp;&nbsp;15:05:49</a> &nbsp;
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                        <!--分类:-->
+                        <i class="iconfont icon-category"></i>
+                            
+                                <a href="/categories/x86%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/">x86保护模式学习</a>&nbsp;
+                            
+                        </span>
+                    
+                    
+                    <span id="/2022/06/20/22-0620-01/" class="leancloud-visitors view" data-flag-title="x86保护模式day4">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>磁盘数据寻址方式</p>
+<p>访问硬盘上的数据都是以扇区为单位进行的，即每次读或写至少是一个扇区的数据，不肯能仅仅读写一个扇区中的几个字节</p>
+<p>常用的磁盘寻址方式有二种方式：</p>
+<ol>
+<li>CHS（物理寻址方式）</li>
+<li>LBA（逻辑寻址方式）</li>
+</ol>
+<p>物理寻址（CHS方式）：</p>
+<p>物理寻址方式又称为CHS（Cylinder柱面&#x2F;Head磁头&#x2F;Sector扇区）方式，用柱面号（即磁道号）、磁头号（即盘面号）和扇区号来表示一个特定扇区。柱面和扇区从0开始编号，而扇区从1开始编号的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">磁盘容量=磁头数×柱面数×扇区数×512字节</span><br></pre></td></tr></table></figure>
+
+<p>系统在写入数据时是按照从柱面到柱面的方式，当上一个柱面写满数据后才移动磁头到下一个柱面，而且是从柱面的第一个磁头的第一个扇区开始写入，从而使磁盘性能最优</p>
+<p>逻辑寻址（LBA方式）：</p>
+<p>寻址方式也改为以扇区为单位的线性寻址，这种寻址方式便是LBA。即将所有的扇区统一编号。C&#x2F;H&#x2F;S中的扇区编号是从“1”至“63”，而逻辑扇区LBA方式下扇区是从“0”开始编号，所有扇区编号按顺序进行。</p>
+<p>对于任何一个硬盘，都可以认为其扇区是从0号开始</p>
+<p>day3 中分析的代码 c08_mbr.asm 就是采用了LBA方式来访问，而LBA又分为如下两种：</p>
+<ol>
+<li>LBA 28：采用28个比特来表示逻辑区号，0x000 0000 ~ 0xfff ffff （这里用的是 LBA 28）</li>
+<li>LBA 48：采用48个比特来表示逻辑区号，同上</li>
+</ol>
+<br>
+
+<p><strong>通过硬盘控制端口读取扇区的数据</strong></p>
+<p>因为被加载器加载的用户程序实际是位于硬盘上面的，并且用户程序在磁盘上是以扇区为单位存放。而硬盘和CPU之间是通过I&#x2F;O接口进行通信的，更细致来说是通过I&#x2F;O接口上的端口来打交道，而端口的实质就是寄存器。</p>
+<ul>
+<li><p>第一步，设置读取扇区数量</p>
+<p>个人PC的主硬盘控制器被分配了8位端口，端口号是从0x1f0~0x1f7，如果我们要读取硬盘逻辑扇区上的内容，那么首先要确定读取几个扇区，然后把读取扇区的数量写入0xf12端口，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">;设置读写几个扇区</span><br><span class="line">mov dx,0x1f2</span><br><span class="line">mov al,0x01	;读一个扇区</span><br><span class="line">out dx,al </span><br></pre></td></tr></table></figure>
+
+<p>如下图（注意鑫哥讲课没有作图，这里自己作图只是方便理解，不一定正确）：</p>
+<img src="/2022/06/20/22-0620-01/image-20220620232000119.png" alt="image-20220620232000119" style="zoom:80%;">
+
+<br>
+</li>
+<li><p>第二步，设置起始的扇区号</p>
+<p>然后我们还要确定到底是从哪个扇区开始读取，即设置起始的扇区号，这里我们从2号扇区开始读写，那么我们就可以把2号扇区号放入端口中</p>
+<p>特别注意，LBA 28 采用了28位比特来表示扇区号，但是这里0x1f3端口等这些端口都是8位的，所以一个0x1f3端口肯定是无法存放28位比特的扇区号的，所以这里采用多个端口来存放，如下，0x1f3端口中存放 0 ~ 7 位，然后0x1f4存放 8 ~ 15 位，然后0x1f5存放 16 ~ 23 位，最后用0x1f6存放 24 ~ 27 位。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">;设置读写几个扇区</span><br><span class="line">mov dx,0x1f2</span><br><span class="line">mov al,0x01	;读一个扇区</span><br><span class="line">out dx,al      </span><br><span class="line"></span><br><span class="line">;设置起始扇区号，这里从2号扇区开始读写，由于用28位比特表示扇区号，从高位到低位也就是0000 0000 0000 0000 0000 0000 0002</span><br><span class="line">mov dx,0x1f3</span><br><span class="line">mov al,0x02	</span><br><span class="line">out dx,al	;这里0x1f3保存了0~7位，即0000 0002</span><br><span class="line"></span><br><span class="line">inc dx		;dx为0x1f4</span><br><span class="line">mov al,0x00</span><br><span class="line">out dx,al	;这里0x1f4保存了7~15位，即0000 0000</span><br><span class="line"></span><br><span class="line">inc dx		;dx为0x1f5</span><br><span class="line">out dx,al	;这里al的值还是0x00，并且这里0xf5保存了16~23位，即0000 0000</span><br><span class="line"></span><br><span class="line">;最后只需要用0x1f6来保存最后的高四位24~27即可，即用0x1f6保存最高位的0000</span><br><span class="line">inc dx		;dx为0x1f6</span><br><span class="line">mov al,0xe0	;但是要注意，为啥这里保存的是的0xe0，而不是0x00呢？？？这是为啥呢</span><br><span class="line">out dx,al</span><br></pre></td></tr></table></figure>
+
+<p>如下图：</p>
+<img src="/2022/06/20/22-0620-01/image-20220620232658060.png" alt="image-20220620232658060" style="zoom:80%;">
+
+<p>我们注意到上面的代码中，0xf16这个端口存放了扇区号的24~27位，但是为啥保存的是0xe0呢 ？？？</p>
+<p>因为0xf16这些端口实际类似于寄存器，也是8位的，对于0xf16端口结构大致如下：</p>
+<img src="/2022/06/20/22-0620-01/image-20220620214344697.png" alt="image-20220620214344697" style="zoom:80%;">
+
+<p>而0xe0对应的二进制为 1110 0000，那么低四位存放的就是扇区号 0000，而高四位存放的就是 1110，就表示是LBA模式</p>
+</li>
+</ul>
+<br>
+
+<ul>
+<li><p>第三步，向端口0x1f7写入0x20，请求硬盘进行读写</p>
+<p>上面我们已经把2号逻辑扇区写入端口了，但是由于硬盘有多个扇区，而我们只是要读取2号扇区的内容，所以这里还要让硬盘来读取2号扇区的内容，那么如何操作呢 ？？？</p>
+<p>只需要向端口0x1f7写入0x20就可以请求硬盘读取（0x20表示读、0x30表示写），代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov dx,0x1f7</span><br><span class="line">mov al,0x20	;读命令</span><br><span class="line">out dx,al</span><br></pre></td></tr></table></figure>
+
+<p>如下图：</p>
+<img src="/2022/06/20/22-0620-01/image-20220620233334892.png" alt="image-20220620233334892" style="zoom:80%;"></li>
+</ul>
+<br>
+
+<ul>
+<li><p>第四步，等待硬盘读写完成</p>
+<p>由于端口是 0x1f7 即是命令端口还是状态端口，通过端口发送读命令后，硬盘就开始忙了，然后会将0x1f7的第位置为1，来表示自己很忙。如果读完后，硬盘准备就绪后，0x1f7就会将第7位清零，表示自己忙完了，然后将第三位设置成1，表示主机已经准备好了，可以让CPU从硬盘进行读取数据或者接受数据</p>
+<p>代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.waits:</span><br><span class="line">       in al,dx</span><br><span class="line">       and al,0x88		;0x88对应的二进制为：10001000</span><br><span class="line">       cmp al,0x08		;0x08对应的二进制为：00001000</span><br><span class="line">       jnz .waits		;如果忙的话，就继续循环跳转到.waits</span><br><span class="line"></span><br><span class="line">       ;如果不忙，且硬盘已准备好数据传输，继续向下执行</span><br><span class="line">       ;连续取出数据</span><br><span class="line">       mov cx,256		;总共要读取的字数</span><br><span class="line">       mov dx,0x1f0		;0x1f0表示硬盘的数据端口（0x1f0为16位）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第五步，CPU通过0x1f0数据端口从硬盘读取到数据</p>
+<p>一旦硬盘空闲并且准备就绪，就可以连续从这个端口 0x1f0 写入或者读出数据，读出来的数据存放到由DS寄存器指定的数据段，偏移地址为BX的地方。</p>
+<p>如下：</p>
+<img src="/2022/06/20/22-0620-01/image-20220620234254563.png" alt="image-20220620234254563" style="zoom:80%;"></li>
+</ul>
+<p>更多详细代码，查看c08_mbr.asm中的代码</p>
+<br>
+
+
+
+
+
+
+
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2022/06/17/22-0617-01/">JAVA反序列化—URLDNS链</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
