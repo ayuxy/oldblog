@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>sqlmap测试工具使用指南 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                            <i class="iconfont icon-link "></i>
+                        
+                        链接
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                        链接
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">sqlmap测试工具使用指南</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-07-08&nbsp;&nbsp;13:04:55</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/07/08/22-0708-01/" class="leancloud-visitors view" data-flag-title="sqlmap测试工具使用指南">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="常见命令"><a href="#常见命令" class="headerlink" title="常见命令"></a>常见命令</h1><p><code>sqlmap -u http://sqlmap.com/index.php?id=1 -v 1</code> </p>
+<p><code>sqlmap -u &quot;http://192.168.0.103/06/vul/sqli/sqli_str.php?name=1&amp;submit=%E6%9F%A5%E8%AF%A2&quot; -v 1</code></p>
+<p>-u  和 - -url参数一样 都是代表填写测试的url连接 如果存在&amp;符号需要添加把url放在双引号内</p>
+<p>-v 表示  输出信息详细程度级别：0-6（默认为 1）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">0：只显示Python回源（tracebacks），错误（error）和关键（criticle)信息。</span><br><span class="line">1：同时显示信息(info)和警告信息（warning)（默认为1）</span><br><span class="line">2: 同时显示调试信息（debug）</span><br><span class="line">3：同时显示注入的有效载荷（payloads）</span><br><span class="line">4：同时显示http请求</span><br><span class="line">5：同时显示http响应头</span><br><span class="line">6：同时显示http响应内容</span><br></pre></td></tr></table></figure>
+
+<p>级别越高，信息就越详细，根据需求选择合适的输出信息</p>
+<h2 id="指定目标参数"><a href="#指定目标参数" class="headerlink" title="指定目标参数"></a>指定目标参数</h2><h3 id="指定某个url测试"><a href="#指定某个url测试" class="headerlink" title="指定某个url测试"></a>指定某个url测试</h3><p><code>sqlmap -u http://sqlmap.com/index.php?id=1 -v 1</code> </p>
+<h3 id="从文件中加载http请求测试"><a href="#从文件中加载http请求测试" class="headerlink" title="从文件中加载http请求测试"></a>从文件中加载http请求测试</h3><p>-r参数：可以将一个post请求方式的数据包(bp抓包)保存在一个txt中，sqlmap会通过post方式检测目标</p>
+<p><code>sqlmap -r post.txt</code> </p>
+<p>如下：</p>
+<p>burp抓包，拿到http请求包</p>
+<img src="/2022/07/08/22-0708-01/image-20220710113053932.png" alt="image-20220710113053932" style="zoom:80%;">
+
+<p>然后把http请求包的内容保存到 1.txt 中，即1.txt中内容如下：</p>
+<img src="/2022/07/08/22-0708-01/image-20220710113317049.png" alt="image-20220710113317049" style="zoom:80%;">
+
+<p>然后执行如下命令，sqlmap会自动检测是否存在注入</p>
+<p><code>sqlmap -r 1.txt</code></p>
+<img src="/2022/07/08/22-0708-01/image-20220710113420335.png" alt="image-20220710113420335" style="zoom:80%;">
+
+<h3 id="从日志文件中进行查找注入点"><a href="#从日志文件中进行查找注入点" class="headerlink" title="从日志文件中进行查找注入点"></a>从日志文件中进行查找注入点</h3><p>如下：</p>
+<p><code>sqlmap -l log.txt -p username</code></p>
+<h3 id="从文本中获取多个目标扫描"><a href="#从文本中获取多个目标扫描" class="headerlink" title="从文本中获取多个目标扫描"></a>从文本中获取多个目标扫描</h3><p><code>sqlmap -m url.txt</code></p>
+<p>其中 url.txt 的格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://www.moonsec.com/index.php?id=1</span><br><span class="line">http://www.moonsec.com/new.php?id=1</span><br><span class="line">http://www.moonsec.com/awd.php?id=1</span><br></pre></td></tr></table></figure>
+
+<h3 id="从谷歌引擎搜索结果扫描"><a href="#从谷歌引擎搜索结果扫描" class="headerlink" title="从谷歌引擎搜索结果扫描"></a>从谷歌引擎搜索结果扫描</h3><p>sqlmap可以测试注入google的搜索结果中的get参数</p>
+<p><code>python sqlmap.py -g &quot;inurl:\&quot;.php?id=1\&quot;&quot;</code></p>
+<h3 id="sqlmap清空缓存"><a href="#sqlmap清空缓存" class="headerlink" title="sqlmap清空缓存"></a>sqlmap清空缓存</h3><p>有时候，用sqlmap对站点进行多次sql注入测试，测试完一遍然后修复然后再测试，但是当sqlmap成功注入一遍后，你再次测试的时候sqlmap使用的还是原来的缓存记录，这样我们就不好判断我们对站点的修复是否有效。所以需要对删除缓存</p>
+<p>kali下sqlmap缓存文件的目录：&#x2F;root&#x2F;.local&#x2F;share&#x2F;sqlmap&#x2F;output</p>
+<p>在使用sqlmap时加上如下参数即可清空缓存</p>
+<p><code>--flush-session</code></p>
+<h2 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h2><h3 id="检测post参数"><a href="#检测post参数" class="headerlink" title="检测post参数"></a>检测post参数</h3><p>参数：- -data，此参数是把数据以post方式提交，sqlmap会自动检测post参数，如下：</p>
+<p><code>sqlmap.py -u http://192.168.0.165/06/vul/sqli/sqli_id.php --data=&quot;id=1&amp;submit=%E6%9F%A5%E8%AF%A2&quot;</code></p>
+<img src="/2022/07/08/22-0708-01/image-20220710115535357.png" alt="image-20220710115535357" style="zoom:80%;">
+
+<h3 id="sqlmap设置参数分隔符"><a href="#sqlmap设置参数分隔符" class="headerlink" title="sqlmap设置参数分隔符"></a>sqlmap设置参数分隔符</h3><p>当GET或POST的数据需要用其他字符分割测试参数的时候需要用到此参数，分割和单独处理每个参数</p>
+<p>如下：</p>
+<p>用<code>--param-del=&quot;;&quot;</code>把参数分隔符设置为 <code>;</code> ，即<code>&quot;query=foobar;id=1&quot;</code>中测试的参数为<code>query=foobar</code>和<code>id=1</code></p>
+<p><code>sqlmap.py -u &quot;http://www.target.com/vuln.php&quot; --data=&quot;query=foobar;id=1&quot; --param-del=&quot;;&quot; -f --banner --dbs --users</code></p>
+<p>或</p>
+<p><code>python sqlmap.py -u &quot;http://172.17.0.1/Less-11/index.php&quot; --data=&quot;uname=admin&amp;passwd=admin&amp;submit=Submit&quot; --param-del=&quot;&amp;&quot; --banner</code></p>
+<h3 id="HTTP-cookie头"><a href="#HTTP-cookie头" class="headerlink" title="HTTP cookie头"></a>HTTP cookie头</h3><p>参数：- -cookie，- -load-cookies，- -drop-set-cookie</p>
+<p>这个参数在以下两个方面很有用：</p>
+<ol>
+<li>web应用需要登陆的时候</li>
+<li>你想要在这些头参数中测试SQL注入时</li>
+</ol>
+<p>可以通过抓包把cookie获取到，复制出来，然后加到–cookie参数里</p>
+<p>在HTTP请求中，遇到Set-Cookie的话，sqlmap会自动获取并且在以后的请求中加入，并且会尝试SQL注入。如果你不想接受Set-Cookie可以使用–drop-set-cookie参数来拒接。</p>
+<p>当你使用–cookie参数时，当返回一个Set-Cookie头的时候，sqlmap会询问你用哪个cookie来继续接下来的请求。<code>当- -level的参数设定为2或者2以上的时候，sqlmap会尝试注入Cookie参数</code>。</p>
+<p>具体操作如下：</p>
+<p>获取网站的cookie，首先复制请求头</p>
+<img src="/2022/07/08/22-0708-01/image-20220710122922492.png" alt="image-20220710122922492" style="zoom:80%;">
+
+<p>然后粘贴</p>
+<img src="/2022/07/08/22-0708-01/image-20220710122955363.png" alt="image-20220710122955363" style="zoom:80%;">
+
+<p>然后sqlmap进行猜测试</p>
+<img src="/2022/07/08/22-0708-01/image-20220710123646008.png" alt="image-20220710123646008" style="zoom:80%;">
+
+<p>一般来说测试cookie没有这么复杂的，我们直接burp抓http请求包，然后 sqlmap -r 1.txt 即可测试其中的cookie</p>
+<h1 id="sqlmap实战技巧"><a href="#sqlmap实战技巧" class="headerlink" title="sqlmap实战技巧"></a>sqlmap实战技巧</h1><h2 id="检测URL-GET参数是否存在注入"><a href="#检测URL-GET参数是否存在注入" class="headerlink" title="检测URL GET参数是否存在注入"></a>检测URL GET参数是否存在注入</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;http://192.168.0.103/06/vul/sqli/sqli_str.php?name=1&amp;submit=%E6%9F%A5%E8%AF%A2&quot; --dbms mysql -v 1</span><br><span class="line">参数详解：</span><br><span class="line">-u 检测的url</span><br><span class="line">&quot;&quot;双引号 表示这是一段字符串</span><br><span class="line">--dbms 指定攻击的数据引擎</span><br><span class="line">-v 输出信息登记为1</span><br></pre></td></tr></table></figure>
+
+<p>输入之后sqlmap会自动进行注入，但是会有一些进行提示 需要你在终端进行确认（Y&#x2F;N） 如果使用–batch 会自动进行默认操作，不用进行交互信息确定，程序会自动确认进行SQL注入检测，看到存在注入的参数和攻击payload 也会显示注入的类型                                                      </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &quot;http://192.168.0.103/06/vul/sqli/sqli_str.php?name=1&amp;submit=%E6%9F%A5%E8%AF%A2&quot; --dbms mysql -v 1 --batch</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取敏感信息"><a href="#获取敏感信息" class="headerlink" title="获取敏感信息"></a>获取敏感信息</h2><p>确定存在注入之后 接着通过获取敏感信息命令获取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="sqlmap帮助文档"><a href="#sqlmap帮助文档" class="headerlink" title="sqlmap帮助文档"></a>sqlmap帮助文档</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br></pre></td><td class="code"><pre><span class="line">用法：python sqlmap.py [选项]</span><br><span class="line"></span><br><span class="line">选项：</span><br><span class="line">  -h, --help            显示基本帮助信息并退出</span><br><span class="line">  -hh                   显示高级帮助信息并退出</span><br><span class="line">  --version             显示程序版本信息并退出</span><br><span class="line">  -v VERBOSE            输出信息详细程度级别：0-6（默认为 1）</span><br><span class="line"></span><br><span class="line">  目标：</span><br><span class="line">      至少提供一个以下选项以指定目标</span><br><span class="line"></span><br><span class="line">    -d DIRECT           直接连接数据库</span><br><span class="line">    -u URL, --url=URL   目标 URL（例如：&quot;http://www.site.com/vuln.php?id=1&quot;）</span><br><span class="line">    -l LOGFILE          从 Burp 或 WebScarab 代理的日志文件中解析目标地址</span><br><span class="line">    -x SITEMAPURL       从远程网站地图（.xml）文件中解析目标</span><br><span class="line">    -m BULKFILE         从文本文件中获取批量目标</span><br><span class="line">    -r REQUESTFILE      从文件中读取 HTTP 请求</span><br><span class="line">    -g GOOGLEDORK       使用 Google dork 结果作为目标</span><br><span class="line">    -c CONFIGFILE       从 INI 配置文件中加载选项</span><br><span class="line"></span><br><span class="line">  请求：</span><br><span class="line">      以下选项可以指定连接目标地址的方式</span><br><span class="line"></span><br><span class="line">    --method=METHOD     强制使用提供的 HTTP 方法（例如：PUT）</span><br><span class="line">    --data=DATA         使用 POST 发送数据串</span><br><span class="line">    --param-del=PARA..  设置参数值分隔符</span><br><span class="line">    --cookie=COOKIE     指定 HTTP Cookie </span><br><span class="line">    --cookie-del=COO..  设置 cookie 分隔符</span><br><span class="line">    --load-cookies=L..  指定以 Netscape/wget 格式存放 cookies 的文件</span><br><span class="line">    --drop-set-cookie   忽略 HTTP 响应中的 Set-Cookie 参数</span><br><span class="line">    --user-agent=AGENT  指定 HTTP User-Agent</span><br><span class="line">    --random-agent      使用随机的 HTTP User-Agent</span><br><span class="line">    --host=HOST         指定 HTTP Host</span><br><span class="line">    --referer=REFERER   指定 HTTP Referer</span><br><span class="line">    -H HEADER, --hea..  设置额外的 HTTP 头参数（例如：&quot;X-Forwarded-For: 127.0.0.1&quot;）</span><br><span class="line">    --headers=HEADERS   设置额外的 HTTP 头参数（例如：&quot;Accept-Language: fr\nETag: 123&quot;）</span><br><span class="line">    --auth-type=AUTH..  HTTP 认证方式（Basic，Digest，NTLM 或 PKI）</span><br><span class="line">    --auth-cred=AUTH..  HTTP 认证凭证（username:password）</span><br><span class="line">    --auth-file=AUTH..  HTTP 认证 PEM 证书/私钥文件</span><br><span class="line">    --ignore-code=IG..  忽略 HTTP 错误码（例如：401）</span><br><span class="line">    --ignore-proxy      忽略系统默认代理设置</span><br><span class="line">    --ignore-redirects  忽略重定向尝试</span><br><span class="line">    --ignore-timeouts   忽略连接超时</span><br><span class="line">    --proxy=PROXY       使用代理连接目标 URL</span><br><span class="line">    --proxy-cred=PRO..  使用代理进行认证（username:password）</span><br><span class="line">    --proxy-file=PRO..  从文件中加载代理列表</span><br><span class="line">    --tor               使用 Tor 匿名网络</span><br><span class="line">    --tor-port=TORPORT  设置 Tor 代理端口代替默认端口</span><br><span class="line">    --tor-type=TORTYPE  设置 Tor 代理方式（HTTP，SOCKS4 或 SOCKS5（默认））</span><br><span class="line">    --check-tor         检查是否正确使用了 Tor</span><br><span class="line">    --delay=DELAY       设置每个 HTTP 请求的延迟秒数</span><br><span class="line">    --timeout=TIMEOUT   设置连接响应的有效秒数（默认为 30）</span><br><span class="line">    --retries=RETRIES   连接超时时重试次数（默认为 3）</span><br><span class="line">    --randomize=RPARAM  随机更改给定的参数值</span><br><span class="line">    --safe-url=SAFEURL  测试过程中可频繁访问且合法的 URL 地址（译者注：</span><br><span class="line">                        有些网站在你连续多次访问错误地址时会关闭会话连接，</span><br><span class="line">                        后面的“请求”小节有详细说明）</span><br><span class="line">    --safe-post=SAFE..  使用 POST 方法发送合法的数据</span><br><span class="line">    --safe-req=SAFER..  从文件中加载合法的 HTTP 请求</span><br><span class="line">    --safe-freq=SAFE..  每访问两次给定的合法 URL 才发送一次测试请求</span><br><span class="line">    --skip-urlencode    不对 payload 数据进行 URL 编码</span><br><span class="line">    --csrf-token=CSR..  设置网站用来反 CSRF 攻击的 token</span><br><span class="line">    --csrf-url=CSRFURL  指定可提取反 CSRF 攻击 token 的 URL</span><br><span class="line">    --force-ssl         强制使用 SSL/HTTPS</span><br><span class="line">    --hpp               使用 HTTP 参数污染攻击</span><br><span class="line">    --eval=EVALCODE     在发起请求前执行给定的 Python 代码（例如：</span><br><span class="line">                        &quot;import hashlib;id2=hashlib.md5(id).hexdigest()&quot;）</span><br><span class="line"></span><br><span class="line">  优化：</span><br><span class="line">    以下选项用于优化 sqlmap 性能</span><br><span class="line"></span><br><span class="line">    -o                  开启所有优化开关</span><br><span class="line">    --predict-output    预测常用请求的输出</span><br><span class="line">    --keep-alive        使用持久的 HTTP(S) 连接</span><br><span class="line">    --null-connection   仅获取页面大小而非实际的 HTTP 响应</span><br><span class="line">    --threads=THREADS   设置 HTTP(S) 请求并发数最大值（默认为 1）</span><br><span class="line"></span><br><span class="line">  注入：</span><br><span class="line">    以下选项用于指定要测试的参数，</span><br><span class="line">    提供自定义注入 payloads 和篡改参数的脚本</span><br><span class="line"></span><br><span class="line">    -p TESTPARAMETER    指定需要测试的参数</span><br><span class="line">    --skip=SKIP         指定要跳过的参数</span><br><span class="line">    --skip-static       指定跳过非动态参数</span><br><span class="line">    --param-exclude=..  用正则表达式排除参数（例如：&quot;ses&quot;）</span><br><span class="line">    --dbms=DBMS         指定 DBMS 类型（例如：MySQL）</span><br><span class="line">    --dbms-cred=DBMS..  DBMS 认证凭据（username:password）</span><br><span class="line">    --os=OS             指定 DBMS 服务器的操作系统类型</span><br><span class="line">    --invalid-bignum    将无效值设置为大数</span><br><span class="line">    --invalid-logical   对无效值使用逻辑运算</span><br><span class="line">    --invalid-string    对无效值使用随机字符串</span><br><span class="line">    --no-cast           关闭 payload 构造机制</span><br><span class="line">    --no-escape         关闭字符串转义机制</span><br><span class="line">    --prefix=PREFIX     注入 payload 的前缀字符串</span><br><span class="line">    --suffix=SUFFIX     注入 payload 的后缀字符串</span><br><span class="line">    --tamper=TAMPER     用给定脚本修改注入数据</span><br><span class="line"></span><br><span class="line">  检测：</span><br><span class="line">    以下选项用于自定义检测方式</span><br><span class="line"></span><br><span class="line">    --level=LEVEL       设置测试等级（1-5，默认为 1）</span><br><span class="line">    --risk=RISK         设置测试风险等级（1-3，默认为 1）</span><br><span class="line">    --string=STRING     用于确定查询结果为真时的字符串</span><br><span class="line">    --not-string=NOT..  用于确定查询结果为假时的字符串</span><br><span class="line">    --regexp=REGEXP     用于确定查询结果为真时的正则表达式</span><br><span class="line">    --code=CODE         用于确定查询结果为真时的 HTTP 状态码</span><br><span class="line">    --text-only         只根据页面文本内容对比页面</span><br><span class="line">    --titles            只根据页面标题对比页面</span><br><span class="line"></span><br><span class="line">  技术：</span><br><span class="line">    以下选项用于调整特定 SQL 注入技术的测试方法</span><br><span class="line"></span><br><span class="line">    --technique=TECH    使用的 SQL 注入技术（默认为“BEUSTQ”，译者注：</span><br><span class="line">                        B: Boolean-based blind SQL injection（布尔型盲注）</span><br><span class="line">                        E: Error-based SQL injection（报错型注入）</span><br><span class="line">                        U: UNION query SQL injection（联合查询注入）</span><br><span class="line">                        S: Stacked queries SQL injection（堆查询注入）</span><br><span class="line">                        T: Time-based blind SQL injection（时间型盲注）</span><br><span class="line">                        Q: inline Query injection（内联查询注入）</span><br><span class="line">    --time-sec=TIMESEC  延迟 DBMS 的响应秒数（默认为 5）</span><br><span class="line">    --union-cols=UCOLS  设置联合查询注入测试的列数目范围</span><br><span class="line">    --union-char=UCHAR  用于暴力猜解列数的字符</span><br><span class="line">    --union-from=UFROM  设置联合查询注入 FROM 处用到的表</span><br><span class="line">    --dns-domain=DNS..  设置用于 DNS 渗出攻击的域名（译者注：</span><br><span class="line">                        推荐阅读《在SQL注入中使用DNS获取数据》</span><br><span class="line">                        http://cb.drops.wiki/drops/tips-5283.html，</span><br><span class="line">                        在后面的“技术”小节中也有相应解释）</span><br><span class="line">    --second-order=S..  设置二阶响应的结果显示页面的 URL（译者注：</span><br><span class="line">                        该选项用于二阶 SQL 注入）</span><br><span class="line"></span><br><span class="line">  指纹识别：</span><br><span class="line">    -f, --fingerprint   执行广泛的 DBMS 版本指纹识别</span><br><span class="line"></span><br><span class="line">  枚举：</span><br><span class="line">      以下选项用于获取后端数据库管理系统的信息，结构和数据表中的数据。</span><br><span class="line">      此外，还可以运行你输入的 SQL 语句</span><br><span class="line"></span><br><span class="line">    -a, --all           获取所有信息、数据</span><br><span class="line">    -b, --banner        获取 DBMS banner</span><br><span class="line">    --current-user      获取 DBMS 当前用户</span><br><span class="line">    --current-db        获取 DBMS 当前数据库</span><br><span class="line">    --hostname          获取 DBMS 服务器的主机名</span><br><span class="line">    --is-dba            探测 DBMS 当前用户是否为 DBA（数据库管理员）</span><br><span class="line">    --users             枚举出 DBMS 所有用户</span><br><span class="line">    --passwords         枚举出 DBMS 所有用户的密码哈希</span><br><span class="line">    --privileges        枚举出 DBMS 所有用户特权级</span><br><span class="line">    --roles             枚举出 DBMS 所有用户角色</span><br><span class="line">    --dbs               枚举出 DBMS 所有数据库</span><br><span class="line">    --tables            枚举出 DBMS 数据库中的所有表</span><br><span class="line">    --columns           枚举出 DBMS 表中的所有列</span><br><span class="line">    --schema            枚举出 DBMS 所有模式</span><br><span class="line">    --count             获取数据表数目</span><br><span class="line">    --dump              导出 DBMS 数据库表项</span><br><span class="line">    --dump-all          导出所有 DBMS 数据库表项</span><br><span class="line">    --search            搜索列，表和/或数据库名</span><br><span class="line">    --comments          获取 DBMS 注释</span><br><span class="line">    -D DB               指定要枚举的 DBMS 数据库</span><br><span class="line">    -T TBL              指定要枚举的 DBMS 数据表</span><br><span class="line">    -C COL              指定要枚举的 DBMS 数据列</span><br><span class="line">    -X EXCLUDECOL       指定要排除的 DBMS 数据列</span><br><span class="line">    -U USER             指定枚举的 DBMS 用户</span><br><span class="line">    --exclude-sysdbs    枚举所有数据表时，指定排除特定系统数据库</span><br><span class="line">    --pivot-column=P..  指定主列</span><br><span class="line">    --where=DUMPWHERE   在转储表时使用 WHERE 条件语句</span><br><span class="line">    --start=LIMITSTART  指定要导出的数据表条目开始行数</span><br><span class="line">    --stop=LIMITSTOP    指定要导出的数据表条目结束行数</span><br><span class="line">    --first=FIRSTCHAR   指定获取返回查询结果的开始字符位</span><br><span class="line">    --last=LASTCHAR     指定获取返回查询结果的结束字符位</span><br><span class="line">    --sql-query=QUERY   指定要执行的 SQL 语句</span><br><span class="line">    --sql-shell         调出交互式 SQL shell</span><br><span class="line">    --sql-file=SQLFILE  执行文件中的 SQL 语句</span><br><span class="line"></span><br><span class="line">  暴力破解：</span><br><span class="line">    以下选项用于暴力破解测试</span><br><span class="line"></span><br><span class="line">    --common-tables     检测常见的表名是否存在</span><br><span class="line">    --common-columns    检测常用的列名是否存在</span><br><span class="line"></span><br><span class="line">  用户自定义函数注入：</span><br><span class="line">    以下选项用于创建用户自定义函数</span><br><span class="line"></span><br><span class="line">    --udf-inject        注入用户自定义函数</span><br><span class="line">    --shared-lib=SHLIB  共享库的本地路径</span><br><span class="line"></span><br><span class="line">  访问文件系统：</span><br><span class="line">    以下选项用于访问后端数据库管理系统的底层文件系统</span><br><span class="line"></span><br><span class="line">    --file-read=RFILE   读取后端 DBMS 文件系统中的文件</span><br><span class="line">    --file-write=WFILE  写入后端 DBMS 文件系统中的文件</span><br><span class="line">    --file-dest=DFILE   使用文件绝对路径写入到后端 DBMS</span><br><span class="line"></span><br><span class="line">  访问操作系统：</span><br><span class="line">    以下选项用于访问后端数据库管理系统的底层操作系统</span><br><span class="line"></span><br><span class="line">    --os-cmd=OSCMD      执行操作系统命令</span><br><span class="line">    --os-shell          调出交互式操作系统 shell</span><br><span class="line">    --os-pwn            调出 OOB shell，Meterpreter 或 VNC</span><br><span class="line">    --os-smbrelay       一键调出 OOB shell，Meterpreter 或 VNC</span><br><span class="line">    --os-bof            利用存储过程的缓冲区溢出</span><br><span class="line">    --priv-esc          数据库进程用户提权</span><br><span class="line">    --msf-path=MSFPATH  Metasploit 框架的本地安装路径</span><br><span class="line">    --tmp-path=TMPPATH  远程临时文件目录的绝对路径</span><br><span class="line"></span><br><span class="line">  访问 Windows 注册表：</span><br><span class="line">    以下选项用于访问后端数据库管理系统的 Windows 注册表</span><br><span class="line"></span><br><span class="line">    --reg-read          读取一个 Windows 注册表键值</span><br><span class="line">    --reg-add           写入一个 Windows 注册表键值数据</span><br><span class="line">    --reg-del           删除一个 Windows 注册表键值</span><br><span class="line">    --reg-key=REGKEY    指定 Windows 注册表键</span><br><span class="line">    --reg-value=REGVAL  指定 Windows 注册表键值</span><br><span class="line">    --reg-data=REGDATA  指定 Windows 注册表键值数据</span><br><span class="line">    --reg-type=REGTYPE  指定 Windows 注册表键值类型</span><br><span class="line"></span><br><span class="line">  通用选项：</span><br><span class="line">    以下选项用于设置通用的参数</span><br><span class="line"></span><br><span class="line">    -s SESSIONFILE      从文件（.sqlite）中读入会话信息</span><br><span class="line">    -t TRAFFICFILE      保存所有 HTTP 流量记录到指定文本文件</span><br><span class="line">    --batch             从不询问用户输入，使用默认配置</span><br><span class="line">    --binary-fields=..  具有二进制值的结果字段（例如：&quot;digest&quot;）</span><br><span class="line">    --check-internet    在访问目标之前检查是否正常连接互联网</span><br><span class="line">    --crawl=CRAWLDEPTH  从目标 URL 开始爬取网站</span><br><span class="line">    --crawl-exclude=..  用正则表达式筛选爬取的页面（例如：&quot;logout&quot;）</span><br><span class="line">    --csv-del=CSVDEL    指定输出到 CVS 文件时使用的分隔符（默认为“,”）</span><br><span class="line">    --charset=CHARSET   指定 SQL 盲注字符集（例如：&quot;0123456789abcdef&quot;）</span><br><span class="line">    --dump-format=DU..  导出数据的格式（CSV（默认），HTML 或 SQLITE）</span><br><span class="line">    --encoding=ENCOD..  指定获取数据时使用的字符编码（例如：GBK）</span><br><span class="line">    --eta               显示每个结果输出的预计到达时间</span><br><span class="line">    --flush-session     清空当前目标的会话文件</span><br><span class="line">    --forms             解析并测试目标 URL 的表单</span><br><span class="line">    --fresh-queries     忽略存储在会话文件中的查询结果</span><br><span class="line">    --har=HARFILE       将所有 HTTP 流量记录到一个 HAR 文件中</span><br><span class="line">    --hex               获取数据时调用 DBMS 的 hex 函数</span><br><span class="line">    --output-dir=OUT..  自定义输出目录路径</span><br><span class="line">    --parse-errors      从响应中解析并显示 DBMS 错误信息</span><br><span class="line">    --save=SAVECONFIG   将选项设置保存到一个 INI 配置文件</span><br><span class="line">    --scope=SCOPE       用正则表达式从提供的代理日志中过滤目标</span><br><span class="line">    --test-filter=TE..  根据 payloads 和/或标题（例如：ROW）选择测试</span><br><span class="line">    --test-skip=TEST..  根据 payloads 和/或标题（例如：BENCHMARK）跳过部分测试</span><br><span class="line">    --update            更新 sqlmap</span><br><span class="line"></span><br><span class="line">  其他选项：</span><br><span class="line">    -z MNEMONICS        使用短助记符（例如：“flu,bat,ban,tec=EU”）</span><br><span class="line">    --alert=ALERT       在找到 SQL 注入时运行 OS 命令</span><br><span class="line">    --answers=ANSWERS   设置问题答案（例如：“quit=N,follow=N”）</span><br><span class="line">    --beep              出现问题提醒或在发现 SQL 注入时发出提示音</span><br><span class="line">    --cleanup           指定移除 DBMS 中的特定的 UDF 或者数据表</span><br><span class="line">    --dependencies      检查 sqlmap 缺少什么（非核心）依赖</span><br><span class="line">    --disable-coloring  关闭彩色控制台输出</span><br><span class="line">    --gpage=GOOGLEPAGE  指定页码使用 Google dork 结果</span><br><span class="line">    --identify-waf      针对 WAF/IPS/IDS 保护进行彻底的测试</span><br><span class="line">    --mobile            使用 HTTP User-Agent 模仿智能手机</span><br><span class="line">    --offline           在离线模式下工作（仅使用会话数据）</span><br><span class="line">    --purge-output      安全地删除输出目录的所有内容</span><br><span class="line">    --skip-waf          跳过启发式检测 WAF/IPS/IDS 保护</span><br><span class="line">    --smart             只有在使用启发式检测时才进行彻底的测试</span><br><span class="line">    --sqlmap-shell      调出交互式 sqlmap shell</span><br><span class="line">    --tmp-dir=TMPDIR    指定用于存储临时文件的本地目录</span><br><span class="line">    --web-root=WEBROOT  指定 Web 服务器根目录（例如：&quot;/var/www&quot;）</span><br><span class="line">    --wizard   </span><br></pre></td></tr></table></figure>
+
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/07/17/22-0717-01/">log4j2复现</a>
+            
+            
+            <a class="next" rel="next" href="/2022/06/22/22-0622-01/">x86汇编day5</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+

