@@ -12,7 +12,7 @@
 
 
 
-<title>x86汇编day5 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
+<title>x86保护模式day5 | 𝓐_𝚼𝓾ʹ𝒔 𝓑ℓ𝖔𝓰</title>
 
 
 
@@ -179,7 +179,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">x86汇编day5</h1>
+            <h1 class="post-title">x86保护模式day5</h1>
             
                 <div class="post-meta">
                     
@@ -205,7 +205,7 @@
                         </span>
                     
                     
-                    <span id="/2022/06/22/22-0622-01/" class="leancloud-visitors view" data-flag-title="x86汇编day5">
+                    <span id="/2022/06/22/22-0622-01/" class="leancloud-visitors view" data-flag-title="x86保护模式day5">
                         <text class="post-meta-item-text">
                             <!--阅读数:-->
                             <i class="iconfont icon-view"></i>
@@ -220,6 +220,7 @@
 
         <div class="post-content">
             <p><strong>现代处理器的结构和特点</strong></p>
+<p><strong>流水线</strong></p>
 <p>在8086处理器时候，就已经有了指令预取，当指令执行时，如果总线是空闲的，那么就可以在指令执行的同时，预取指令并同时译码</p>
 <p>执行一条指令需要如下过程：</p>
 <p>取指令—&gt;需要从内存中拿出指令—&gt;然后对指令进行译码—&gt;访问操作数和结果—&gt;并且进行移位、加法等其他任何操作</p>
@@ -227,6 +228,71 @@
 <p>正常的指令执行的时长如下：</p>
 <img src="/2022/06/22/22-0622-01/image-20220707125341210.png" class title="image-20220707125341210">
 
+<p>如果采用流水线的方式，在取指令的同时可以译码，在译码的同时还可以继续取指令（压榨CPU，让CPU不断工作，提高速度），如下：</p>
+<img src="/2022/06/22/22-0622-01/image-20220721092740383.png" alt="image-20220721092740383" style="zoom:80%;">
+
+<br>
+
+<p><strong>高速缓存</strong></p>
+<p>除了流水线会影响处理器速度外，影响处理器速度的另外一个因素是内存（即我们所说的存储器）。从处理器向外看，分别是寄存器、内存、硬盘，寄存器的速度非常快，其次是内存，最后是硬盘，硬盘速度相对要慢很多，在这种情况下，CPU的速度很快，这样就需要等待内存和硬盘这种速度比较慢的设备，CPU就无法全速运行，为了解决这个矛盾，高速缓存就出现了</p>
+<p>高速缓存就是处理器和内存中的一个静态处理器，容量比较小，位置在处理器中，高速缓存会缓存程序在运行时具有的局部性规律（比如：判断程序经常执行一些指令和数据）</p>
+ <img src="/2022/06/22/22-0622-01/image-20220721152801431.png" alt="image-20220721152801431" style="zoom:80%;">
+
+<p>如果CPU要读取0x10，如果L1一级缓存中没有0x10，一级缓存会先去内存中读取数据0x10所在的页，然后CPU从高速缓存中读取0x10</p>
+<img src="/2022/06/22/22-0622-01/image-20220721160428603.png" alt="image-20220721160428603" style="zoom:80%;">
+
+<br>
+
+<p><strong>乱序执行</strong></p>
+<p>为了实现流水线技术，需要将指令拆分成更小的可独立执行的部分，即拆分成微操作，比如：加法指令，如果参与加法的数据不依赖前面指令的结果，那它可以完全提前把这加法指令执行了，把结果保存到缓存中，等到真正轮到这条指令执行的时候，再把缓存中的结果写入到内存中</p>
+<p>如下指令，从内存地址0x20取数据，然后把数据和eax寄存器中的数据相加，并且把结果放到eax寄存器中</p>
+<p>add eax,[0x20]</p>
+<p>该指令可以拆分成两个微操作，一个操作是从内存中读取数据保存到临时寄存器，另一个用于将eax寄存器的值和临时寄存器的值相加，如下：</p>
+<p>mov ebx,[0x20]</p>
+<p>add eax,ebx</p>
+<p>微操作的有很多优点，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">push eax  ;该指令可以分成两部分，sub esp,4和mov [esp],eax</span><br><span class="line">然后执行call func，call指令在执行的时候，需要在栈保存返回地址，如果不用微操作，只有等待push eax完成后才可以执行call指令，但是如果采用微操作，就可以不用执行完push eax指令，在执行完sub esp,4后就可以执行call指令</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p><strong>寄存器重命名</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">;mem1代表一个地址</span><br><span class="line">mov eax,[mem1]</span><br><span class="line">shl eax,3</span><br><span class="line">mov [mem2],eax</span><br><span class="line"></span><br><span class="line">mov eax,[mem3]</span><br><span class="line">add eax,2</span><br><span class="line">mov [mem4],eax</span><br><span class="line"></span><br><span class="line">以上代码做了2件事情，但互不相干</span><br><span class="line">处理器为最后三条指令使用了另一个不同的临时寄存器，IA-32架构（x86架构）的处理器只有8个32位通用寄存器，因此我们奢求在每个计算中都使用新的寄存器，好在IA-32内部有大量的临时寄存器可以使用，处理器可以重命名这些寄存器以代表一个逻辑寄存器</span><br><span class="line"></span><br><span class="line">mov eax,[mem1]	;该指令在高速缓存</span><br><span class="line">mov ebx,[mem2]	;该指令不在高速缓存</span><br><span class="line">add ebx,eax</span><br><span class="line">add eax,3	;这里的eax实际是重命名后的另一个临时寄存器</span><br><span class="line">mov [mem3],eax	;在所有的操作完成后，那个代表eax的临时寄存器的内容被写入真实的eax寄存器，该过程称为隐退</span><br><span class="line">mov [mem4],ebx</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<p> <strong>分支目标预测</strong></p>
+<p>因为流水线并不是百分之百的完美解决方案，如果我们遇到一个判断的指令，类似如下的逻辑：</p>
+<img src="/2022/06/22/22-0622-01/image-20220721180107754.png" alt="image-20220721180107754" style="zoom:80%;">
+
+<p>如果x&gt;0，则执行a…，如果不是，则执行b…。因为流水线是乱序执行的，那么就有可能不符合if的判断逻辑，肯定是不合适的，所以当遇到条件判断时，需要进行分支预测</p>
+<p>如下：如果在遇到分支跳转的时候，大部分会去A分支，那么后续去A分支的概率也会特别大</p>
+<img src="/2022/06/22/22-0622-01/image-20220721180923759.png" alt="image-20220721180923759" style="zoom:80%;">
+
+<p>分支预测如何实现的呢 ？？？</p>
+<p>在处理器内部有一个小容量的高速缓存器叫做分支目标预测器（BTB），当处理器执行了一条分支语句后，它会在BTB中记录当前指令的地址、分支目标的地址，以及本次分支预测的结果，下一次，在那条转移指令实际执行前，处理器会查找BTB，看有没有最近的转移记录，如果有对应的条目，则推测执行和上一次相同的分支，把该分支的指令送入流水线，当指令实际执行时，如果预测是失败的，那么清空流水线，同时刷新BTB的记录，代价比较大，但是90%的情况下是对的</p>
+<br>
+
+<p><strong>侧信道攻击（类似时间盲注）</strong></p>
+<p>侧信道攻击不通过直接窃取信息来获取信息。相反，他们通过“旁门左道”窃取信息</p>
+<p>假如我们密码如下：</p>
+<img src="/2022/06/22/22-0622-01/image-20220724024918757.png" alt="image-20220724024918757" style="zoom:80%;">
+
+<p>然后我们来猜解密码，我们输入ABCDE，首先会枚举密码的第一位，也就是A，由于正确密码的第一位为N，很显然匹配不上，所以会马上返回，返回时间是1ms。如果我们输入NQWER，首先会枚举密码第一位，也就是N，恰好与正确密码的第一位匹配，所以还要继续匹配第二位密码，所以返回时间要长一些，返回的时间是2ms。</p>
+<br>
+
+<p><strong>漏洞分析：熔断和幽灵</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rcx=内核地址</span><br><span class="line">rbx=探测数组</span><br><span class="line">mov al,byte [rcx]	;访问内核地址的内容，注意用户程序肯定无法直接访问内核地址的内容，但是由于是乱序执行，所以该命令会提前执行，然后把执行结果放到缓存中，到最后由操作系统来判断该指令有没有权限访问内核地址的内容，显然是没有权限的</span><br><span class="line">shl rax,0xc		;左移12位，即×4096(4KB)，保护模式按照内存页的方式来管理（内存页的大小就是4KB）</span><br><span class="line">mov rbx,qword [rbx+rax]</span><br></pre></td></tr></table></figure>
+
+<p>上面的指令具体解释如下：</p>
+<p>具体过程如下：</p>
+<ol>
+<li>指令获取解码</li>
+<li>乱序执行3条指令，指令<code>shl rax,0xc和mov rbx,qword [rbx+rax]</code>指令要等到指令<code>mov al,byte [rcx]</code>读取完内存地址后才开始执行，然后<code>mov rbx,qword [rbx+rax]</code>指令会把[rbx+rax]所在的内存页放到rbx中（也就是加载到缓存中）</li>
+<li>然后对<code>shl rax,0xc</code>的结果进行重新排列，对指令<code>mov al,byte [rcx]</code>、<code>shl rax,0xc</code>、<code>mov rbx,qword [rbx+rax]</code>进行安全检测，发现违法访问，会丢弃当前执行的所有结果，恢复CPU状态到乱序执行之前的状态，但是并不会恢复CPU缓存的状态</li>
+<li>通过缓存侧信道攻击，可以知道哪一个数组元素被访问过，也即对应的内存页存放在CPU的缓存中，从而推测出内核的地址内容</li>
+</ol>
+<p>如下：</p>
+<p>假如：</p>
 
         </div>		
 		
